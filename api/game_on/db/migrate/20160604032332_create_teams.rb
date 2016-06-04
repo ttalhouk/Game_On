@@ -4,7 +4,7 @@ class CreateTeams < ActiveRecord::Migration
       t.string :name
       t.references :sport, index: true, foreign_key: true
       t.string :chat_id
-      t.references :manager_id, index: true, foreign_key: true
+      t.references :manager, index: true, foreign_key: true
       t.string :city
       t.integer :zip_code
 

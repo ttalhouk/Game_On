@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
   belongs_to :sport
-  belongs_to :manager_id, class_name: "Player"
+  belongs_to :manager, class_name: "Player", foreign_key: "player_id"
   has_many :players_teams
   has_many :players, through: :players_teams
   has_many :games_teams
