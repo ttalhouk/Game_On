@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  sport_id: 
+  chat_id: MyString
+  manager_id_id: 
+  city: MyString
+  zip_code: 1
+
+two:
+  name: MyString
+  sport_id: 
+  chat_id: MyString
+  manager_id_id: 
+  city: MyString
+  zip_code: 1

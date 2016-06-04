@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  away_team_id: 
+  home_team_id: 
+  game_id: 
+
+two:
+  away_team_id: 
+  home_team_id: 
+  game_id: 
