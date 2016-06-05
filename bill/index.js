@@ -41,11 +41,11 @@ class TabBar extends Component {
             renderAsOriginal
             title="Teams"
             selected={this.state.selectedTab === 'teams'}
-              onPress={() => {
-                this.setState({
-                  selectedTab: 'teams',
-                });
-              }}>
+            onPress={() => {
+              this.setState({
+                selectedTab: 'teams',
+              });
+            }}>
           <Team/>
           </TabBarIOS.Item>
 

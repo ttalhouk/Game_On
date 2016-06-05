@@ -27,7 +27,7 @@ class Register extends Component {
 
   createAccount(){
     // takes the users input and tries to log them in
-    fetch('https://4aba915e.ngrok.io/players/', {
+    fetch('https://1bc113a3.ngrok.io/players/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

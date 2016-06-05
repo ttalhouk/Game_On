@@ -16,6 +16,8 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Register from './components/Register';
 import Root from './components/Root';
+
+
 class GameOn extends Component {
 
   renderScene(route, navigator){
