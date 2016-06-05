@@ -11,4 +11,5 @@ class Player < ActiveRecord::Base
   validates :name, :email, :phone, :zip_code, :city, presence: true
   validates :email, uniqueness: true
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
+
 end
