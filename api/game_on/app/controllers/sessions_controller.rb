@@ -1,11 +1,5 @@
 class SessionsController < ApplicationController
 
-  def new
-    response_hash={response:"your logging in"}
-    render json: response_hash
-
-  end
-
   def create
     p params
     p params[:email]
@@ -16,16 +10,10 @@ class SessionsController < ApplicationController
       render json: response_hash
     else
       p "should be error"
-      response_hash = {error: true, errorMessages: ["Username or Password Incorrect"]}
+      response_hash = {error: true, errorMessages: "Username or Password Incorrect"}
       render json: response_hash, :status => 422
     end
   end
 
-  def destroy
-    unless !session[:id]
-      reset_session
-    end
-    # info to pass?
-  end
 
 end
