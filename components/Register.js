@@ -34,8 +34,14 @@ class Register extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
+        player: {
+          email: this.state.email,
+          password: this.state.password,
+          name: this.state.name,
+          phone: this.state.phone,
+          zip_code: this.state.zip_code,
+          city: this.state.city,
+        }
       })
     })
     .then((response) => response.json())
