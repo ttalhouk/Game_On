@@ -15,9 +15,11 @@ class CreateTeam extends Component {
   constructor(props){
     super(props)
     this.state = {
-      userInfo: {
-
-      }
+      teamName: "",
+      sport = "",
+      city = "",
+      zip = "",
+      userInfo: {},
     }
   }
 
@@ -29,29 +31,43 @@ class CreateTeam extends Component {
           Back
         </Text>
       </TouchableHighlight>
+
       <Text style={{color: 'red'}}>
-      {this.state.errorMessages }
+        {this.state.errorMessages }
       </Text>
+
         <TextInput
           style={styles.input}
-          placeholder='Email:'
-          onChangeText={(email) => {this.setState({email: email})}}
-          keyboardType='email-address'
+          placeholder='Team name:'
+          onChangeText={(teamName) => {this.setState({teamName: teamName})}}
         />
 
+        <TextInput
+          style={styles.input}
+          placeholder='Sport:'
+          onChangeText={(sport) => {this.setState({sport: sport})}}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder='City:'
+          onChangeText={(city) => {this.setState({city: city})}}
+        />
 
       <TextInput
         style={styles.input}
-        placeholder='Password:'
-        secureTextEntry={true}
-        onChangeText={(pw) => {this.setState({password: pw})}}
+        placeholder='Zip code:'
+        onChangeText={(zip) => {this.setState({zip: zip})}}
       />
-      <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
+
+      <TouchableHighlight onPress={this.createTeam.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
-          Log In
+          Create team
         </Text>
       </TouchableHighlight>
     </View>
     );
   }
 }
+
+module.exports = CreateTeam;
