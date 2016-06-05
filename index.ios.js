@@ -12,21 +12,20 @@ import {
   View,
   Navigator
 } from 'react-native';
-import Login from './login';
-import Home from './home';
-
+import Login from './components/Login';
+import Home from './components/Home';
+import Register from './components/Register';
 class GameOn extends Component {
 
   renderScene(route, navigator){
-    console.log("this.props log: ")
-    console.log(this.props)
-    console.log("router log: ")
-    console.log(route)
     if (route.name == "login") {
-      return <Login navigator={navigator} talal="that is his name!!!" userInfo={route.passProps} />
+      return <Login navigator={navigator} userInfo={route.passProps} />
     }
     if (route.name == "home") {
       return <Home navigator={navigator} userInfo={route.passProps} />
+    }
+    if (route.name == "register") {
+      return <Register navigator={navigator} />
     }
 
   }

@@ -10,11 +10,12 @@ import {
 class Home extends Component {
   constructor(props){
     super(props)
+    console.log(this.props)
     this.state = {
-      username: this.props.userInfo.username
+      email: this.props.userInfo.email
     }
-    console.log("state home: ")
-    console.log(this.state.username)
+    // console.log("this.state 4 home: ")
+    // console.log(this.state)
   }
 
   back(){
@@ -25,7 +26,7 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-        Main
+        Home
         </Text>
         <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
           <Text style={styles.buttonText}>
