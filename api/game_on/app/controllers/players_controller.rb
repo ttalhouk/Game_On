@@ -6,15 +6,12 @@ class PlayersController < ApplicationController
 
   def create
     params[:zip_code] = params[:zip_code].to_i
-    p params
     @player = Player.new(player_params)
     @player.email.downcase!
     if @player.save
-      p "info good"
       response_hash={player:{info: @player.as_json}}
       render json: response_hash
     else
-      p "should be error"
       response_hash = {error: true, errorMessages: "Information Incomplete or Incorrect"}
       render json: response_hash, :status => 422
     end
@@ -26,11 +23,15 @@ class PlayersController < ApplicationController
   end
 
   def update
+    params[:zip_code] = params[:zip_code].to_i
+    params[:email] = params[:eamil].downcase
     @player = Player.update(player_params)
     if @player.errors.empty?
-      #pass json data
+      response_hash={player:{info: @player.as_json}}
+      render json: response_hash
     else
-      #pass errors back
+      response_hash = {error: true, errorMessages: "Information Incomplete or Incorrect"}
+      render json: response_hash, :status => 422
     end
   end
 

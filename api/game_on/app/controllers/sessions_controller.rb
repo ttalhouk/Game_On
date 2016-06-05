@@ -1,8 +1,6 @@
 class SessionsController < ApplicationController
 
   def create
-    p params
-    p params[:email]
     @player = Player.find_by(email: params[:email].downcase)
     if @player && @player.authenticate(params[:password])
       p "should be valid"
