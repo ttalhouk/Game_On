@@ -5,39 +5,60 @@ import {
   Text,
   View,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView
 } from 'react-native';
 class Home extends Component {
   constructor(props){
     super(props)
-    console.log(this.props)
     this.state = {
-      email: this.props.userInfo.email
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      userInfo: {
+
+      }
     }
-    // console.log("this.state 4 home: ")
-    // console.log(this.state)
   }
 
   back(){
-    this.props.navigator.pop()
+    console.log(this.state)
+    // this.props.navigator.pop()
+  }
+
+  componentWillMount(){
+    this.setState({
+      userInfo: this.props.userInfo,
+      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.teams)
+    });
+  }
+
+  componenetDidMount(){
+    console.log(this.state)
+  }
+
+  renderTeam(team){
+    return (
+      <View style={styles.container}>
+        <View>
+          <Text>{team.name}</Text>
+        </View>
+      </View>
+    )
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-        Home
-        </Text>
-        <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Back
-          </Text>
-        </TouchableHighlight>
-      </View>
 
-    );
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderTeam}
+      />
+    )
   }
+
 }
+
 
 const styles = StyleSheet.create({
   container: {

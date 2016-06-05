@@ -15,9 +15,13 @@ import {
 import Login from './components/Login';
 import Home from './components/Home';
 import Register from './components/Register';
+import Root from './components/Root';
 class GameOn extends Component {
 
   renderScene(route, navigator){
+    if (route.name == "root") {
+      return <Root navigator={navigator} />
+    }
     if (route.name == "login") {
       return <Login navigator={navigator} userInfo={route.passProps} />
     }
@@ -33,7 +37,7 @@ class GameOn extends Component {
   render() {
     return (
         <Navigator
-          initialRoute={{name: 'login'}}
+          initialRoute={{name: 'root'}}
           renderScene={this.renderScene.bind(this)}
         />
     );

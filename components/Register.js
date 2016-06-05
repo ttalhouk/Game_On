@@ -61,16 +61,23 @@ class Register extends Component {
         })
       }
     })
+  }
 
+  back(){
+    this.props.navigator.pop()
   }
 
   render() {
     return (
       <View style={styles.container}>
       <Text style={{color: 'red'}}>
-      {this.state.errorMessages }
+        {this.state.errorMessages }
       </Text>
-
+      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+        <Text style={styles.buttonText}>
+          Back
+        </Text>
+      </TouchableHighlight>
         <TextInput
           style={styles.input}
           placeholder='Email:'
