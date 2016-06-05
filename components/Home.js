@@ -10,10 +10,10 @@ import {
   TabBarIOS
 } from 'react-native';
 
-import Team from '../bill/Teams';
-import Game from '../bill/Games';
-import Rsvp from '../bill/Rsvp';
-import Setting from '../bill/Settings';
+import Team from './Teams';
+import Game from './Games';
+import Rsvp from './Rsvp';
+import Setting from './Settings';
 
 class Home extends Component {
   constructor(props){
@@ -55,7 +55,7 @@ class Home extends Component {
         barTintColor="lightgray"
         selectedTab={this.state.selectedTab}>
           <TabBarIOS.Item
-            // icon={require('./imgs/home4-s.png')}
+            icon={require('../imgs/home4-s.png')}
             style={styles.icon}
             renderAsOriginal
             title="Teams"
@@ -70,9 +70,7 @@ class Home extends Component {
 
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'games'}
-        // icon={{uri:'contacts'}}
-        //  systemIcon="most-viewed"
-          // icon={require('./imgs/games4.png')}
+          icon={require('../imgs/games4.png')}
           style={styles.icon}
           renderAsOriginal
           title="Games"
@@ -86,8 +84,7 @@ class Home extends Component {
 
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'rsvp'}
-          // icon={{uri:'contacts'}}
-          // icon={require('./imgs/rsvp2.png')}
+          icon={require('../imgs/rsvp2.png')}
           style={styles.icon}
           renderAsOriginal
           title="RSVP"
@@ -101,8 +98,7 @@ class Home extends Component {
 
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'settings'}
-          // icon={{uri:'contacts'}}
-          // icon={require('./imgs/settings2.png')}
+          icon={require('../imgs/settings2.png')}
           style={styles.icon}
           renderAsOriginal
           title="Settings"

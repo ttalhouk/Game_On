@@ -12,8 +12,39 @@ import {
   View
 } from 'react-native';
 
-
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#6600ff',
+    borderColor: '#6600ff',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +55,7 @@ class Game extends Component {
       userInfo: {
 
       },
-      loading: true,
+      loading: true
     }
   }
 
@@ -41,9 +72,10 @@ class Game extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
+      console.log(response)
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(response.player.games),
-        loading: false,
+        loading: false
       });
     })
     .catch((error) => {
@@ -84,10 +116,10 @@ class Game extends Component {
   }
 
   render() {
-    console.log(this.state.loading)
-    if(this.state.loading) {
-        return this.renderLoadingView();
+    if (this.state.loading) {
+      return this.renderLoadingView();
     }
+
     return (
       <View style={styles.container}>
       <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
@@ -104,37 +136,5 @@ class Game extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#6600ff',
-    borderColor: '#6600ff',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
 module.exports = Game;
