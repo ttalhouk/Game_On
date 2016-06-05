@@ -1,9 +1,5 @@
 class PlayersController < ApplicationController
 
-  def show
-    @player = Player.find(params[:id]) # will view pass this back?
-  end
-
   def create
     params[:zip_code] = params[:zip_code].to_i
     @player = Player.new(player_params)
@@ -17,10 +13,6 @@ class PlayersController < ApplicationController
     end
   end
 
-
-  def edit
-    @player = Player.find(params[:id])
-  end
 
   def update
     params[:zip_code] = params[:zip_code].to_i

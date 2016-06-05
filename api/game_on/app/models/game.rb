@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
-  has_many :games_teams
-  has_many :teams, through: :games_teams
+  belongs_to :home_team, :class_name => "Team", :foreign_key => ""
+  belongs_to :away_team, :class_name => "Team"
 
   validates :start_time, :address, :city, :zip_code, :team_size, presence: true
 end
