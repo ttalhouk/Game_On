@@ -19,20 +19,20 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
+    backgroundColor: '#765432',
   }
 })
 
-class Team extends Component {
+class Setting extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.description}>
-          Teams Page!
+          Settings Page!
         </Text>
       </View>
     );
   }
 }
 
-module.exports = Team;
+module.exports = Setting;

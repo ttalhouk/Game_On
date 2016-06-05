@@ -6,8 +6,15 @@ import {
   View,
   Navigator,
   TouchableHighlight,
-  ListView
+  ListView,
+  TabBarIOS
 } from 'react-native';
+
+import Team from './Teams';
+import Game from './Games';
+import Rsvp from './Rsvp';
+import Setting from './Settings';
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -15,6 +22,7 @@ class Home extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
+      selectedTab: 'teams',
       userInfo: {
 
       }
@@ -37,24 +45,72 @@ class Home extends Component {
     console.log(this.state)
   }
 
-  renderTeam(team){
-    return (
-      <View style={styles.container}>
-        <View>
-          <Text>{team.name}</Text>
-        </View>
-      </View>
-    )
-  }
+
 
   render() {
-
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderTeam}
-      />
-    )
+      <TabBarIOS
+        unselectedTintColor="gray"
+        tintColor="blue"
+        barTintColor="lightgray"
+        selectedTab={this.state.selectedTab}>
+          <TabBarIOS.Item
+            icon={require('../imgs/home4-s.png')}
+            style={styles.icon}
+            renderAsOriginal
+            title="Teams"
+            selected={this.state.selectedTab === 'teams'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'teams',
+              });
+            }}>
+          <Team navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+        </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'games'}
+          icon={require('../imgs/games4.png')}
+          style={styles.icon}
+          renderAsOriginal
+          title="Games"
+          onPress={() => {
+            this.setState({
+              selectedTab: 'games',
+            });
+          }}>
+          <Game navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+        </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'rsvp'}
+          icon={require('../imgs/rsvp2.png')}
+          style={styles.icon}
+          renderAsOriginal
+          title="RSVP"
+          onPress={() => {
+            this.setState({
+              selectedTab: 'rsvp',
+            });
+          }}>
+          <Rsvp navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+        </TabBarIOS.Item>
+
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'settings'}
+          icon={require('../imgs/settings2.png')}
+          style={styles.icon}
+          renderAsOriginal
+          title="Settings"
+          onPress={() => {
+            this.setState({
+              selectedTab: 'settings',
+            });
+          }}>
+          <Setting navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+        </TabBarIOS.Item>
+      </TabBarIOS>
+      )
   }
 
 }
