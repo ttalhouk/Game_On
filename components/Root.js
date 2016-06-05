@@ -3,6 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View,
   Navigator,
   TouchableHighlight
@@ -24,52 +25,81 @@ class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Log In
+      <Image
+          source={require('../spencer/Kentucky_text.gif')}
+          style={styles.formatImage}>
+        <View>
+          <Text style={styles.welcome}>
+            GameOn!
           </Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.register.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Register
-          </Text>
-        </TouchableHighlight>
+          </View>
+          <View style={styles.center}>
+            <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
+              <Text style={styles.buttonText}>
+                Log In
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.register.bind(this)} style={styles.button}>
+              <Text style={styles.buttonText}>
+                Register
+              </Text>
+            </TouchableHighlight>
+          </View>
+            <View style={styles.footer}>
+            </View>
+          </Image>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  formatImage:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
+    width: null,
+    height: null,
+    marginTop:20
   },
   button: {
     height: 36,
-    backgroundColor: '#6600ff',
-    borderColor: '#6600ff',
-    borderWidth: 1,
+    backgroundColor: '#005EFB',
     borderRadius: 8,
     marginBottom: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding:5
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  buttonText: {
+    fontSize: 18,
+    fontWeight:'bold',
+    color: 'white',
+    alignSelf: 'center'
+  },
+  center: {
+    flex:1,
+    justifyContent: 'flex-end'
+  },
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  footer:{
+    height:50,
+    alignSelf:'stretch',
+    backgroundColor:'#005EFB'
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  welcome: {
+    fontSize: 45,
+    padding:10,
+    textAlign: 'center',
+    backgroundColor:'#005EFB',
+    fontWeight:'bold'
   },
 });
 module.exports = Root;
