@@ -11,8 +11,8 @@ gem 'bcrypt'
 gem 'active_model_serializers'
 gem 'pg'
 gem 'faker'
-
-
+gem 'sendgrid-ruby'
+gem 'figaro'
 group :development, :test do
 gem 'sqlite3'
 gem 'factory_girl_rails'
