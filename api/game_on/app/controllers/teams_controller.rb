@@ -1,11 +1,20 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   def index
-    # for searching for team to join need sport to find all teams by sport
-    # potential for looking for team by location also
-    @sport = Sport.find_by(sport: params[:sport]) #find sport selected
-    @teams = Team.find_by(sport_id: @sport.id)
+    p params
+    @player = Player.find(params[:id])
+    @teams = @player.teams
+    @sports = Sport.all
+    response_hash = {player:
+      {
+      info: @player.as_json,
+      team: players_team.as_json,
+      sport: @sports.as_json
+      }
+    }
+
+    render json: response_hash
+
   end
 
   def show
@@ -56,8 +65,8 @@ class TeamsController < ApplicationController
       params.require(:team).permit(:name, :sport, :city, :zip_code)
     end
 
-    def set_team
-      @team = Team.find(params[:team_id])
+    def players_team
+      @player.teams
     end
 
 end
