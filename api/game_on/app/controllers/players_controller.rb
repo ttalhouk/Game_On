@@ -1,22 +1,19 @@
 class PlayersController < ApplicationController
 
-  def new
-    @Player.new
-  end
-
   def show
     @player = Player.find(params[:id]) # will view pass this back?
   end
 
   def create
+    params[:zip_code] = params[:zip_code].to_i
     @player = Player.new(player_params)
+    @player.email.downcase!
     if @player.save
-      session[:id] = @player.id
-
-      #pass json data
+      response_hash={player:{info: @player.as_json}}
+      render json: response_hash
     else
-
-      #pass errors back
+      response_hash = {error: true, errorMessages: "Information Incomplete or Incorrect"}
+      render json: response_hash, :status => 422
     end
   end
 
@@ -26,11 +23,15 @@ class PlayersController < ApplicationController
   end
 
   def update
+    params[:zip_code] = params[:zip_code].to_i
+    params[:email] = params[:eamil].downcase
     @player = Player.update(player_params)
     if @player.errors.empty?
-      #pass json data
+      response_hash={player:{info: @player.as_json}}
+      render json: response_hash
     else
-      #pass errors back
+      response_hash = {error: true, errorMessages: "Information Incomplete or Incorrect"}
+      render json: response_hash, :status => 422
     end
   end
 
