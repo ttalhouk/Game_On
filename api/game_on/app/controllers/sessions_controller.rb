@@ -1,20 +1,23 @@
 class SessionsController < ApplicationController
 
   def new
+    response_hash={response:"your logging in"}
+    render json: response_hash
+
   end
 
   def create
-    @player = Player.find_by(email: params[:session][:username])
-    if params [:session][:password] != nil
-      if @player && @player.authenticate(params[:session][:password])
-        session[:id] = @player.id
-        # respond_to do |format|
-        #   format.json {render json: response_hash}
-        # end
-        # send json info for next page
-      end
-      # send error message json
-
+    p params
+    p params[:email]
+    @player = Player.find_by(email: params[:email].downcase)
+    if @player && @player.authenticate(params[:password])
+      p "should be valid"
+      response_hash={player:{info: @player.as_json, teams: @player.teams.as_json}}
+      render json: response_hash
+    else
+      p "should be error"
+      response_hash = {error: true, errorMessages: ["Username or Password Incorrect"]}
+      render json: response_hash, :status => 422
     end
   end
 
