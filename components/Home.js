@@ -9,10 +9,12 @@ import {
   ListView,
   TabBarIOS
 } from 'react-native';
+
 import Team from '../bill/Teams';
 import Game from '../bill/Games';
 import Rsvp from '../bill/Rsvp';
 import Setting from '../bill/Settings';
+
 class Home extends Component {
   constructor(props){
     super(props)
@@ -79,7 +81,7 @@ class Home extends Component {
               selectedTab: 'games',
             });
           }}>
-          <Game/>
+          <Game navigator={this.props.navigator} userInfo={this.props.userInfo}/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
@@ -94,7 +96,7 @@ class Home extends Component {
               selectedTab: 'rsvp',
             });
           }}>
-          <Rsvp/>
+          <Rsvp navigator={this.props.navigator} userInfo={this.props.userInfo}/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
@@ -109,7 +111,7 @@ class Home extends Component {
               selectedTab: 'settings',
             });
           }}>
-          <Setting/>
+          <Setting navigator={this.props.navigator} userInfo={this.props.userInfo}/>
         </TabBarIOS.Item>
       </TabBarIOS>
       )
