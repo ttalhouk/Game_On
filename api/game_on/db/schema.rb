@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 20160604032809) do
     t.string   "city"
     t.integer  "zip_code"
     t.integer  "team_size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "home_team_id"
+    t.integer  "away_team_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "games_teams", force: :cascade do |t|

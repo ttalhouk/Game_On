@@ -1,20 +1,20 @@
 
 
-# Player.create(
-#   name: "bob",
-#   password: "123",
-#   email: "a@b.com",
-#   phone:"1234567890",
-#   zip_code: "94087",
-#   city: "sunnyvale")
+Player.create(
+  name: "bob",
+  password: "123",
+  email: "a@b.com",
+  phone:"1234567890",
+  zip_code: "94087",
+  city: "sunnyvale")
 
-# Player.create(
-#   name: "jim",
-#   password: "123",
-#   email: "c@d.com",
-#   phone:"5555555555",
-#   zip_code: "94087",
-#   city: "sunnyvale")
+Player.create(
+  name: "jim",
+  password: "123",
+  email: "c@d.com",
+  phone:"5555555555",
+  zip_code: "94087",
+  city: "sunnyvale")
 
 20.times do
   Player.create(
@@ -61,7 +61,7 @@ end
 
 Game.all.each do |game|
   random_id = rand(1..(Team.count - 1))
-  game.games_teams.create(
+  game.update(
     home_team_id: random_id,
     away_team_id: random_id + 1
   )
