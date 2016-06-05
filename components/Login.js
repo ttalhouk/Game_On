@@ -12,36 +12,79 @@ class Login extends Component {
   constructor(props){
     super(props)
     this.state={
-      username: ""
+      email: "",
+      password: "",
+      errorMessages: "",
+      userInfo: {
+
+      }
     }
   }
 
-  onSubmit(){
-    console.log(this.props)
-
-    this.props.navigator.push({
-      name: 'home',
-      passProps: {
-        username: this.state.username
+  login(){
+    // takes the users input and tries to log them in
+    fetch('https://4aba915e.ngrok.io/login/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+      })
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.error) {
+        // this is incorrect credentials
+        this.setState({
+          errorMessages: response.errorMessages
+        })
+      }else{
+        this.setState({
+          userInfo: response.player
+        })
+        this.props.navigator.push({
+          name: 'home',
+          passProps: this.state.userInfo
+        })
       }
-  })
+    })
   }
+
+  back(){
+    this.props.navigator.pop()
+  }
+
+
 
   render() {
     return (
       <View style={styles.container}>
+      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+        <Text style={styles.buttonText}>
+          Back
+        </Text>
+      </TouchableHighlight>
+      <Text style={{color: 'red'}}>
+      {this.state.errorMessages }
+      </Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Email:'
+          onChangeText={(email) => {this.setState({email: email})}}
+          keyboardType='email-address'
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder='Username:'
-        onChangeText={(text) => {this.setState({username: text})}}
-      />
+
       <TextInput
         style={styles.input}
         placeholder='Password:'
         secureTextEntry={true}
+        onChangeText={(pw) => {this.setState({password: pw})}}
       />
-      <TouchableHighlight onPress={this.onSubmit.bind(this)} style={styles.button}>
+      <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
           Log In
         </Text>

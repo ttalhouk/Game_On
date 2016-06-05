@@ -7,33 +7,34 @@ import {
   Navigator,
   TouchableHighlight
 } from 'react-native';
-class Home extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      username: this.props.userInfo.username
-    }
-    console.log("state home: ")
-    console.log(this.state.username)
+class Root extends Component {
+
+  register(){
+    this.props.navigator.push({
+      name: 'register'
+    })
   }
 
-  back(){
-    this.props.navigator.pop()
+  login(){
+    this.props.navigator.push({
+      name: 'login'
+    })
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-        Main
-        </Text>
-        <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+        <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
           <Text style={styles.buttonText}>
-            Back
+            Log In
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.register.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Register
           </Text>
         </TouchableHighlight>
       </View>
-
     );
   }
 }
@@ -71,5 +72,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-module.exports = Home;
-AppRegistry.registerComponent('Home', () => Home);
+module.exports = Root;
+AppRegistry.registerComponent('Root', () => Root);
