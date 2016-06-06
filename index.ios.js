@@ -18,12 +18,8 @@ import Home from './components/Home';
 import Register from './components/Register';
 import Root from './components/Root';
 import CreateTeam from './components/CreateTeam';
-<<<<<<< HEAD
 import ScheduleGame from './components/ScheduleGame';
-=======
 import JoinTeam from './components/JoinTeam';
-
->>>>>>> e77ea078fa7528c45166cb6c160f1c0d1f928286
 
 class GameOn extends Component {
 
