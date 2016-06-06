@@ -119,7 +119,7 @@ class Team extends Component {
 
   render() {
     console.log(this.props)
-    let playerHasTeam = (this.props.userInfo.teams.length != 0) ?
+    let playerHasTeam = (this.props.userInfo.teams.length == 0) ?
 
     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
       <Text style={styles.buttonText}>
