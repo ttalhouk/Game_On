@@ -37,6 +37,7 @@ class JoinTeam extends Component {
           errorMessages: response.errorMessages
         })
       }else{
+        console.log(response)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(response.team)
         });
