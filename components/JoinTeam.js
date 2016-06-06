@@ -21,14 +21,14 @@ class JoinTeam extends Component {
     }
   }
 
-  sendJoinTeamRequest() {
+  sendJoinTeamRequest(props) {
 
     console.log("********  player id **********")
     console.log(this.props.userInfo.info.id)
     console.log("********  team id **********")
     console.log(this.props.userInfo.teams[0].id)
 
-    fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/join', {
+    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/join', {
       method: 'PATCH',
       headers: {
         'Accept': 'application/json',
@@ -68,7 +68,7 @@ class JoinTeam extends Component {
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button}>
+        <TouchableHighlight style={styles.button} onPress={() => {console.log(this.props)}}>
           <Text style={styles.buttonText}>{team.name}</Text>
         </TouchableHighlight>
       </View>
