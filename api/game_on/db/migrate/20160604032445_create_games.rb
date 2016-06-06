@@ -6,6 +6,8 @@ class CreateGames < ActiveRecord::Migration
       t.string :city
       t.integer :zip_code
       t.integer :team_size
+      t.integer :home_team_id
+      t.integer :away_team_id
 
       t.timestamps null: false
     end

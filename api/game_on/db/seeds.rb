@@ -1,20 +1,36 @@
 
 
-# Player.create(
-#   name: "bob",
-#   password: "123",
-#   email: "a@b.com",
-#   phone:"1234567890",
-#   zip_code: "94087",
-#   city: "sunnyvale")
+Player.create(
+  name: "bob",
+  password: "123",
+  email: "a@b.com",
+  phone:"1234567890",
+  zip_code: "94087",
+  city: "sunnyvale")
 
-# Player.create(
-#   name: "jim",
-#   password: "123",
-#   email: "c@d.com",
-#   phone:"5555555555",
-#   zip_code: "94087",
-#   city: "sunnyvale")
+Player.create(
+  name: "jim",
+  password: "123",
+  email: "c@d.com",
+  phone:"5555555555",
+  zip_code: "94087",
+  city: "sunnyvale")
+
+Player.create(
+  name: "Shaun",
+  password: "123",
+  email: "shaun@shaunsweet.com",
+  phone:"1234567890",
+  zip_code: "94087",
+  city: "sunnyvale")
+
+Player.create(
+  name: "Talal",
+  password: "123",
+  email: "ttalhouk@gmail.com",
+  phone:"5555555555",
+  zip_code: "94087",
+  city: "sunnyvale")
 
 20.times do
   Player.create(
@@ -27,18 +43,23 @@
   )
 end
 
-10.times do
-Sport.create(sport: Faker::Team.sport)
-end
-
-10.times do
-  Team.create(
+Sport.create(sport: "Basketball")
+counter = 0
+4.times do
+  counter += 1
+  Player.find(counter).teams.create(
     name: Faker::Team.creature,
-    sport_id: Sport.all.sample.id,
-    manager_id: Player.all.sample.id,
+    sport_id: 1,
+    manager_id: counter,
     city:Faker::Address.city,
     zip_code: [94101, 94105, 94110, 94115].sample
     )
+end
+
+Player.all.each do |player|
+  if player.teams == []
+    player.teams << Team.all.sample
+  end
 end
 
 15.times do
@@ -46,22 +67,14 @@ end
     zip_code: [94101, 94105, 94110, 94115].sample,
     city: Faker::Address.city,
     team_size: rand(2..5),
-    start_time: Time.now + 10.days,
-    address:Faker::Address.street_address
+    start_time: Time.now + rand(5..10).days,
+    address:Faker::Address.street_address,
     )
-end
-
-5.times do
-  Player.all.each do |player|
-    player.players_teams.create(
-      team_id: Team.all.sample.id
-      )
-  end
 end
 
 Game.all.each do |game|
   random_id = rand(1..(Team.count - 1))
-  game.games_teams.create(
+  game.update(
     home_team_id: random_id,
     away_team_id: random_id + 1
   )
