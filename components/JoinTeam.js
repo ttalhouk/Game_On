@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -9,6 +7,7 @@ import {
   View,
   ListView,
   TouchableHighlight,
+  Navigator,
 } from 'react-native';
 
 class JoinTeam extends Component {
@@ -20,6 +19,39 @@ class JoinTeam extends Component {
       }),
       userInfo: {},
     }
+  }
+
+  sendJoinTeamRequest() {
+
+    console.log("********  player id **********")
+    console.log(this.props.userInfo.info.id)
+    console.log("********  team id **********")
+    console.log(this.props.userInfo.teams[0].id)
+
+    fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/join', {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.error) {
+        // this is incorrect credentials
+        this.setState({
+          errorMessages: response.errorMessages
+        })
+      }else{
+        this.setState({
+          userInfo: response.player
+        })
+        this.props.navigator.push({
+          name: 'home',
+          passProps: this.state.userInfo
+        })
+      }
+    })
   }
 
   componentWillMount(){
@@ -36,9 +68,9 @@ class JoinTeam extends Component {
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <View>
-          <Text>{team.name}</Text>
-        </View>
+        <TouchableHighlight style={styles.button}>
+          <Text style={styles.buttonText}>{team.name}</Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -46,18 +78,18 @@ class JoinTeam extends Component {
   render() {
     return (
       <View>
-      <View style={styles.container}>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
+        <View style={styles.container}>
+          <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Back
+            </Text>
+          </TouchableHighlight>
 
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderTeam}
-      />
-      </View>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderTeam}
+          />
+        </View>
       </View>
     );
   }
@@ -74,6 +106,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    flexWrap: 'wrap',
   },
   buttonText: {
     fontSize: 18,
@@ -87,6 +120,7 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
+    marginTop: 20,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },

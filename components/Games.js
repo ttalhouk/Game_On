@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
+    marginTop: 20,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
@@ -44,6 +45,12 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  separator: {
+  height: 1,
+  backgroundColor: '#CCCCCC',
+  flexDirection: 'row',
+  alignSelf: 'stretch',
+},
 });
 class Game extends Component {
   constructor(props) {
@@ -52,9 +59,7 @@ class Game extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      userInfo: {
-
-      },
+      userInfo: {},
       loading: true
     }
   }
@@ -62,8 +67,7 @@ class Game extends Component {
 
   getGamesList(){
     // takes the users input and tries to log them in
-
-    fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/games', {
+    fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/games', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -72,7 +76,6 @@ class Game extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response)
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(response.player.games),
         loading: false
@@ -86,12 +89,11 @@ class Game extends Component {
   renderGame(game){
     return (
       <View style={styles.container}>
-        <View>
           <Text>{game.start_time}</Text>
           <Text>{game.home_team} vs {game.away_team}</Text>
           <Text>{game.address}</Text>
           <Text>{game.city}, {game.zip_code}</Text>
-        </View>
+          <Text style={styles.separator}></Text>
       </View>
     )
   }
