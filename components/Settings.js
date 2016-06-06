@@ -14,13 +14,14 @@ var styles = StyleSheet.create({
   description: {
     fontSize: 40,
     textAlign: 'center',
-    color: '#FFFFFF'
+    color: 'black',
+    borderWidth: 1,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#765432',
+    backgroundColor: 'white',
   }
 })
 

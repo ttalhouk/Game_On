@@ -11,19 +11,21 @@ import {
   ScrollView,
   DatePickerIOS
 } from 'react-native';
+
 import DatePicker from '../utils/DatePicker'
 var styles = StyleSheet.create({
   description: {
-    fontSize: 40,
+    fontSize: 20,
     textAlign: 'center',
-    color: '#FFFFFF'
+    color: 'black',
+    borderWidth: 1
   },
   container: {
     padding: 30,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#765432',
+    backgroundColor: 'white',
   },
   input: {
     padding: 4,
@@ -145,7 +147,7 @@ var ScheduleGame = React.createClass({
         keyboardType='email-address'
       />
       <TouchableHighlight onPress={this.scheduleGame}>
-        <Text>
+        <Text style={styles.description}>
           Schedule a Game!
         </Text>
       </TouchableHighlight>
