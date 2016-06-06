@@ -48,6 +48,12 @@ var styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  downButton: {
+    flex: 1,
+    bottom: 0,
+    flexDirection: 'column'
+  },
+
 })
 
 class Team extends Component {
@@ -77,6 +83,20 @@ class Team extends Component {
     )
   }
 
+  goToCreateTeamView() {
+    this.props.navigator.push({
+      name: "create team",
+      passProps: this.state.userInfo,
+    })
+  }
+
+  goToJoinTeamView() {
+    this.props.navigator.push({
+      name: "join team",
+      passProps: this.state.userInfo,
+    })
+  }
+
   componentWillMount(){
     this.setState({
       userInfo: this.props.userInfo,
@@ -86,6 +106,7 @@ class Team extends Component {
 
   render() {
     return (
+      <View>
       <View style={styles.container}>
       <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
@@ -97,7 +118,23 @@ class Team extends Component {
         dataSource={this.state.dataSource}
         renderRow={this.renderTeam}
       />
+      </View>
 
+        <View style={styles.downButton}>
+          <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Create team
+            </Text>
+          </TouchableHighlight>
+        </View>
+
+        <View style={styles.downButton}>
+          <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Join team
+            </Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
