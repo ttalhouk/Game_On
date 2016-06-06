@@ -14,7 +14,7 @@ class Email
         m.to = "#{player.email}"
         m.from = "#{manager.email}"
         m.subject = "RSVP for the #{team.name}\'s Next Game"
-        m.html = "Hello #{player.name}, /n You have a pending RSVP for a game at #{game.start_time}. /n This will be at #{game.address}, #{game.city}, #{game.zip}.  /n   <a href='https://localhost3000:/players/#{player.id}/games/#{game.id}/rsvp'>Follow this link to RSVP!</a>.  Once your team responds the game will be set up.  Remember it's first come first served so RSVP soon!"
+        m.html = "Hello #{player.name}, /n You have a pending RSVP for a game at #{game.start_time}. /n This will be at #{game.address}, #{game.city}, #{game.zip}.  /n   <a href='*ngrokstuff*/players/#{player.id}/teams/#{team.id}/games/#{game.id}/rsvp'>Follow this link to RSVP!</a>.  Once your team responds the game will be set up.  Remember it's first come first served so RSVP soon!"
       end
       res = @client.send(mail)
       puts res.code

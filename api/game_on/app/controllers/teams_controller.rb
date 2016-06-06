@@ -30,15 +30,27 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def create
-  #sport may need to be a hidden field to pass in to the params
-
-    @team = current_player.teams.new(team_params)
-    @team.manager_id = current_player.id
+  def create #using it
+    p params
+    @sport = Sport.find_by(sport: params[:team][:sport].downcase!)
+    @player = Player.find(params[:player_id].to_i)
+    @team = @player.teams.new(
+      name: params[:team][:name],
+      sport_id: @sport ? @sport.id : nil,
+      zip_code: params[:team][:zip_code].to_i,
+      city: params[:team][:city],
+      manager_id: @player.id
+      )
     if @team.save
-      # send json info
+      @player.teams << @team
+      response_hash={player:{info: @player.as_json, teams: @player.teams.as_json}}
+      p "*************************************************"
+      p response_hash
+      p "*************************************************"
+      render json: response_hash
     else
-      # send errors in json
+      response_hash = {error: true, errorMessages: @team.errors.full_messages.join(" | ")}
+      render json: response_hash, :status => 422
     end
   end
 
@@ -50,6 +62,7 @@ class TeamsController < ApplicationController
 
   def update
     @team = current_player.teams.new(team_params)
+
     @team.manager_id = current_player.id
     if @team.save
       # send json info

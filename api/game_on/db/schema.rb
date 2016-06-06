@@ -55,9 +55,6 @@ ActiveRecord::Schema.define(version: 20160604032809) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "players_teams", ["player_id"], name: "index_players_teams_on_player_id"
-  add_index "players_teams", ["team_id"], name: "index_players_teams_on_team_id"
-
   create_table "rsvps", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "team_id"

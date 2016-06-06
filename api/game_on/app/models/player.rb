@@ -2,7 +2,6 @@ class Player < ActiveRecord::Base
   has_many :rsvps
   has_many :players_teams
   has_many :teams, through: :players_teams
-  has_one :team, foreign_key: :manager_id
   has_many :home_games, through: :teams
   has_many :away_games, through: :teams
 

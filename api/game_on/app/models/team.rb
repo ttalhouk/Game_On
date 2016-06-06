@@ -8,6 +8,7 @@ class Team < ActiveRecord::Base
   has_many :rsvps
 
   validates :name, :manager_id, :city, :zip_code, presence: true
+  validates :sport_id, presence: true
   validates :name, uniqueness: { scope: :sport }
 
 end

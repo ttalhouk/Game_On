@@ -34,6 +34,35 @@ class GamesController < ApplicationController
   end
 
   def create
+    # format the time
+    # time = params[:game][:start_time]
+    time = Time.now + 5.days
+
+    @player = Player.find(params[:player_id])
+    @team = Team.find(params[:team_id])
+    @game =  Game.new(
+      start_time: time,
+      address: params[:game][:address],
+      city: params[:game][:city],
+      team_size: 5,
+      zip_code: params[:game][:zip_code].to_i
+    )
+    if @game.save
+      team.players.each do |player|
+        Rsvp.create(
+          game_id: @game.id,
+          team_id: @team.id,
+          player_id: @player.id
+        )
+      end
+      rsvp_email = Email.new
+      rsvp_email.send_rsvp_email(@team, @game)
+      response_hash = {}
+      render json: response_hash
+    else
+      response_hash = {error: true, errorMessages: @team.errors.full_messages.join(" | ")}
+      render json: response_hash, :status => 422
+    end
   end
 
   def update
