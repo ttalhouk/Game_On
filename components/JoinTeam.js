@@ -103,14 +103,11 @@ class JoinTeam extends Component {
   }
 
   render() {
+
     return (
       <View>
         <View style={styles.container}>
-          <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Back
-            </Text>
-          </TouchableHighlight>
+          <Text> Join a team! </Text>
 
           <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>

@@ -28,26 +28,14 @@ class Home extends Component {
       }
     }
   }
-
-  back(){
-    console.log(this.state)
-    // this.props.navigator.pop()
-  }
-
-  componentWillMount(){
-    this.setState({
-      userInfo: this.props.userInfo,
-      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.teams)
-    });
-  }
-
-  componenetDidMount(){
-    console.log(this.state)
+  componentDidMount(){
+    console.log(this.props)
   }
 
 
 
   render() {
+    console.log(this.props)
     return (
       <TabBarIOS
         unselectedTintColor="gray"
