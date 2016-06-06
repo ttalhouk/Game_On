@@ -1,25 +1,18 @@
 class TeamsController < ApplicationController
-  before_action :set_player, only: [:index, :show, :create, :join, :update]
-  before_action :set_team, only: [:show, :join, :update]
+  before_action :set_player, only: [:index, :show, :create, :join, :drop, :update]
+  before_action :set_team, only: [:show, :join, :drop, :update]
 
   def index
     p params
     @sports = Sport.all
-    response_hash = {
-      player:{
-        info: @player.as_json,
-        team: players_team.as_json,
-        sport: @sports.as_json
-      }
-    }
-
+    @teams = Team.all.reject{|team| @player.teams.include?(team)}
+    p @teams
+    response_hash = {team: @teams.as_json}
     render json: response_hash
-
   end
 
   def show
-
-    response_hash{
+    response_hash = {
       player:{
         info: @player.as_json,
         team: @team.as_json,
@@ -84,6 +77,17 @@ class TeamsController < ApplicationController
     render json: response_hash
   end
 
+  def drop
+    @player.teams.delete(@team)
+
+    response_hash = {
+      info:@player.as_json,
+      team: @player.teams.as_json
+    }
+
+    render json: response_hash
+  end
+
   def update
 
     @team = @player.teams.update(
@@ -97,19 +101,19 @@ class TeamsController < ApplicationController
 
   private
 
-    def set_player
-      @player = Player.find(params[:player_id].to_i)
-    end
-    def set_team
-      @team = Team.find(params[:team_id].to_i)
-    end
+  def set_player
+    @player = Player.find(params[:player_id].to_i)
+  end
+  def set_team
+    @team = Team.find(params[:team_id].to_i)
+  end
 
-    def team_params
-      params.require(:team).permit(:name, :sport, :city, :zip_code)
-    end
+  def team_params
+    params.require(:team).permit(:name, :sport, :city, :zip_code)
+  end
 
-    def players_team
-      @player.teams
-    end
+  def players_team
+    @player.teams
+  end
 
 end

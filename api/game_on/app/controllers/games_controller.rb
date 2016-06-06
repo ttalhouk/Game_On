@@ -1,17 +1,23 @@
 class GamesController < ApplicationController
+  require 'active_support'
+
   before_action :set_player, only: [:index, :new]
+
   def index
+    # set up for one team per player.  Need to revisit for multiple teams.
     p params
-    @teams = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
+    p @team
     games = all_games
-      response_hash = {
-          player:{
-          info: @player.as_json,
-          teams: teams.as_json,
-          games: games.as_json
-        }
+    response_hash = {
+        player:{
+        info: @player.as_json,
+        teams: @team.as_json,
+        games: games.as_json
       }
-      p response_hash
+    }
+
+    p response_hash
     render json: response_hash
   end
 
@@ -35,13 +41,14 @@ class GamesController < ApplicationController
   def create
     p params
     # format the time
-    time = DateTime.parse(params[:date]) - 7.hours
+    time = Time.parse(params[:date].to_s).localtime("-07:00")
+    # or DateTime.parse(params[:date].to_s).localtime("-07:00")
     # time = Time.now + 5.days
 
     @player = Player.find(params[:player_id])
     @team = Team.find(params[:team_id])
     @game =  Game.new(
-      start_time: time,
+      start_time: DateTime.parse(time.to_s),
       address: params[:address],
       city: params[:city],
       team_size: 5,
@@ -81,10 +88,14 @@ class GamesController < ApplicationController
   end
 
   def all_games
+
+    p @team
+
+    remove_old_games #not tested
+
     @games = Game.where("away_team_id is not null AND start_time > ? AND away_team_id = ? OR home_team_id = ?", Time.now, @team.id, @team.id)
-    # @games << @player.home_games.where(["start_time > ?", Time.now])
-    # @games << @player.away_games.where(["start_time > ?", Time.now])
-    @games.flatten!.map do |game|
+
+    @games.map do |game|
       {
         home_team: Team.find(game.home_team_id).name,
         away_team: Team.find(game.away_team_id).name,
@@ -94,8 +105,13 @@ class GamesController < ApplicationController
         start_time: game.start_time.strftime('%I:%M %p %m/%d/%Y')
       }
 
-    # @games.select! {|game| game.start_time > Time.now}
-
     end
+  end
+
+  def remove_old_games
+    Game.where("start_time < ?", Time.now).each {|game| game.destroy}
+    # could use .past?
+    # old_games = Game.all.keep_if {|game| game.past? }
+    # old_games.each { |game| game.destroy }
   end
 end

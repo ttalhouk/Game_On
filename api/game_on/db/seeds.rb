@@ -1,4 +1,4 @@
-
+require 'active_support'
 
 Player.create(
   name: "bob",
