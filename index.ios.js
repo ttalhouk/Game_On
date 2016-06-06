@@ -32,6 +32,7 @@ class GameOn extends Component {
       return <Login navigator={navigator} userInfo={route.passProps} />
     }
     if (route.name == "home") {
+      console.log("hitting route");
       return <Home navigator={navigator} userInfo={route.passProps} />
     }
     if (route.name == "register") {
