@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Text/RCTTextField.m \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Text/RCTTextField.h \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Text/RCTTextField.m \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Text/RCTTextField.h \
   ../../React/Views/RCTComponent.h ../../React/Base/RCTConvert.h \
   ../../React/Layout/Layout.h ../../React/Views/RCTAnimationType.h \
   ../../React/Views/RCTBorderStyle.h \

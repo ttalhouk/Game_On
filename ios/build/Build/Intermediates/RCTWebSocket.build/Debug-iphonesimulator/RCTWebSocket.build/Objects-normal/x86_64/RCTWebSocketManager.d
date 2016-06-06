@@ -1,7 +1,7 @@
 dependencies: \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/WebSocket/RCTWebSocketManager.m \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/WebSocket/RCTWebSocketManager.m \
   ../../React/Base/RCTDefines.h \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/WebSocket/RCTWebSocketManager.h \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/WebSocket/RCTWebSocketManager.h \
   ../../React/Base/RCTWebSocketProxy.h \
   ../../React/Base/RCTWebSocketProxyDelegate.h \
   ../../React/Base/RCTConvert.h ../../React/Layout/Layout.h \
@@ -10,4 +10,4 @@ dependencies: \
   ../../React/Views/RCTTextDecorationLineType.h \
   ../../React/Base/RCTLog.h ../../React/Base/RCTAssert.h \
   ../../React/Views/RCTPointerEvents.h ../../React/Base/RCTUtils.h \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/WebSocket/RCTSRWebSocket.h
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/WebSocket/RCTSRWebSocket.h

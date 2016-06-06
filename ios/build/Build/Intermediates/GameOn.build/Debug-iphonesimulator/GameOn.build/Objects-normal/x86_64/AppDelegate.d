@@ -1,5 +1,5 @@
-dependencies: /Users/apprentice/GameOn/ios/GameOn/AppDelegate.m \
-  /Users/apprentice/GameOn/ios/GameOn/AppDelegate.h \
+dependencies: /Users/sweet/code/Game_On/ios/GameOn/AppDelegate.m \
+  /Users/sweet/code/Game_On/ios/GameOn/AppDelegate.h \
   ../node_modules/react-native/React/Base/RCTRootView.h \
   ../node_modules/react-native/React/Base/RCTBridge.h \
   ../node_modules/react-native/React/Base/RCTBridgeDelegate.h \
