@@ -49,18 +49,21 @@ class Register extends Component {
     .then((response) => {
       if (response.error) {
         // this is incorrect credentials
+        console.log(response)
         this.setState({
           errorMessages: response.errorMessages
         })
       }else{
-        this.setState({
-          userInfo: response.player
-        })
+        console.log(response)
+        console.log(this.props.navigator)
         this.props.navigator.push({
           name: 'home',
-          passProps: this.state.userInfo
+          passProps: response.player
         })
       }
+    })
+    .catch((error) => {
+      console.warn(error);
     })
   }
 
