@@ -75,14 +75,26 @@ class Team extends Component {
     console.log(this.state)
   }
 
+
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <View>
+        <TouchableHighlight style={styles.button} onPress={() => this.goToTeamProfile(team)}>
           <Text style={styles.text}>{team.name}</Text>
-        </View>
+        </TouchableHighlight>
       </View>
     )
+  }
+
+  goToTeamProfile(team) {
+    // console.log("*********** props ****************")
+    // console.log(this.props)
+    // console.log("*********** state ****************")
+    // console.log(this.state)
+    this.props.navigator.push({
+      name: 'team profile',
+      passProps: team
+    })
   }
 
   goToCreateTeamView() {
@@ -119,7 +131,7 @@ class Team extends Component {
 
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderTeam}
+        renderRow={this.renderTeam.bind(this)}
       />
 
         <View style={styles.bottomContainer}>

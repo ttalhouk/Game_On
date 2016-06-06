@@ -21,15 +21,9 @@ class JoinTeam extends Component {
     }
   }
 
-  sendJoinTeamRequest(props) {
-
-    console.log("********  player id **********")
-    console.log(this.props.userInfo.info.id)
-    console.log("********  team id **********")
-    console.log(this.props.userInfo.teams[0].id)
-
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/join', {
-      method: 'PATCH',
+  getAllTeamList() {
+    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -44,31 +38,64 @@ class JoinTeam extends Component {
         })
       }else{
         this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(response.team)
+        });
+      }
+    });
+  }
+
+  sendJoinTeamRequest(teamID) {
+    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+teamID+'/join', {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.error) {
+        // this is incorrect credentials
+        this.setState({
+          errorMessages: response.errorMessages
+        })
+      }else{
+        console.log("****routes****")
+        console.log(this.props.navigator.getCurrentRoutes())
+
+        this.setState({
           userInfo: response.player
         })
         this.props.navigator.push({
           name: 'home',
-          passProps: this.state.userInfo
+          passProps: this.state.userInfo,
+          _navigatorRouteID: 2
         })
       }
     })
   }
 
   componentWillMount(){
-    this.setState({
-      userInfo: this.props.userInfo,
-      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.teams)
-    });
+    this.getAllTeamList();
   }
 
   back(){
     this.props.navigator.pop();
   }
 
+  log() {
+      console.log("********   state  **********")
+    console.log(this.state)
+      console.log("********  props  **********")
+    console.log(this.props)
+    console.log("****routes****")
+    console.log(this.props.navigator.getCurrentRoutes())
+  }
+
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => {console.log(this.props)}}>
+        <TouchableHighlight style={styles.button} onPress={() => this.sendJoinTeamRequest(team.id)}>
           <Text style={styles.buttonText}>{team.name}</Text>
         </TouchableHighlight>
       </View>
@@ -85,10 +112,16 @@ class JoinTeam extends Component {
             </Text>
           </TouchableHighlight>
 
+          <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
+            <Text style={styles.buttonText}>
+              Log!
+            </Text>
+          </TouchableHighlight>
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={this.renderTeam}
+            renderRow={this.renderTeam.bind(this)}
           />
+
         </View>
       </View>
     );

@@ -20,6 +20,7 @@ import Root from './components/Root';
 import CreateTeam from './components/CreateTeam';
 import ScheduleGame from './components/ScheduleGame';
 import JoinTeam from './components/JoinTeam';
+import TeamProfile from './components/TeamProfile';
 
 class GameOn extends Component {
 
@@ -46,6 +47,9 @@ class GameOn extends Component {
     }
     if (route.name == 'schedule game') {
       return <ScheduleGame navigator={navigator} userInfo={route.passProps} />
+    }
+    if (route.name == 'team profile') {
+      return <TeamProfile navigator={navigator} userInfo={route.passProps} />
     }
 
   }
