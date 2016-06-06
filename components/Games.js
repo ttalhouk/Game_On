@@ -67,7 +67,7 @@ class Game extends Component {
 
   getGamesList(){
     // takes the users input and tries to log them in
-    fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/games', {
+    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/games', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -93,7 +93,7 @@ class Game extends Component {
           <Text>{game.home_team} vs {game.away_team}</Text>
           <Text>{game.address}</Text>
           <Text>{game.city}, {game.zip_code}</Text>
-          <Text style={styles.separator}></Text>
+          <View style={styles.separator}></View>
       </View>
     )
   }

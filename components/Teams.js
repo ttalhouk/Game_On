@@ -30,8 +30,6 @@ const styles = StyleSheet.create({
   button: {
     height: 36,
     backgroundColor: '#005EFB',
-    // borderColor: '#6600ff',
-    // borderWidth: 1,
     borderRadius: 8,
     marginTop: 20,
     alignSelf: 'stretch',
@@ -130,8 +128,6 @@ class Team extends Component {
               Create team
             </Text>
           </TouchableHighlight>
-
-
 
           <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
