@@ -36,8 +36,6 @@ class CreateTeam extends Component {
         errorMessages: "Missing information"
       })
     } else {
-      console.log("this is the state")
-      console.log(this.state)
       fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
         method: 'POST',
         headers: {
@@ -94,8 +92,6 @@ class CreateTeam extends Component {
           onChangeText={(name) => {this.setState({name: name})}}
         />
 
-
-
         <TextInput
           style={styles.input}
           placeholder='City:'
@@ -136,7 +132,6 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 36,
     backgroundColor: '#005EFB',
     borderColor: '#6600ff',
     borderWidth: 1,

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     // borderColor: '#6600ff',
     // borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
+    marginTop: 20,
     alignSelf: 'stretch',
     justifyContent: 'center',
     padding: 5
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1,
     justifyContent: 'flex-end',
+    marginBottom: 70,
   },
   text: {
     textAlign: 'center',
@@ -129,9 +130,9 @@ class Team extends Component {
               Create team
             </Text>
           </TouchableHighlight>
-        </View>
 
-        <View style={styles.downButton}>
+
+
           <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Join team
