@@ -1,7 +1,7 @@
 dependencies: \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Text/RCTText.m \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Text/RCTText.h \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Text/RCTShadowText.h \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Text/RCTText.m \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Text/RCTText.h \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Text/RCTShadowText.h \
   ../../React/Views/RCTShadowView.h ../../React/Layout/Layout.h \
   ../../React/Views/RCTComponent.h ../../React/Base/RCTRootView.h \
   ../../React/Base/RCTBridge.h ../../React/Base/RCTBridgeDelegate.h \

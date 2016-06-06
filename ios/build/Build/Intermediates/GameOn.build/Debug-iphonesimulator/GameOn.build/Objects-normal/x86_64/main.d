@@ -1,2 +1,2 @@
-dependencies: /Users/apprentice/GameOn/ios/GameOn/main.m \
-  /Users/apprentice/GameOn/ios/GameOn/AppDelegate.h
+dependencies: /Users/sweet/code/Game_On/ios/GameOn/main.m \
+  /Users/sweet/code/Game_On/ios/GameOn/AppDelegate.h

@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Image/RCTResizeMode.m \
-  /Users/apprentice/GameOn/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Image/RCTResizeMode.m \
+  /Users/sweet/code/Game_On/node_modules/react-native/Libraries/Image/RCTResizeMode.h \
   ../../React/Base/RCTConvert.h ../../React/Layout/Layout.h \
   ../../React/Views/RCTAnimationType.h \
   ../../React/Views/RCTBorderStyle.h \
