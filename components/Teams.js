@@ -75,25 +75,20 @@ class Team extends Component {
     console.log(this.state)
   }
 
-
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => this.goToTeamProfile(team)}>
+        <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
           <Text style={styles.text}>{team.name}</Text>
         </TouchableHighlight>
       </View>
     )
   }
 
-  goToTeamProfile(team) {
-    // console.log("*********** props ****************")
-    // console.log(this.props)
-    // console.log("*********** state ****************")
-    // console.log(this.state)
+  goToTeamProfile() {
     this.props.navigator.push({
       name: 'team profile',
-      passProps: team
+      passProps: this.props.userInfo,
     })
   }
 
