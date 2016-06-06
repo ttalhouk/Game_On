@@ -9,13 +9,15 @@ import {
   View,
   ListView,
   TouchableHighlight,
-  TextInput
 } from 'react-native';
 
 class JoinTeam extends Component {
   constructor(props){
     super(props);
     this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
       userInfo: {},
     }
   }
@@ -23,11 +25,22 @@ class JoinTeam extends Component {
   componentWillMount(){
     this.setState({
       userInfo: this.props.userInfo,
+      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.teams)
     });
   }
 
   back(){
     this.props.navigator.pop();
+  }
+
+  renderTeam(team){
+    return (
+      <View style={styles.container}>
+        <View>
+          <Text>{team.name}</Text>
+        </View>
+      </View>
+    )
   }
 
   render() {
@@ -44,6 +57,7 @@ class JoinTeam extends Component {
         dataSource={this.state.dataSource}
         renderRow={this.renderTeam}
       />
+      </View>
       </View>
     );
   }
@@ -68,7 +82,7 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: '#6600ff',
+    backgroundColor: '#005EFB',
     borderColor: '#6600ff',
     borderWidth: 1,
     borderRadius: 8,
