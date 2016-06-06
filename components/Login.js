@@ -3,6 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View,
   Navigator,
   TouchableHighlight,
@@ -62,33 +63,44 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      <Text style={{color: 'red'}}>
-      {this.state.errorMessages }
-      </Text>
-        <TextInput
-          style={styles.input}
-          placeholder='Email:'
-          onChangeText={(email) => {this.setState({email: email})}}
-          keyboardType='email-address'
-        />
+        <Image
+            source={require('../spencer/Kentucky_text.gif')}
+            style={styles.backgroundImage}>
+            <Text style={styles.welcome}>
+              GameOn!
+            </Text>
+              <Text style={{color: 'red', alignItems:'flex-end', alignSelf:'stretch'}}>
+                {this.state.errorMessages }
+              </Text>
+            <View style={styles.center}>
 
+              <TextInput
+                style={styles.input}
+                placeholder='Email:'
+                onChangeText={(email) => {this.setState({email: email})}}
+                keyboardType='email-address'
+              />
+              <TextInput
+                style={styles.input}
+                placeholder='Password:'
+                secureTextEntry={true}
+                onChangeText={(pw) => {this.setState({password: pw})}}
+              />
 
-      <TextInput
-        style={styles.input}
-        placeholder='Password:'
-        secureTextEntry={true}
-        onChangeText={(pw) => {this.setState({password: pw})}}
-      />
-      <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Log In
-        </Text>
-      </TouchableHighlight>
+                <TouchableHighlight onPress={this.login.bind(this)} style={styles.button}>
+                  <Text style={styles.buttonText}>
+                    Log In
+                  </Text>
+                </TouchableHighlight>
+                <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+                  <Text style={styles.buttonText}>
+                    Back
+                  </Text>
+                </TouchableHighlight>
+            </View>
+        <View style={styles.footer}>
+        </View>
+      </Image>
     </View>
     );
   }
@@ -96,24 +108,45 @@ class Login extends Component {
 
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    width: null,
+    height: null,
+    marginTop:20
   },
   button: {
     height: 40,
     backgroundColor: 'blue',
-
   },
-  text: {
-    color: "blue"
+  button: {
+    height: 36,
+    backgroundColor: '#005EFB',
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    padding:5
   },
-  buttonText: {
+    buttonText: {
     fontSize: 18,
+    fontWeight:'bold',
     color: 'white',
     alignSelf: 'center'
+  },
+  center: {
+    flex:1,
+    justifyContent: 'flex-end'
+  },
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  footer:{
+    height:50,
+    alignSelf:'stretch',
+
+    backgroundColor:'#005EFB'
   },
   input: {
     padding: 4,
@@ -127,21 +160,20 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.4)',
   },
-  button: {
-    height: 36,
-
-    backgroundColor: '#6600ff',
-    borderColor: '#6600ff',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  text: {
+    color: "blue"
+  },
+  welcome: {
+    fontSize: 45,
+    padding:10,
+    textAlign: 'center',
+    backgroundColor:'#005EFB',
+    fontWeight:'bold'
   },
 });
 AppRegistry.registerComponent('Login', () => Login);
