@@ -27,7 +27,7 @@ Player.create(
 Player.create(
   name: "Talal",
   password: "123",
-  email: "ttalhouk@gamil.com",
+  email: "ttalhouk@gmail.com",
   phone:"5555555555",
   zip_code: "94087",
   city: "sunnyvale")

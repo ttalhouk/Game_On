@@ -32,11 +32,10 @@ class TeamsController < ApplicationController
 
   def create #using it
     p params
-    @sport = Sport.find_by(sport: params[:team][:sport].downcase!)
     @player = Player.find(params[:player_id].to_i)
     @team = @player.teams.new(
       name: params[:team][:name],
-      sport_id: @sport ? @sport.id : nil,
+      sport_id: 1,
       zip_code: params[:team][:zip_code].to_i,
       city: params[:team][:city],
       manager_id: @player.id

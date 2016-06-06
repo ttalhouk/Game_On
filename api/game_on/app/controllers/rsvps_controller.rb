@@ -1,5 +1,17 @@
 class RsvpsController < ApplicationController
-  def show
+  def index
+    @player = Player.find(params[:player_id])
+    @rsvps = Rsvp.where(["player_id = ? AND responded = ?",@player.id, false])
+    response_hash = {player:
+      {
+        info: @player.as_json,
+        open_rsvp: @rsvps.as_json
+      }
+    }
+    render json: response_hash
+  end
+
+  def update
     @player = Player.find(params[:player_id])
     @team = Team.find(params[:team_id])
     @game = Game.find(params[:game_id])
@@ -14,13 +26,6 @@ class RsvpsController < ApplicationController
       @game.update(home_team_id: @team.id)
       remove_invites
     end
-  end
-
-  def create
-
-  end
-
-  def update
   end
 
   private

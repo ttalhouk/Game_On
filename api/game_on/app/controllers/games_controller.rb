@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :set_player, only: [:index, :new]
   def index
     p params
-    teams = @player.teams
+    @teams = Team.find(params[:team_id])
     games = all_games
       response_hash = {
           player:{
@@ -13,7 +13,6 @@ class GamesController < ApplicationController
       }
       p response_hash
     render json: response_hash
-
   end
 
   def show
@@ -65,9 +64,6 @@ class GamesController < ApplicationController
     end
   end
 
-  def update
-
-  end
 
   private
 
@@ -80,9 +76,9 @@ class GamesController < ApplicationController
   end
 
   def all_games
-    @games = []
-    @games << @player.home_games.where(["start_time > ?", Time.now])
-    @games << @player.away_games.where(["start_time > ?", Time.now])
+    @games = Game.where("away_team_id is not null AND start_time > ? AND away_team_id = ? OR home_team_id = ?", Time.now, @team.id, @team.id)
+    # @games << @player.home_games.where(["start_time > ?", Time.now])
+    # @games << @player.away_games.where(["start_time > ?", Time.now])
     @games.flatten!.map do |game|
       {
         home_team: Team.find(game.home_team_id).name,
