@@ -59,8 +59,9 @@ ActiveRecord::Schema.define(version: 20160604032809) do
     t.integer  "game_id"
     t.integer  "team_id"
     t.integer  "player_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "responded",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "rsvps", ["game_id"], name: "index_rsvps_on_game_id"

@@ -23,7 +23,11 @@ class RsvpsController < ApplicationController
     @rsvp.update(responded: true)
     responses = Rsvp.where(["team_id = ? AND game_id = ? AND responded = ?", @team.id, @game.id, true]).count
     if responses <= @game.team_size
-      @game.update(home_team_id: @team.id)
+      if @game.home_team_id.nil?
+        @game.update(home_team_id: @team.id)
+      elsif @game.away_team_id.nil?
+        @game.update(away_team_id: @team.id)
+      end
       remove_invites
     end
   end
@@ -31,8 +35,7 @@ class RsvpsController < ApplicationController
   private
 
   def remove_invites
-    team_confirmed = Rsvp.where(["team_id = ? AND game_id = ?", @team.id, @game.id])
+    team_confirmed = Rsvp.where(["game_id = ?", @game.id])
     team_confirmed.each {|invite| invite.destroy }
-
   end
 end
