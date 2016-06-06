@@ -1,15 +1,14 @@
-'use strict';
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  TabBarIOS,
   Text,
+  Image,
   View,
-  TouchableHighlight
+  Navigator,
+  TouchableHighlight,
+  TextInput
 } from 'react-native';
-
 var styles = StyleSheet.create({
   description: {
     fontSize: 40,
@@ -23,8 +22,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#765432',
   }
 })
-
-class Setting extends Component {
+class ScheduleGame extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -34,40 +32,39 @@ class Setting extends Component {
     }
   }
 
-  log(){
-    console.log(this.state)
-  }
-
   componentWillMount(){
     this.setState({
       userInfo: this.props.userInfo
     })
   }
 
-  goToScheduleGame(){
-    this.props.navigator.push({
-      name: 'schedule game',
-      passProps: this.state.userInfo
-    });
+  log(){
+    console.log(this.props)
   }
+
+  back(){
+    this.props.navigator.pop();
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
       <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
+        <Text>
           BUGS
         </Text>
       </TouchableHighlight>
-      <TouchableHighlight onPress={this.goToScheduleGame.bind(this)} style={styles.button}>
-        <Text style={styles.description}>
-          Schedule a Game!
+      <Text>
+        hello this is the right page, welcome stranger
+      </Text>
+      <TouchableHighlight onPress={this.back.bind(this)}>
+        <Text>
+          Back
         </Text>
       </TouchableHighlight>
-
       </View>
-    );
+    )
   }
 }
-
-module.exports = Setting;
+module.exports = ScheduleGame;
