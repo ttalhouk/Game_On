@@ -17,7 +17,7 @@ class CreateTeam extends Component {
     super(props);
     this.state = {
       name: "",
-      sport: "",
+      // sport: "",
       city: "",
       zip_code: "",
       userInfo: {},
@@ -31,7 +31,7 @@ class CreateTeam extends Component {
   }
 
   createTeam() {
-    if (!this.state.name || !this.state.sport || !this.state.city | !this.state.zip_code) {
+    if (!this.state.name || !this.state.city || !this.state.zip_code) {
       this.setState({
         errorMessages: "Missing information"
       })
@@ -47,7 +47,7 @@ class CreateTeam extends Component {
         body: JSON.stringify({
           team: {
             name: this.state.name,
-            sport: this.state.sport,
+            // sport: this.state.sport,
             city: this.state.city,
             zip_code: this.state.zip_code,
           }
@@ -94,11 +94,7 @@ class CreateTeam extends Component {
           onChangeText={(name) => {this.setState({name: name})}}
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder='Sport:'
-          onChangeText={(sport) => {this.setState({sport: sport})}}
-        />
+
 
         <TextInput
           style={styles.input}
@@ -141,7 +137,7 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: '#6600ff',
+    backgroundColor: '#005EFB',
     borderColor: '#6600ff',
     borderWidth: 1,
     borderRadius: 8,
