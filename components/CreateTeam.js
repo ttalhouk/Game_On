@@ -17,7 +17,7 @@ class CreateTeam extends Component {
     super(props);
     this.state = {
       name: "",
-      sport: "",
+      // sport: "",
       city: "",
       zip_code: "",
       userInfo: {},
@@ -31,13 +31,11 @@ class CreateTeam extends Component {
   }
 
   createTeam() {
-    if (!this.state.name || !this.state.sport || !this.state.city | !this.state.zip_code) {
+    if (!this.state.name || !this.state.city || !this.state.zip_code) {
       this.setState({
         errorMessages: "Missing information"
       })
     } else {
-      console.log("this is the state")
-      console.log(this.state)
       fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
         method: 'POST',
         headers: {
@@ -47,7 +45,7 @@ class CreateTeam extends Component {
         body: JSON.stringify({
           team: {
             name: this.state.name,
-            sport: this.state.sport,
+            // sport: this.state.sport,
             city: this.state.city,
             zip_code: this.state.zip_code,
           }
@@ -96,12 +94,6 @@ class CreateTeam extends Component {
 
         <TextInput
           style={styles.input}
-          placeholder='Sport:'
-          onChangeText={(sport) => {this.setState({sport: sport})}}
-        />
-
-        <TextInput
-          style={styles.input}
           placeholder='City:'
           onChangeText={(city) => {this.setState({city: city})}}
         />
@@ -140,8 +132,7 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 36,
-    backgroundColor: '#6600ff',
+    backgroundColor: '#005EFB',
     borderColor: '#6600ff',
     borderWidth: 1,
     borderRadius: 8,

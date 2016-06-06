@@ -1,4 +1,4 @@
-'use strict';
+
 
 import React, { Component } from 'react';
 import {
@@ -8,10 +8,11 @@ import {
   Text,
   View,
   ListView,
+  Navigator,
   TouchableHighlight
 } from 'react-native';
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   description: {
     fontSize: 40,
     textAlign: 'center',
@@ -19,8 +20,6 @@ var styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'white',
   },
   buttonText: {
@@ -30,13 +29,14 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: '#6600ff',
-    borderColor: '#6600ff',
-    borderWidth: 1,
+    backgroundColor: '#005EFB',
+    // borderColor: '#6600ff',
+    // borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
+    marginTop: 20,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 5
   },
   welcome: {
     fontSize: 20,
@@ -50,9 +50,15 @@ var styles = StyleSheet.create({
   },
   downButton: {
     flex: 1,
-    bottom: 0,
-    flexDirection: 'column'
   },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 70,
+  },
+  text: {
+    textAlign: 'center',
+  }
 
 })
 
@@ -63,9 +69,7 @@ class Team extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      userInfo: {
-
-      }
+      userInfo: {},
     }
   }
 
@@ -77,7 +81,7 @@ class Team extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <Text>{team.name}</Text>
+          <Text style={styles.text}>{team.name}</Text>
         </View>
       </View>
     )
@@ -106,29 +110,29 @@ class Team extends Component {
 
   render() {
     return (
-      <View>
       <View style={styles.container}>
+      <View>
       <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
           Back
         </Text>
       </TouchableHighlight>
+      </View>
 
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderTeam}
       />
-      </View>
 
-        <View style={styles.downButton}>
+        <View style={styles.bottomContainer}>
           <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Create team
             </Text>
           </TouchableHighlight>
-        </View>
 
-        <View style={styles.downButton}>
+
+
           <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Join team
