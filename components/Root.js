@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    bottom: 0,
   },
   buttonText: {
     fontSize: 18,
@@ -59,7 +60,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // bottom: asdd,
+    // flex: 1,
+
   },
   welcome: {
     fontSize: 20,
