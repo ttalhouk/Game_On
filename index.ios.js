@@ -12,10 +12,12 @@ import {
   View,
   Navigator
 } from 'react-native';
+
 import Login from './components/Login';
 import Home from './components/Home';
 import Register from './components/Register';
 import Root from './components/Root';
+import CreateTeam from './components/CreateTeam';
 
 
 class GameOn extends Component {
@@ -32,6 +34,14 @@ class GameOn extends Component {
     }
     if (route.name == "register") {
       return <Register navigator={navigator} />
+    }
+
+    if (route.name == "create team") {
+      return <CreateTeam navigator={navigator} userInfo={route.passProps} />
+    }
+
+    if (route.name == "join team") {
+      return <JoinTeam navigator={navigator} userInfo={route.passProps} />
     }
 
   }

@@ -8,19 +8,71 @@ import {
   Text,
   View,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  TextInput
 } from 'react-native';
 
 class CreateTeam extends Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
-      teamName: "",
-      sport = "",
-      city = "",
-      zip = "",
+      name: "",
+      sport: "",
+      city: "",
+      zip_code: "",
       userInfo: {},
     }
+  }
+
+  componentWillMount(){
+    this.setState({
+      userInfo: this.props.userInfo,
+    });
+  }
+
+  createTeam() {
+    if (!this.state.name || !this.state.sport || !this.state.city | !this.state.zip_code) {
+      this.setState({
+        errorMessages: "Missing information"
+      })
+    } else {
+      console.log("this is the state")
+      console.log(this.state)
+      fetch('https://1bc113a3.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          team: {
+            name: this.state.name,
+            sport: this.state.sport,
+            city: this.state.city,
+            zip_code: this.state.zip_code,
+          }
+        })
+      })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response)
+        if (response.error) {
+          // this is incorrect credentials
+          this.setState({
+            errorMessages: response.errorMessages
+          })
+        }else{
+          this.props.navigator.push({
+            name: 'home',
+            passProps: response.player
+          })
+        }
+      })
+    }
+  }
+
+  back(){
+    this.props.navigator.pop();
   }
 
   render() {
@@ -39,7 +91,7 @@ class CreateTeam extends Component {
         <TextInput
           style={styles.input}
           placeholder='Team name:'
-          onChangeText={(teamName) => {this.setState({teamName: teamName})}}
+          onChangeText={(name) => {this.setState({name: name})}}
         />
 
         <TextInput
@@ -57,7 +109,7 @@ class CreateTeam extends Component {
       <TextInput
         style={styles.input}
         placeholder='Zip code:'
-        onChangeText={(zip) => {this.setState({zip: zip})}}
+        onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
       />
 
       <TouchableHighlight onPress={this.createTeam.bind(this)} style={styles.button}>
@@ -69,5 +121,61 @@ class CreateTeam extends Component {
     );
   }
 }
+
+var styles = StyleSheet.create({
+  description: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#6600ff',
+    borderColor: '#6600ff',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  input: {
+    padding: 4,
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 5,
+    marginBottom: 20,
+    color: 'white',
+    alignSelf: 'stretch',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  downContainer: {
+    flex: 1,
+    bottom: 0,
+
+  }
+})
 
 module.exports = CreateTeam;
