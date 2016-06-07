@@ -12,54 +12,6 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  description: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: '#FFFFFF'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#005EFB',
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 5
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  downButton: {
-    flex: 1,
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 70,
-  },
-  text: {
-    textAlign: 'center',
-  }
-
-})
-
 class Team extends Component {
   constructor(props){
     super(props)
@@ -78,9 +30,9 @@ class Team extends Component {
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
-          <Text style={styles.buttonText}>{team.name}</Text>
-        </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
+            <Text style={styles.buttonText}>{team.name}</Text>
+          </TouchableHighlight>
       </View>
     )
   }
@@ -129,17 +81,14 @@ class Team extends Component {
     <ListView
     dataSource={this.state.dataSource}
     renderRow={this.renderTeam.bind(this)}
+    style={styles.list}
           />
 
     return (
       <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
+        <Text style={styles.welcome}>
+          Your Teams
         </Text>
-      </TouchableHighlight>
-      </View>
 
         {playerHasTeam}
 
@@ -161,5 +110,57 @@ class Team extends Component {
   }
 
 }
+
+const styles = StyleSheet.create({
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#005EFB',
+    borderRadius: 8,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    padding: 5
+  },
+  bottomContainer: {
+    justifyContent: 'flex-end',
+    marginBottom: 60,
+  },
+  container: {
+    flex: 1,
+  },
+  description: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  downButton: {
+    flex: 1,
+  },
+  list: {
+    height: 100
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  text: {
+    textAlign: 'center',
+  },
+  welcome: {
+    fontSize: 45,
+    padding:10,
+    marginTop:20,
+    textAlign: 'center',
+    backgroundColor:'#005EFB',
+    fontWeight:'bold',
+    color:'white'
+  }
+})
 
 module.exports = Team;
