@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_player, only: [:index, :show, :create, :join, :drop, :update]
-  before_action :set_team, only: [:show, :join, :drop, :update]
+  before_action :set_team, only: [:show, :update]
 
   def index
     p params
@@ -11,14 +11,27 @@ class TeamsController < ApplicationController
     render json: response_hash
   end
 
+  def play
+    @team = Team.find(params[:team_id])
+    @games = find_available_games
+    response_hash = {
+      team: @team.as_json,
+      games: @games.as_json
+    }
+    render json: response_hash
+  end
+
   def show
     response_hash = {
       player:{
         info: @player.as_json,
         team: @team.as_json,
-        isManger: @team.manager_id == @player.id
+        isManager: @team.manager_id == @player.id,
+        roster: @team.players.map {|player| player.name },
+        manager: Player.find(@team.manager_id)
       }
     }
+    p response_hash
     render json: response_hash
   end
 
@@ -38,7 +51,9 @@ class TeamsController < ApplicationController
       )
     if @team.save
       @player.teams << @team
-      response_hash={player:{info: @player.as_json, teams: @player.teams.as_json}}
+      response_hash={player:
+        {info: @player.as_json,
+          team: @player.teams.as_json}}
       p "*************************************************"
       p response_hash
       p "*************************************************"
@@ -64,8 +79,9 @@ class TeamsController < ApplicationController
 
   def join
     p params
+
     # @player = Player.find(params[:player_id])
-    # @team = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
     @player.teams << @team
 
     response_hash = {
@@ -105,7 +121,8 @@ class TeamsController < ApplicationController
     @player = Player.find(params[:player_id].to_i)
   end
   def set_team
-    @team = Team.find(params[:team_id].to_i)
+
+    @team = Team.find(params[:id].to_i)
   end
 
   def team_params
@@ -114,6 +131,23 @@ class TeamsController < ApplicationController
 
   def players_team
     @player.teams
+  end
+
+  def find_available_games
+    games_info = []
+    games = Game.where("home_team_id IS NOT NULL AND home_team_id IS NOT ? AND away_team_id IS NULL", @team.id)
+    games.each do |game|
+      games_info << {
+        start_time: game.start_time.strftime('%I:%M %p %m/%d/%Y'),
+        address: game.address,
+        city: game.city,
+        zip_code: game.zip_code,
+        team_size: game.team_size,
+        home_team: Team.find(game.home_team_id)
+      }
+    end
+    return games_info
+
   end
 
 end

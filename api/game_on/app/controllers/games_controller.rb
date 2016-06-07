@@ -12,7 +12,7 @@ class GamesController < ApplicationController
     response_hash = {
         player:{
         info: @player.as_json,
-        teams: @team.as_json,
+        team: @team.as_json,
         games: games.as_json
       }
     }
@@ -34,9 +34,10 @@ class GamesController < ApplicationController
       }
     }
     render json: response_hash
-
-
   end
+
+
+
 
   def create
     p params
