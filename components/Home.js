@@ -10,7 +10,7 @@ import {
   TabBarIOS
 } from 'react-native';
 
-import Team from './Teams';
+import Team from './Team';
 import Game from './Games';
 import Rsvp from './Rsvp';
 import Setting from './Settings';
@@ -22,32 +22,21 @@ class Home extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      selectedTab: 'teams',
+      selectedTab: 'team',
       userInfo: {
 
       }
     }
   }
-
-  back(){
-    console.log(this.state)
-    // this.props.navigator.pop()
-  }
-
-  componentWillMount(){
-    this.setState({
-      userInfo: this.props.userInfo,
-      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.teams)
-    });
-  }
-
-  componenetDidMount(){
-    console.log(this.state)
+  componentDidMount(){
+    console.log(this.props)
   }
 
 
 
   render() {
+    console.log("***********HOME.JS**************")
+    console.log(this.props)
     return (
       <TabBarIOS
         unselectedTintColor="gray"
@@ -58,11 +47,11 @@ class Home extends Component {
             icon={require('../imgs/home4-s.png')}
             style={styles.icon}
             renderAsOriginal
-            title="Teams"
-            selected={this.state.selectedTab === 'teams'}
+            title="Team"
+            selected={this.state.selectedTab === 'team'}
             onPress={() => {
               this.setState({
-                selectedTab: 'teams',
+                selectedTab: 'team',
               });
             }}>
           <Team navigator={this.props.navigator} userInfo={this.props.userInfo}/>

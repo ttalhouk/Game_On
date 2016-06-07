@@ -95,25 +95,46 @@ class Team extends Component {
   goToCreateTeamView() {
     this.props.navigator.push({
       name: "create team",
-      passProps: this.state.userInfo,
+      passProps: this.props.userInfo,
     })
   }
 
   goToJoinTeamView() {
     this.props.navigator.push({
       name: "join team",
-      passProps: this.state.userInfo,
+      passProps: this.props.userInfo,
     })
   }
 
   componentWillMount(){
-    this.setState({
-      userInfo: this.props.userInfo,
-      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.teams)
-    });
+    console.log("TEAM PROPS IN COMPONENT WILL MOUNT *************")
+    console.log(this.props)
+    if (this.props.userInfo.team.length != 0) {
+      console.log('componentwillmount is hitting')
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
+      });
+    }
+
   }
 
+
   render() {
+    console.log("************** TEAM.JS MOTHA FUCKA *****************")
+    console.log(this.props)
+    let playerHasTeam = (this.props.userInfo.team.length != 0) ?
+
+    <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
+      <Text style={styles.buttonText}>
+        Join a team!
+      </Text>
+    </TouchableHighlight>
+    :
+    <ListView
+    dataSource={this.state.dataSource}
+    renderRow={this.renderTeam.bind(this)}
+          />
+
     return (
       <View style={styles.container}>
       <View>
@@ -124,10 +145,7 @@ class Team extends Component {
       </TouchableHighlight>
       </View>
 
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderTeam.bind(this)}
-      />
+        {playerHasTeam}
 
         <View style={styles.bottomContainer}>
           <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.button}>

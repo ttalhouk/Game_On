@@ -44,6 +44,8 @@ class Login extends Component {
           errorMessages: response.errorMessages
         })
       }else{
+        console.log("LOGIN")
+        console.log(response)
         this.setState({
           userInfo: response.player
         })
