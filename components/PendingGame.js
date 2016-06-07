@@ -170,7 +170,7 @@ class PendingGame extends Component {
         </View>
         <ListView
           dataSource={this.state.dataSource}
-          renderGame={this.renderGame.bind(this)}
+          renderRow={this.renderGame.bind(this)}
         />
       </View>
     )
