@@ -5,10 +5,15 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params)
     @player.email.downcase!
     if @player.save
-      response_hash={player:{info: @player.as_json}}
+      response_hash={player:
+        {info: @player.as_json,
+        team: []}
+      }
+      p response_hash
       render json: response_hash
     else
-      response_hash = {error: true, errorMessages: "Information Incomplete or Incorrect"}
+      response_hash = {error: true, errorMessages: @player.errors.full_messages}
+      p response_hash
       render json: response_hash, :status => 422
     end
   end

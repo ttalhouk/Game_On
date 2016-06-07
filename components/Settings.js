@@ -1,4 +1,3 @@
-'use strict';
 
 import React, { Component } from 'react';
 import {
@@ -45,24 +44,12 @@ class Setting extends Component {
     })
   }
 
-  goToScheduleGame(){
-    this.props.navigator.push({
-      name: 'schedule game',
-      passProps: this.state.userInfo
-    });
-  }
-
   render() {
     return (
       <View style={styles.container}>
       <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
           BUGS
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight onPress={this.goToScheduleGame.bind(this)} style={styles.button}>
-        <Text style={styles.description}>
-          Schedule a Game!
         </Text>
       </TouchableHighlight>
 

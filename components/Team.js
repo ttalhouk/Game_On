@@ -79,7 +79,7 @@ class Team extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
-          <Text style={styles.text}>{team.name}</Text>
+          <Text style={styles.buttonText}>{team.name}</Text>
         </TouchableHighlight>
       </View>
     )
@@ -107,10 +107,7 @@ class Team extends Component {
   }
 
   componentWillMount(){
-    console.log("TEAM PROPS IN COMPONENT WILL MOUNT *************")
-    console.log(this.props)
     if (this.props.userInfo.team.length != 0) {
-      console.log('componentwillmount is hitting')
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
       });
@@ -120,9 +117,8 @@ class Team extends Component {
 
 
   render() {
-    console.log("************** TEAM.JS MOTHA FUCKA *****************")
-    console.log(this.props)
-    let playerHasTeam = (this.props.userInfo.team.length != 0) ?
+
+    let playerHasTeam = (this.props.userInfo.team.length == 0) ?
 
     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
       <Text style={styles.buttonText}>

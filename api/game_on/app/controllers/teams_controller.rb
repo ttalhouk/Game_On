@@ -1,31 +1,37 @@
 class TeamsController < ApplicationController
-  before_action :set_player, only: [:index, :show, :create, :join, :update]
-  before_action :set_team, only: [:show, :join, :update]
+  before_action :set_player, only: [:index, :show, :create, :join, :drop, :update]
+  before_action :set_team, only: [:show, :update]
 
   def index
     p params
     @sports = Sport.all
-    response_hash = {
-      player:{
-        info: @player.as_json,
-        team: players_team.as_json,
-        sport: @sports.as_json
-      }
-    }
-
+    @teams = Team.all.reject{|team| @player.teams.include?(team)}
+    p @teams
+    response_hash = {team: @teams.as_json}
     render json: response_hash
+  end
 
+  def play
+    @team = Team.find(params[:team_id])
+    @games = find_available_games
+    response_hash = {
+      team: @team.as_json,
+      games: @games.as_json
+    }
+    render json: response_hash
   end
 
   def show
-
-    response_hash{
+    response_hash = {
       player:{
         info: @player.as_json,
         team: @team.as_json,
-        isManger: @team.manager_id == @player.id
+        isManager: @team.manager_id == @player.id,
+        roster: @team.players.map {|player| player.name },
+        manager: Player.find(@team.manager_id)
       }
     }
+    p response_hash
     render json: response_hash
   end
 
@@ -45,7 +51,9 @@ class TeamsController < ApplicationController
       )
     if @team.save
       @player.teams << @team
-      response_hash={player:{info: @player.as_json, teams: @player.teams.as_json}}
+      response_hash={player:
+        {info: @player.as_json,
+          team: @player.teams.as_json}}
       p "*************************************************"
       p response_hash
       p "*************************************************"
@@ -71,8 +79,9 @@ class TeamsController < ApplicationController
 
   def join
     p params
+
     # @player = Player.find(params[:player_id])
-    # @team = Team.find(params[:team_id])
+    @team = Team.find(params[:team_id])
     @player.teams << @team
 
     response_hash = {
@@ -81,6 +90,17 @@ class TeamsController < ApplicationController
         team: @player.teams.as_json
       }
     }
+    render json: response_hash
+  end
+
+  def drop
+    @player.teams.delete(@team)
+
+    response_hash = {
+      info:@player.as_json,
+      team: @player.teams.as_json
+    }
+
     render json: response_hash
   end
 
@@ -97,19 +117,37 @@ class TeamsController < ApplicationController
 
   private
 
-    def set_player
-      @player = Player.find(params[:player_id].to_i)
-    end
-    def set_team
-      @team = Team.find(params[:team_id].to_i)
-    end
+  def set_player
+    @player = Player.find(params[:player_id].to_i)
+  end
+  def set_team
 
-    def team_params
-      params.require(:team).permit(:name, :sport, :city, :zip_code)
-    end
+    @team = Team.find(params[:id].to_i)
+  end
 
-    def players_team
-      @player.teams
+  def team_params
+    params.require(:team).permit(:name, :sport, :city, :zip_code)
+  end
+
+  def players_team
+    @player.teams
+  end
+
+  def find_available_games
+    games_info = []
+    games = Game.where("home_team_id IS NOT NULL AND home_team_id IS NOT ? AND away_team_id IS NULL", @team.id)
+    games.each do |game|
+      games_info << {
+        start_time: game.start_time.strftime('%I:%M %p %m/%d/%Y'),
+        address: game.address,
+        city: game.city,
+        zip_code: game.zip_code,
+        team_size: game.team_size,
+        home_team: Team.find(game.home_team_id)
+      }
     end
+    return games_info
+
+  end
 
 end
