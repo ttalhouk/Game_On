@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_time: 2016-06-03 20:24:45
+  address: MyString
+  city: MyString
+  zip_code: 1
+
+two:
+  start_time: 2016-06-03 20:24:45
+  address: MyString
+  city: MyString
+  zip_code: 1
