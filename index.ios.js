@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -21,6 +15,7 @@ import CreateTeam from './components/CreateTeam';
 import ScheduleGame from './components/ScheduleGame';
 import JoinTeam from './components/JoinTeam';
 import TeamProfile from './components/TeamProfile';
+import PendingGame from './components/PendingGame';
 
 class GameOn extends Component {
 
@@ -51,6 +46,9 @@ class GameOn extends Component {
     }
     if (route.name == 'team profile') {
       return <TeamProfile navigator={navigator} userInfo={route.passProps} />
+    }
+    if (route.name == 'pending game') {
+      return <PendingGame navigator={navigator} userInfo={route.passProps} />
     }
 
   }

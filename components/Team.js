@@ -79,7 +79,7 @@ class Team extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
-          <Text style={styles.text}>{team.name}</Text>
+          <Text style={styles.buttonText}>{team.name}</Text>
         </TouchableHighlight>
       </View>
     )
