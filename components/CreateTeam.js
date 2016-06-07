@@ -35,7 +35,7 @@ class CreateTeam extends Component {
         errorMessages: "Missing information"
       })
     } else {
-      fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
+      fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

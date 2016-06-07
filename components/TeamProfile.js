@@ -67,7 +67,7 @@ class TeamProfile extends Component {
   }
 
   getTeamProfile() {
-    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team[0].id, {
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team[0].id, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -77,11 +77,13 @@ class TeamProfile extends Component {
     .then((response) => response.json())
     .then((response) => {
       if (response.error) {
+
         // this is incorrect credentials
         this.setState({
           errorMessages: response.errorMessages
         })
       }else{
+        console.log(response)
         this.setState({
           userInfo: response.player
         });
@@ -114,16 +116,6 @@ class TeamProfile extends Component {
   log(){
     // console.log("*********** this props ***************")
     // console.log(this.props)
-    //
-    // console.log("*********** user info ***************")
-    // console.log(this.props.userInfo)
-    //
-    // console.log("*********** team id  ***************")
-    // console.log(this.props.userInfo.teams[0].id)
-    //
-    // console.log("*********** state ***************")
-    // console.log(this.state.userInfo.team)
-    // console.log(this.state.userInfo.team.name)
   }
 
   render() {
