@@ -115,7 +115,6 @@ class JoinTeam extends Component {
       <View style={styles.container}>
         <View>
           <Text> Join a team! </Text>
-
           <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Log!
@@ -125,7 +124,6 @@ class JoinTeam extends Component {
             dataSource={this.state.dataSource}
             renderRow={this.renderTeam.bind(this)}
           />
-
         </View>
       </View>
     );

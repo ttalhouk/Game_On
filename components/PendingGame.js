@@ -5,7 +5,8 @@ import {
   TabBarIOS,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView,
 } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -62,7 +63,11 @@ class PendingGame extends Component {
   constructor(props){
     super(props);
     this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
       userInfo: {},
+      loading: true,
     }
   }
 
@@ -71,11 +76,23 @@ class PendingGame extends Component {
   }
 
   componentWillMount(){
-
+    this.getPendingGame();
+    // console.log("*********** this props in componentWillMount ***************")
+    // console.log(this.props)
+    this.setState({
+      // userInfo: this.props.userInfo,
+      dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
+    });
   }
 
   getPendingGame() {
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/play', {
+    // console.log("*********** this props in getPendingGame ***************")
+    // console.log(this.props)
+
+    console.log("*********** this state in getPendingGame ***************")
+    console.log(this.state)
+
+    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/play', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -84,7 +101,7 @@ class PendingGame extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
-
+      console.log("************* response from fetch *****************")
       console.log(response)
 
       if (response.error) {
@@ -94,15 +111,47 @@ class PendingGame extends Component {
         })
       }else{
         this.setState({
-          userInfo: response.player
+          userInfo: response.player,
+          dataSource: this.state.dataSource.cloneWithRows(response.games),
+          loading: false,
         });
       }
     });
   }
 
-  render() {
+  renderTeam(game){
+    console.log("************* this state *****************")
+    console.log(this.state)
     return (
       <View style={styles.container}>
+        <TouchableHighlight style={styles.button}>
+          <Text style={styles.buttonText}>{game.home_team.name}</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+          <Text>LOADING!</Text>
+      </View>
+    )
+  }
+
+  render() {
+    if (this.state.loading) {
+      return this.renderLoadingView();
+    }
+
+    return (
+      <View style={styles.container}>
+        <View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderTeam.bind(this)}
+        />
+        </View>
       <View style={styles.bottomContainer}>
         <Text style={styles.text}>Join Pending Game</Text>
         </View>
