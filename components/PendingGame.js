@@ -127,6 +127,11 @@ class PendingGame extends Component {
         <TouchableHighlight style={styles.button}>
           <Text style={styles.buttonText}>{game.home_team.name}</Text>
         </TouchableHighlight>
+        <View style={styles.welcome}>
+          <Text>Address: {game.address}</Text>
+          <Text>City: {game.city}, Zip code: {game.zip_code}</Text>
+          <Text>Game time: {game.start_time}</Text>
+        </View>
       </View>
     )
   }
