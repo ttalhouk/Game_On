@@ -22,6 +22,8 @@ class JoinTeam extends Component {
   }
 
   getAllTeamList() {
+    console.log("PROPS MOTHA FUCKA ************")
+    console.log(this.props)
     fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
       method: 'GET',
       headers: {
@@ -33,10 +35,13 @@ class JoinTeam extends Component {
     .then((response) => {
       if (response.error) {
         // this is incorrect credentials
+        console.log("************** response with error**************")
+        console.log(response)
         this.setState({
           errorMessages: response.errorMessages
         })
       }else{
+        console.log("************** response **************")
         console.log(response)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(response.team)
@@ -46,6 +51,7 @@ class JoinTeam extends Component {
   }
 
   sendJoinTeamRequest(teamID) {
+
     fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+teamID+'/join', {
       method: 'PATCH',
       headers: {
@@ -106,8 +112,8 @@ class JoinTeam extends Component {
   render() {
 
     return (
-      <View>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <View>
           <Text> Join a team! </Text>
 
           <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
