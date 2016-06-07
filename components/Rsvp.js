@@ -15,9 +15,12 @@ import {
 class Rsvp extends Component {
   constructor(props) {
     super(props);
-    this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
-      dataSource: this.ds.cloneWithRows([{name: 'Chunyuasdfasd vs. Spencer 10/31 @ 5:45PM'}, {name: 'Spencer vs. Chunyu 10/31 @ 5:45PM'}]),
+       userInfo: {},
+       loading: true,
+       dataSource: new ListView.DataSource({
+         rowHasChanged: (row1, row2) => row1 !== row2
+       }),
     };
   }
 
@@ -25,38 +28,88 @@ class Rsvp extends Component {
    console.log(this.props)
  }
 
-  renderRow(rowData) {
+ getPendingRsvp() {
+   console.log("************* before fetch **************")
+
+   console.log("*********** this.prop **************")
+   console.log(this.prop)
+   console.log("************* this.state *************")
+   console.log(this.state)
+
+
+  //  fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/rsvps', {
+  //    method: 'GET',
+  //    headers: {
+  //      'Accept': 'application/json',
+  //      'Content-Type': 'application/json',
+  //    },
+  //  })
+  //  .then((response) => response.json())
+  //  .then((response) => {
+  //    console.log("******** get pending rsvp response ***************")
+  //    console.log(response)
+  //    if (response.error) {
+  //      // this is incorrect credentials
+  //      this.setState({
+  //        errorMessages: response.errorMessages
+  //      })
+  //    }else{
+  //      this.setState({
+  //        gameInfo: response.games,
+  //        dataSource: this.state.dataSource.cloneWithRows(response.games),
+  //        loading: false,
+  //      });
+  //    }
+  //  });
+ }
+
+ componentWillMount(){
+   this.getPendingRsvp();
+  //  this.setState({
+  //    dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
+  //  });
+ }
+
+  renderRsvp(rowData) {
     return (
       <View style={styles.requestRow}>
-          <Text style={styles.requestInfo}>{rowData.name}</Text>
-              <TouchableHighlight onPress={this.log.bind(this)} style={styles.acceptButton}>
-                <Text>
-                  Accept
-                </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={this.log.bind(this)} style={styles.declineButton}>
-                <Text>
-                  Decline
-                </Text>
-              </TouchableHighlight>
+        <Text style={styles.requestInfo}>{rowData.name}</Text>
+        <TouchableHighlight onPress={this.log.bind(this)} style={styles.acceptButton}>
+          <Text>
+            Accept
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.log.bind(this)} style={styles.declineButton}>
+          <Text>
+            Decline
+          </Text>
+        </TouchableHighlight>
       </View>
     )
  }
 
+ renderLoadingView() {
+   return (
+     <View style={styles.container}>
+         <Text>LOADING!</Text>
+     </View>
+   )
+ }
 
   render() {
-    // var numbers = ['Request1','Request2','Request3','Request4','Request5','Request6'];
+    if (this.state.loading) {
+      return this.renderLoadingView();
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Game Requests
         </Text>
         <ScrollView style={styles.contentContainer} >
-
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={this.renderRow.bind(this)} />
-
+            renderRsvp={this.renderRsvp.bind(this)} />
         </ScrollView>
       </View>
     )}
