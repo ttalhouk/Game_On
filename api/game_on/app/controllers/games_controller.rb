@@ -93,8 +93,11 @@ class GamesController < ApplicationController
     p @team
 
     remove_old_games #not tested
+    @games = @team.home_games.to_a.reject!{|game| game.away_team_id == nil}
+    @games.concat(@team.away_games.to_a)
 
-    @games = Game.where("away_team_id is not null AND start_time > ? AND away_team_id = ? OR home_team_id = ?", Time.now, @team.id, @team.id)
+
+    # @games = Game.where("away_team_id IS NOT ? AND start_time > ? AND away_team_id = ? OR home_team_id = ?", nil, Time.now, @team.id, @team.id)
 
     @games.map do |game|
       {

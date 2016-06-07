@@ -76,7 +76,6 @@ class Team extends Component {
   }
 
   renderTeam(team){
-    console.log("IN RENDER TEAM")
     return (
       <View style={styles.container}>
         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
@@ -87,7 +86,6 @@ class Team extends Component {
   }
 
   goToTeamProfile() {
-    console.log("IN TEAM PROFILE ")
     this.props.navigator.push({
       name: 'team profile',
       passProps: this.props.userInfo,

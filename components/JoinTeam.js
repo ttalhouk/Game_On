@@ -91,12 +91,6 @@ class JoinTeam extends Component {
   }
 
   log() {
-      console.log("********   state  **********")
-    console.log(this.state)
-      console.log("********  props  **********")
-    console.log(this.props)
-    console.log("****routes****")
-    console.log(this.props.navigator.getCurrentRoutes())
   }
 
   renderTeam(team){

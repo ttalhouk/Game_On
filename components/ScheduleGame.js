@@ -120,7 +120,12 @@ var ScheduleGame = React.createClass({
   },
 
   scheduleGame: function(){
-    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/games', {
+    console.log("******************** this.props.userInfo **************")
+    console.log(this.props.userInfo)
+
+    console.log("******************** this.props.userInfo.team **************")
+    console.log(this.props.userInfo.team)
+    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/games', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
