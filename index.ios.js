@@ -44,7 +44,7 @@ class GameOn extends Component {
       return <ScheduleGame navigator={navigator} userInfo={route.passProps} />
     }
     if (route.name == 'team profile') {
-      return <TeamProfile navigator={navigator} userInfo={route.passProps} />
+      return <TeamProfile navigator={navigator} userInfo={route.passProps} clickedTeam={route.clickedTeam} />
     }
     if (route.name == 'pending game') {
       return <PendingGame navigator={navigator} userInfo={route.passProps} />

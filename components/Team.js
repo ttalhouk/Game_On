@@ -78,16 +78,17 @@ class Team extends Component {
   renderTeam(team){
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
+        <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
           <Text style={styles.text}>{team.name}</Text>
         </TouchableHighlight>
       </View>
     )
   }
 
-  goToTeamProfile() {
+  goToTeamProfile(team) {
     this.props.navigator.push({
       name: 'team profile',
+      clickedTeam: team, 
       passProps: this.props.userInfo,
     })
   }
@@ -118,6 +119,7 @@ class Team extends Component {
 
   render() {
 
+    // Logic for showing teams vs defaulting to "join team!"
     let playerHasTeam = (this.props.userInfo.team.length == 0) ?
 
     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
