@@ -14,6 +14,7 @@ import Team from './Team';
 import Game from './Games';
 import Rsvp from './Rsvp';
 import Setting from './Settings';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class Home extends Component {
   constructor(props){
@@ -29,24 +30,18 @@ class Home extends Component {
     }
   }
   componentDidMount(){
-    console.log(this.props)
   }
 
-
-
   render() {
-    console.log("***********HOME.JS**************")
-    console.log(this.props)
     return (
       <TabBarIOS
         unselectedTintColor="gray"
         tintColor="blue"
         barTintColor="lightgray"
         selectedTab={this.state.selectedTab}>
-          <TabBarIOS.Item
-            icon={require('../imgs/home4-s.png')}
-            style={styles.icon}
-            renderAsOriginal
+          <Icon.TabBarItemIOS
+            iconName="ios-people-outline"
+            selectedIconName="ios-people"
             title="Team"
             selected={this.state.selectedTab === 'team'}
             onPress={() => {
@@ -55,13 +50,12 @@ class Home extends Component {
               });
             }}>
           <Team navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'games'}
-          icon={require('../imgs/games4.png')}
-          style={styles.icon}
-          renderAsOriginal
+          iconName="ios-basketball-outline"
+          selectedIconName="ios-basketball"
           title="Games"
           onPress={() => {
             this.setState({
@@ -69,13 +63,12 @@ class Home extends Component {
             });
           }}>
           <Game navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'rsvp'}
-          icon={require('../imgs/rsvp2.png')}
-          style={styles.icon}
-          renderAsOriginal
+          iconName="ios-mail-outline"
+          selectedIconName="ios-mail"
           title="RSVP"
           onPress={() => {
             this.setState({
@@ -83,13 +76,12 @@ class Home extends Component {
             });
           }}>
           <Rsvp navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'settings'}
-          icon={require('../imgs/settings2.png')}
-          style={styles.icon}
-          renderAsOriginal
+          iconName="ios-settings-outline"
+          selectedIconName="ios-settings"
           title="Settings"
           onPress={() => {
             this.setState({
@@ -97,7 +89,7 @@ class Home extends Component {
             });
           }}>
           <Setting navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
       </TabBarIOS>
       )
   }

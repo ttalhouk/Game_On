@@ -66,8 +66,9 @@ class Game extends Component {
 
 
   getGamesList(){
+    console.log()
     // takes the users input and tries to log them in
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team[0].id+'/games', {
+    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team[0].id+'/games', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -76,6 +77,9 @@ class Game extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
+
+      console.log(response)
+
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(response.player.games),
         loading: false
