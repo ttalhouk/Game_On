@@ -59,8 +59,6 @@ class Login extends Component {
     this.props.navigator.pop()
   }
 
-
-
   render() {
     return (
       <View style={styles.container}>
@@ -174,7 +172,8 @@ const styles = StyleSheet.create({
     padding:10,
     textAlign: 'center',
     backgroundColor:'#005EFB',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    color: 'white'
   },
 });
 AppRegistry.registerComponent('Login', () => Login);

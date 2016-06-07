@@ -93,10 +93,24 @@ class TeamProfile extends Component {
     this.getTeamProfile();
   }
 
+  goToScheduleGame(){
+    this.props.navigator.push({
+      name: 'schedule game',
+      passProps: this.state.userInfo
+    });
+  }
+
+  goToPendingGame(){
+    this.props.navigator.push({
+      name: 'pending game',
+      passProps: this.state.userInfo
+    });
+  }
+
   back(){
     this.props.navigator.pop();
   }
-  
+
   log(){
     // console.log("*********** this props ***************")
     // console.log(this.props)
@@ -149,10 +163,10 @@ class TeamProfile extends Component {
           {roster.map(function(player) {
             return <Text key={roster.indexOf(player)} style={styles.text}>{roster.indexOf(player)+ 1}: {player}</Text>
           })}
-          <TouchableHighlight style={styles.button} onPress={this.log.bind(this)}>
+          <TouchableHighlight style={styles.button} onPress={this.goToScheduleGame.bind(this)}>
             <Text style={styles.buttonText}>Make Game</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this.log.bind(this)}>
+          <TouchableHighlight style={styles.button} onPress={this.goToPendingGame.bind(this)}>
             <Text style={styles.buttonText}>Join Game</Text>
           </TouchableHighlight>
       </View>
