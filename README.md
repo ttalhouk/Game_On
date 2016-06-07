@@ -26,4 +26,4 @@ slalexander, shaun-sweet, billdevcode, ttalhouk
 
 #Wireframe
 
-[wireframe]: ./imgs/game_on.gif  "Wireframe"
+![wireframe]:(/imgs/game_on.gif)
