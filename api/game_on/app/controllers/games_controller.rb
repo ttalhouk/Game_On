@@ -10,7 +10,7 @@ class GamesController < ApplicationController
     p @team
     games = all_games
     response_hash = {
-        player:{
+      player:{
         info: @player.as_json,
         team: @team.as_json,
         games: games.as_json
