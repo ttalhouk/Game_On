@@ -67,7 +67,9 @@ class TeamProfile extends Component {
   }
 
   getTeamProfile() {
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id, {
+    console.log("TEAM PROFILE PROPS ******************")
+    console.log(this.props)
+    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team[0].id, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
