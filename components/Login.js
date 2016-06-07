@@ -110,6 +110,8 @@ class Login extends Component {
 }
 
 
+
+
 const styles = StyleSheet.create({
   backgroundImage:{
     flex: 1,
@@ -148,7 +150,6 @@ const styles = StyleSheet.create({
   footer:{
     height:50,
     alignSelf:'stretch',
-
     backgroundColor:'#005EFB'
   },
   input: {
