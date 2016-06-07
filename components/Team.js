@@ -26,19 +26,13 @@ class Team extends Component {
   back(){
     console.log(this.state)
   }
-
+  
   renderTeam(team){
     return (
-      <View style={styles.container}>
-<<<<<<< HEAD
+      <View style={styles.container}>git stat
           <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
             <Text style={styles.buttonText}>{team.name}</Text>
           </TouchableHighlight>
-=======
-        <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
-          <Text style={styles.text}>{team.name}</Text>
-        </TouchableHighlight>
->>>>>>> 2b51468c7525ce230890e8313f9eec31584a61c6
       </View>
     )
   }
