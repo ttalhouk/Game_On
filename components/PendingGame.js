@@ -84,6 +84,7 @@ class PendingGame extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
+
       console.log(response)
 
       if (response.error) {
@@ -101,8 +102,10 @@ class PendingGame extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Join Pending Game</Text>
+      <View style={styles.container}>
+      <View style={styles.bottomContainer}>
+        <Text style={styles.text}>Join Pending Game</Text>
+        </View>
       </View>
     )
   }

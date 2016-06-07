@@ -38,6 +38,13 @@ class Setting extends Component {
     console.log(this.state)
   }
 
+  goToPendingGame(){
+    this.props.navigator.push({
+      name: 'pending game',
+      passProps: this.state.userInfo
+    });
+  }
+
   componentWillMount(){
     this.setState({
       userInfo: this.props.userInfo
@@ -50,6 +57,12 @@ class Setting extends Component {
       <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>
           BUGS
+        </Text>
+      </TouchableHighlight>
+      
+      <TouchableHighlight onPress={this.goToPendingGame.bind(this)} style={styles.button}>
+        <Text style={styles.buttonText}>
+          play pending games
         </Text>
       </TouchableHighlight>
 
