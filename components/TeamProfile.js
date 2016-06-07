@@ -77,11 +77,13 @@ class TeamProfile extends Component {
     .then((response) => response.json())
     .then((response) => {
       if (response.error) {
+
         // this is incorrect credentials
         this.setState({
           errorMessages: response.errorMessages
         })
       }else{
+        console.log(response)
         this.setState({
           userInfo: response.player
         });
