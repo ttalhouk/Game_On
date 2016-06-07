@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module GameOn
   class Application < Rails::Application
+    config.autoload_paths << Rails.root.join('lib')
     config.middleware.insert_before 'Rack::Runtime', 'Rack::Cors' do allow do
         origins 'http://localhost:9000'
         resource '*',
