@@ -24,8 +24,8 @@ var styles = StyleSheet.create({
   }
 })
 
-import Icon from 'react-native-vector-icons/Ionicons';
-const myIcon = (<Icon name="ios-cloud-upload-outline" size={30} color="#900" />)
+import Icon from 'react-native-vector-icons/FontAwesome';
+const myIcon = (<Icon name="users" size={30} color="white" />)
 
 class Setting extends Component {
   constructor(props){
