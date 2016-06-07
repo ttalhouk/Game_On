@@ -4,4 +4,5 @@ class Game < ActiveRecord::Base
   has_many :rsvps, dependent: :destroy
 
   validates :start_time, :address, :city, :zip_code, :team_size, presence: true
+
 end

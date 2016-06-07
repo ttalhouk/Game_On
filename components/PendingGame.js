@@ -35,8 +35,6 @@ var styles = StyleSheet.create({
     padding: 5
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
     margin: 10,
   },
   instructions: {
@@ -89,10 +87,7 @@ class PendingGame extends Component {
     // console.log("*********** this props in getPendingGame ***************")
     // console.log(this.props)
 
-    console.log("*********** this state in getPendingGame ***************")
-    console.log(this.state)
-
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/play', {
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/play', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -120,8 +115,8 @@ class PendingGame extends Component {
   }
 
   renderTeam(game){
-    console.log("************* this state *****************")
-    console.log(this.state)
+    console.log("************* this props *****************")
+    console.log(this.props)
     return (
       <View style={styles.container}>
         <TouchableHighlight style={styles.button}>
