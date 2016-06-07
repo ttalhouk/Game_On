@@ -21,4 +21,12 @@ module GameUpdater
       zip_code: params[:zip_code].to_i
     )
   end
+
+  def self.add_team_to_game(game, team)
+      if @game.home_team_id.nil?
+        @game.update(home_team_id: @team.id)
+      elsif @game.away_team_id.nil?
+        @game.update(away_team_id: @team.id)
+      end
+  end
 end

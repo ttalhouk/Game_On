@@ -17,5 +17,4 @@ module RsvpMaker
     # rsvp_email = Email.new
     # rsvp_email.send_rsvp_email(team, game)
   end
-
 end

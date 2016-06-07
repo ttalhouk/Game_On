@@ -1,52 +1,48 @@
 class RsvpsController < ApplicationController
+  include GameUpdater
   before_action :set_player, only: [:index, :update, :destroy]
   before_action :set_team, only: [:update, :destroy]
   before_action :set_game, only: [:update, :destroy]
+
   def index
-    # @player = Player.find(params[:player_id])
     @rsvps = Rsvp.where(["player_id = ? AND responded = ?",@player.id, false])
+    rsvp_info = format_data(@rsvps)
     response_hash = {player:
       {
         info: @player.as_json,
-        open_rsvp: @rsvps.as_json
+        open_rsvp: rsvp_info
       }
     }
     render json: response_hash
   end
 
   def update
-    # @player = Player.find(params[:player_id])
-    # @team = Team.find(params[:team_id])
-    # @game = Game.find(params[:game_id])
-    @rsvp = Rsvp.find_by(
-      player_id:@player.id,
-      team_id:@team.id,
-      game_id:@game.id
-    )
+
+    # can I find it by params[:id]?
+    @rsvp = Rsvp.find(params[:id])
     @rsvp.update(responded: true)
     responses = Rsvp.where(["team_id = ? AND game_id = ? AND responded = ?", @team.id, @game.id, true]).count
     if responses <= @game.team_size
-      if @game.home_team_id.nil?
-        @game.update(home_team_id: @team.id)
-      elsif @game.away_team_id.nil?
-        @game.update(away_team_id: @team.id)
-      end
+      GameUpdater.add_team_to_game(@game, @team)
       remove_invites
     end
 
-    response_hash = {}
+    response_hash = {
+      player:{
+        info: @player.as_json,
+      }
+    }
     render json: response_hash
 
   end
 
   def destroy
-    # @player = Player.find(params[:player_id])
-    # @team = Team.find(params[:team_id])
-    # @game = Game.find(params[:game_id])
-
-    Rsvp.where(["player_id = ? AND game_id = ?", @player.id, @game.id]).destroy
-
-    response_hash = {}
+    Rsvp.where(["player_id = ? AND rsvp_id = ?", @player.id, params[:id]]).destroy
+    response_hash = {
+      player:{
+        info: @player.as_json,
+      }
+    }
     render json: response_hash
   end
 
@@ -58,7 +54,8 @@ class RsvpsController < ApplicationController
   end
 
   def set_team
-    @team = Team.find(params[:team_id])
+    rsvp = Rsvp.find(params[:id])
+    @team = Team.find(rsvp.team_id)
   end
 
   def set_player
@@ -66,6 +63,26 @@ class RsvpsController < ApplicationController
   end
 
   def set_game
-    @game = Game.find(params[:game_id])
+    rsvp = Rsvp.find(params[:id])
+    @game = Game.find(rsvp.game_id)
+  end
+
+  def format_data(rsvps)
+    data = []
+    rsvps.each do |rsvp|
+      game= Game.find(rsvp.game_id)
+      data << {
+        player_team: Team.find(rsvp.team_id).name,
+        address: game.address,
+        zip_code: game.zip_code,
+        city: game.city,
+        start_time: game.start_time.strftime('%I:%M %p %m/%d/%Y'),
+        rsvp_id: rsvp.id
+      }
+    end
+      p"********************* in helper method ********************"
+      p data
+      p"*************************************************************"
+      return data
   end
 end
