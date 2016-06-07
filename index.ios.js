@@ -16,6 +16,8 @@ import ScheduleGame from './components/ScheduleGame';
 import JoinTeam from './components/JoinTeam';
 import TeamProfile from './components/TeamProfile';
 import PendingGame from './components/PendingGame';
+GLOBAL = require('./utils/globals');
+
 
 class GameOn extends Component {
 
