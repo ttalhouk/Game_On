@@ -24,9 +24,6 @@ class Email
 
   def send_game_on_email(home_team, away_team, game)
     players = home_team.players.concat(away_team.players)
-
-    players = team.players
-    manager = Player.find(team.manager_id)
     players.each do |player|
       mail = SendGrid::Mail.new do |m|
         m.to = "#{player.email}"
