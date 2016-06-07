@@ -91,12 +91,6 @@ class JoinTeam extends Component {
   }
 
   log() {
-      console.log("********   state  **********")
-    console.log(this.state)
-      console.log("********  props  **********")
-    console.log(this.props)
-    console.log("****routes****")
-    console.log(this.props.navigator.getCurrentRoutes())
   }
 
   renderTeam(team){
@@ -115,7 +109,6 @@ class JoinTeam extends Component {
       <View style={styles.container}>
         <View>
           <Text> Join a team! </Text>
-
           <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Log!
@@ -125,7 +118,6 @@ class JoinTeam extends Component {
             dataSource={this.state.dataSource}
             renderRow={this.renderTeam.bind(this)}
           />
-
         </View>
       </View>
     );
