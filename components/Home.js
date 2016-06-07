@@ -29,14 +29,11 @@ class Home extends Component {
     }
   }
   componentDidMount(){
-    console.log(this.props)
   }
 
 
 
   render() {
-    console.log("***********HOME.JS**************")
-    console.log(this.props)
     return (
       <TabBarIOS
         unselectedTintColor="gray"
