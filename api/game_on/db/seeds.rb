@@ -79,3 +79,16 @@ Game.all.each do |game|
     away_team_id: random_id + 1
   )
 end
+
+
+
+15.times do
+  Game.create(
+    zip_code: [94101, 94105, 94110, 94115].sample,
+    city: Faker::Address.city,
+    team_size: 2,
+    start_time: "2016-06-14 15:32:26",
+    address:Faker::Address.street_address,
+    home_team_id: Team.all.sample.id
+    )
+end
