@@ -25,7 +25,7 @@ class Login extends Component {
 
   login(){
     // takes the users input and tries to log them in
-    fetch('https://97bf7fcb.ngrok.io/login/', {
+    fetch('https://54c7e287.ngrok.io/login/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
