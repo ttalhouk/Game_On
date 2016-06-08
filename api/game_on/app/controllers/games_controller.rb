@@ -96,9 +96,20 @@ class GamesController < ApplicationController
 
   def all_games
     p @team
+<<<<<<< HEAD
+
+    remove_old_games #not tested
+    @games = @team.home_games.to_a.reject!{|game| game.away_team_id == nil}
+    @games.concat(@team.away_games.to_a)
+
+
+    # @games = Game.where("away_team_id IS NOT ? AND start_time > ? AND away_team_id = ? OR home_team_id = ?", nil, Time.now, @team.id, @team.id)
+
+=======
     GameUpdater.remove_old_games #not tested
     @games = @team.home_games.to_a.reject!{|game| game.away_team_id == nil}
     @games.concat(@team.away_games.to_a)
+>>>>>>> f14bf2541112ceb61d428af311513271743ebf02
     @games.map do |game|
       {
         home_team: game.home_team.name,

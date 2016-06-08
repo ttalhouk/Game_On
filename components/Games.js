@@ -6,52 +6,13 @@ import {
   StyleSheet,
   TabBarIOS,
   Text,
+  Image,
   Navigator,
   TouchableHighlight,
   ListView,
   View
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#6600ff',
-    borderColor: '#6600ff',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  separator: {
-  height: 1,
-  backgroundColor: '#CCCCCC',
-  flexDirection: 'row',
-  alignSelf: 'stretch',
-},
-});
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -90,12 +51,13 @@ class Game extends Component {
 
   renderGame(game){
     return (
-      <View style={styles.container}>
-          <Text>{game.start_time}</Text>
-          <Text>{game.home_team} vs {game.away_team}</Text>
-          <Text>{game.address}</Text>
-          <Text>{game.city}, {game.zip_code}</Text>
-          <View style={styles.separator}></View>
+      <View style={styles.gameContainer}>
+        <View style={styles.formatGameInfo}>
+          <Text style={styles.gameInfo}>{game.start_time}</Text>
+          <Text style={styles.gameInfo}>{game.home_team} vs {game.away_team}</Text>
+          <Text style={styles.gameInfo}>{game.address}</Text>
+          <Text style={styles.gameInfo}>{game.city}, {game.zip_code}</Text>
+        </View>
       </View>
     )
   }
@@ -113,9 +75,9 @@ class Game extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
-          <Text>LOADING!</Text>
-      </View>
+        <View style={styles.loadingContainer}>
+            <Text>LOADING!</Text>
+        </View>
     )
   }
 
@@ -126,19 +88,92 @@ class Game extends Component {
 
     return (
       <View style={styles.container}>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-
-        <Text style={styles.buttonText}>
-          Back
+        <Text style={styles.welcome}>
+          Game Schedule
         </Text>
-      </TouchableHighlight>
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderGame}
-      />
+
+        <ListView
+          style= {styles.scroll}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderGame}
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#6600ff',
+    borderColor: '#6600ff',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 20,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  formatImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    marginTop:20
+  },
+  gameContainer: {
+    marginBottom:10,
+    backgroundColor:'#005EFB',
+    borderRadius:5,
+    padding:13
+  },
+  gameInfo: {
+    alignItems: 'center',
+    textAlign:'center',
+    fontWeight:'bold'
+  },
+  formatGameInfo: {
+    alignItems:'center'
+  },
+  loadingContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  scroll:{
+    flex:1
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#CCCCCC',
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+  },
+  welcome: {
+    fontSize: 45,
+    padding:10,
+    marginTop:20,
+    marginBottom: 10,
+    textAlign: 'center',
+    backgroundColor:'#005EFB',
+    fontWeight:'bold',
+    color:'white'
+  }
+});
 
 module.exports = Game;
