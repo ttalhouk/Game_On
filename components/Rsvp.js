@@ -30,7 +30,7 @@ class Rsvp extends Component {
  }
 
  getPendingRsvp() {
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps', {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps', {
      method: 'GET',
      headers: {
        'Accept': 'application/json',
@@ -66,9 +66,7 @@ class Rsvp extends Component {
  }
 
  acceptRsvp(rsvp) {
-   console.log("************* acceptRsvp rsvp ************")
-   console.log(rsvp)
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
        'Accept': 'application/json',
@@ -83,15 +81,15 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       this.setState({
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+       });
      }
    });
  }
 
  declineRsvp(rsvp) {
-   console.log("************* declineRsvp rsvp ************")
-   console.log(rsvp)
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',
@@ -106,7 +104,9 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       return this.setState({
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+       });
      }
    });
  }
