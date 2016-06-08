@@ -12,7 +12,7 @@ import {
     ActivityIndicatorIOS,
 } from 'react-native';
 
-
+// GLOBAL = require('../utils/globals');
 class Rsvp extends Component {
   constructor(props) {
     super(props);
@@ -25,12 +25,9 @@ class Rsvp extends Component {
     };
   }
 
-  log(){
-   console.log(this.props)
- }
 
  getPendingRsvp() {
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps', {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps', {
      method: 'GET',
      headers: {
        'Accept': 'application/json',
@@ -66,9 +63,7 @@ class Rsvp extends Component {
  }
 
  acceptRsvp(rsvp) {
-   console.log("************* acceptRsvp rsvp ************")
-   console.log(rsvp)
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
        'Accept': 'application/json',
@@ -89,9 +84,7 @@ class Rsvp extends Component {
  }
 
  declineRsvp(rsvp) {
-   console.log("************* declineRsvp rsvp ************")
-   console.log(rsvp)
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',
