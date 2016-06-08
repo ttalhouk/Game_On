@@ -3,9 +3,6 @@ module GameUpdater
   def self.remove_old_games
     p "I'm removing old games"
     Game.where("start_time < ?", Time.now).each {|game| game.destroy}
-    #   # could use .past?
-    #   # old_games = Game.all.keep_if {|game| game.past? }
-    #   # old_games.each { |game| game.destroy }
   end
 
   def self.setup_game_info(params, team)
