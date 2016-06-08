@@ -9,6 +9,7 @@ import {
   View,
   ScrollView,
   ListView,
+    ActivityIndicatorIOS,
 } from 'react-native';
 
 
@@ -132,9 +133,11 @@ class Rsvp extends Component {
 
  renderLoadingView() {
    return (
-     <View style={styles.container}>
-         <Text>LOADING!</Text>
-     </View>
+     <ActivityIndicatorIOS
+     animating={this.state.animating}
+     style={[styles.centering, {height: 500}]}
+     size="large"
+   />
    )
  }
 

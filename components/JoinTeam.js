@@ -8,6 +8,7 @@ import {
   ListView,
   TouchableHighlight,
   Navigator,
+    ActivityIndicatorIOS,
 } from 'react-native';
 
 class JoinTeam extends Component {
@@ -18,13 +19,11 @@ class JoinTeam extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       userInfo: {},
+      loading: true
     }
   }
 
   getAllTeamList() {
-    console.log("PROPS MOTHA FUCKA ************")
-    console.log(this.props)
-
     fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams', {
       method: 'GET',
       headers: {
@@ -36,16 +35,14 @@ class JoinTeam extends Component {
     .then((response) => {
       if (response.error) {
         // this is incorrect credentials
-        console.log("************** response with error**************")
-        console.log(response)
         this.setState({
-          errorMessages: response.errorMessages
+          errorMessages: response.errorMessages,
+
         })
       }else{
-        console.log("************** response **************")
-        console.log(response)
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(response.team)
+          dataSource: this.state.dataSource.cloneWithRows(response.team),
+          loading: false
         });
       }
     });
@@ -72,7 +69,8 @@ class JoinTeam extends Component {
         console.log(this.props.navigator.getCurrentRoutes())
 
         this.setState({
-          userInfo: response.player
+          userInfo: response.player,
+
         })
         this.props.navigator.push({
           name: 'home',
@@ -104,7 +102,21 @@ class JoinTeam extends Component {
     )
   }
 
+  renderLoadingView() {
+    return (
+      <ActivityIndicatorIOS
+      animating={this.state.animating}
+      style={[styles.centering, {height:500}]}
+      size="large"
+    />
+    )
+  }
+
   render() {
+
+    if (this.state.loading) {
+      return this.renderLoadingView();
+    }
 
     return (
       <View style={styles.container}>
