@@ -37,12 +37,12 @@ class Chat extends Component {
   }
 
   log(){
-    console.log(this.props)
+    console.log(this.state)
   }
 
 
   submit(){
-    teamChat.ref('/'+this.props.userInfo.team[0].id+'/messages').push({
+    teamChat.ref('/'+this.props.clickedTeam.id+'/messages').push({
       name: this.props.userInfo.info.name,
       msg: this.state.emit
     })
@@ -50,7 +50,7 @@ class Chat extends Component {
 
   componentDidMount(){
 
-    teamChat.ref('/'+this.props.userInfo.team[0].id+'/messages').on('value', (response) => {
+    teamChat.ref('/'+this.props.clickedTeam.id+'/messages').on('value', (response) => {
       var items = [];
       response.forEach((message) =>{
         items.push(message.val())

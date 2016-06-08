@@ -15,6 +15,7 @@ import ScheduleGame from './components/ScheduleGame';
 import JoinTeam from './components/JoinTeam';
 import TeamProfile from './components/TeamProfile';
 import PendingGame from './components/PendingGame';
+import Chat from './components/Chat';
 GLOBAL = require('./utils/globals');
 
 
@@ -45,6 +46,9 @@ class GameOn extends Component {
     }
     if (route.name == 'pending game') {
       return <PendingGame navigator={navigator} userInfo={route.passProps} />
+    }
+    if (route.name == 'chat') {
+        return <Chat navigator={navigator} userInfo={route.passProps} clickedTeam={route.clickedTeam} />
     }
 
 
