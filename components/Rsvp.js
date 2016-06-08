@@ -12,7 +12,6 @@ import {
     ActivityIndicatorIOS,
 } from 'react-native';
 
-// GLOBAL = require('../utils/globals');
 class Rsvp extends Component {
   constructor(props) {
     super(props);
