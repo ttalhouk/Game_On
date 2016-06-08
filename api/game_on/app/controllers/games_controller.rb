@@ -38,7 +38,23 @@ class GamesController < ApplicationController
     render json: response_hash
   end
 
+  def challenge
+    p params
+    @team = Team.find(params[:team_id])
+    @game = Game.find(params[:game_id])
+    RsvpMaker.make_rsvp(@team, @game)
+    RsvpMaker.email_rsvp(@team, @game)
+    response_hash =
+    {
+      player:{
+        info: @player.as_json,
+        team: @team.as_json,
+        game: @game.as_json
+      }
+    }
+    render json: response_hash
 
+  end
 
 
   def create
@@ -96,13 +112,13 @@ class GamesController < ApplicationController
 >>>>>>> f14bf2541112ceb61d428af311513271743ebf02
     @games.map do |game|
       {
-        home_team: Team.find(game.home_team_id).name,
-        away_team: Team.find(game.away_team_id).name,
+        home_team: game.home_team.name,
+        away_team: game.away_team.name,
         address: game.address,
         zip_code: game.zip_code,
         city: game.city,
         start_time: game.start_time.strftime('%I:%M %p %m/%d/%Y')
-      }
+    }
     end
   end
 end

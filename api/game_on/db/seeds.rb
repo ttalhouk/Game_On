@@ -92,3 +92,26 @@ end
     home_team_id: Team.all.sample.id
     )
 end
+
+
+skipper = Team.create(
+  name: "Fiery-Skipper",
+  sport_id: 1,
+  manager_id: 2,
+  city: "SF",
+  zip_code: 94101
+)
+
+skips = ["Talal","Shaun", "Bill", "Spencer", "Victoria", "Carlos", "Kelson", "David", "Renan", "Buck", "Kristal", "Arthi","Ryan","Elizabeth","Andrew", "Riley", "Mila"]
+skips_email = ["ttalhouk@gmail","shaun@shaunsweet","billyd2013@gmail.com"," slalexander92@gmail.com","",'cyberpolin@gmail.com','kgadams93@gmail.com',"  ruoyutao@gmail.com"," ryumemaru@yahoo.com", "buck9063@gmail.com","  kristal.lam24@gmail.com","aarthi.gurusami@gmail.com","wilkins.ryan@gmail.com", "eliz.marie.brown@gmail.com","","riley.kenyon@gmail.com","a.ll@comtechnics.by"]
+
+skips.each_with_index do |skip, idx|
+  player = Player.create(
+    name: skip,
+    password: "123",
+    email: skips_email[idx],
+    phone:"5555555555",
+    zip_code: "94087",
+    city: "SF")
+  player.teams << skipper
+end

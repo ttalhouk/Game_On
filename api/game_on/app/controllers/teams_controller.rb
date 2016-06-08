@@ -39,9 +39,7 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def create #using it
-    p params
-    # @player = Player.find(params[:player_id].to_i)
+  def create
     @team = @player.teams.new(
       name: params[:team][:name],
       sport_id: 1, #to implement for multiple sports
@@ -51,12 +49,12 @@ class TeamsController < ApplicationController
       )
     if @team.save
       @player.teams << @team
-      response_hash={player:
-        {info: @player.as_json,
-          team: @player.teams.as_json}}
-      p "*************************************************"
-      p response_hash
-      p "*************************************************"
+      response_hash = {
+        player:{
+          info: @player.as_json,
+          team: @player.teams.as_json
+        }
+      }
       render json: response_hash
     else
       response_hash = {error: true, errorMessages: @team.errors.full_messages.join(" | ")}
@@ -65,7 +63,6 @@ class TeamsController < ApplicationController
   end
 
   def edit
-    p params
     response_hash = {
       player:{
         info: @player.as_json,
@@ -74,16 +71,11 @@ class TeamsController < ApplicationController
       }
     }
     render json: response_hash
-
   end
 
   def join
-    p params
-
-    # @player = Player.find(params[:player_id])
     @team = Team.find(params[:team_id])
     @player.teams << @team
-
     response_hash = {
       player:{
         info:@player.as_json,
@@ -95,24 +87,20 @@ class TeamsController < ApplicationController
 
   def drop
     @player.teams.delete(@team)
-
     response_hash = {
       info:@player.as_json,
       team: @player.teams.as_json
     }
-
     render json: response_hash
   end
 
   def update
-
     @team = @player.teams.update(
       name: params[:team][:name],
       sport_id: 1, #to implement for multiple sports
       zip_code: params[:team][:zip_code].to_i,
       city: params[:team][:city],
     )
-
   end
 
   private
@@ -138,6 +126,7 @@ class TeamsController < ApplicationController
     games = Game.where("home_team_id IS NOT NULL AND home_team_id IS NOT ? AND away_team_id IS NULL", @team.id)
     games.each do |game|
       games_info << {
+        game_id: game.id,
         start_time: game.start_time.strftime('%I:%M %p %m/%d/%Y'),
         address: game.address,
         city: game.city,
