@@ -24,17 +24,18 @@ class Team extends Component {
  renderTeam(team){
    return (
      <View style={styles.container}>
-         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
+         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
            <Text style={styles.buttonText}>{team.name}</Text>
          </TouchableHighlight>
      </View>
    )
  }
 
- goToTeamProfile() {
+ goToTeamProfile(team) {
    this.props.navigator.push({
      name: 'team profile',
      passProps: this.props.userInfo,
+     clickedTeam: team
    })
  }
 
