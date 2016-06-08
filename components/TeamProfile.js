@@ -116,16 +116,6 @@ class TeamProfile extends Component {
   log(){
     // console.log("*********** this props ***************")
     // console.log(this.props)
-    //
-    // console.log("*********** user info ***************")
-    // console.log(this.props.userInfo)
-    //
-    // console.log("*********** team id  ***************")
-    // console.log(this.props.userInfo.teams[0].id)
-    //
-    // console.log("*********** state ***************")
-    // console.log(this.state.userInfo.team)
-    // console.log(this.state.userInfo.team.name)
   }
 
   render() {

@@ -24,6 +24,7 @@ class JoinTeam extends Component {
   getAllTeamList() {
     console.log("PROPS MOTHA FUCKA ************")
     console.log(this.props)
+
     fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams', {
       method: 'GET',
       headers: {
