@@ -23,7 +23,7 @@ class Email
   end
 
   def send_game_on_email(home_team, away_team, game)
-    players = home_team.players.concat(away_team.players)
+    players = home_team.players.to_a.concat(away_team.players.to_a)
     players.each do |player|
       mail = SendGrid::Mail.new do |m|
         m.to = "#{player.email}"
