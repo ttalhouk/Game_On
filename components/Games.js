@@ -9,7 +9,8 @@ import {
   Navigator,
   TouchableHighlight,
   ListView,
-  View
+  View,
+  ActivityIndicatorIOS,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -113,9 +114,11 @@ class Game extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
-          <Text>LOADING!</Text>
-      </View>
+      <ActivityIndicatorIOS
+      animating={this.state.animating}
+      style={[styles.centering, {height:500}]}
+      size="large"
+    />
     )
   }
 

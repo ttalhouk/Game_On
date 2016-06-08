@@ -42,7 +42,7 @@ class Home extends Component {
         <Icon.TabBarItemIOS
            iconName="ios-people-outline"
            selectedIconName="ios-people"
-           title="Team"
+           title="Teams"
             selected={this.state.selectedTab === 'team'}
             onPress={() => {
               this.setState({

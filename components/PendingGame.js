@@ -7,6 +7,7 @@ import {
   View,
   TouchableHighlight,
   ListView,
+  ActivityIndicatorIOS,
 } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -151,9 +152,11 @@ class PendingGame extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
-          <Text>LOADING!</Text>
-      </View>
+      <ActivityIndicatorIOS
+        animating={this.state.animating}
+        style={[styles.centering, {height: 500}]}
+        size="large"
+      />
     )
   }
 

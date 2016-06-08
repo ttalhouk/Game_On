@@ -5,7 +5,9 @@ import {
   TabBarIOS,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView,
+  LayoutAnimation,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -64,6 +66,10 @@ class TeamProfile extends Component {
     super(props);
     this.state = {
       userInfo: {},
+      loading: true,
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      }),
     }
   }
 
@@ -84,9 +90,10 @@ class TeamProfile extends Component {
           errorMessages: response.errorMessages
         })
       }else{
-        console.log(response)
         this.setState({
-          userInfo: response.player
+          userInfo: response.player,
+          dataSource: this.state.dataSource.cloneWithRows(response.player.roster),
+          loading: false,
         });
       }
     });
@@ -119,6 +126,14 @@ class TeamProfile extends Component {
     // console.log(this.props)
   }
 
+  renderRoster(player) {
+    return (
+      <View>
+      <Text style={styles.text}>{player}</Text>
+      </View>
+    )
+ }
+
   render() {
     var roster = this.state.userInfo.roster;
     if (this.state.userInfo.team && !this.state.userInfo.isManager) {
@@ -135,12 +150,15 @@ class TeamProfile extends Component {
             <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
             <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
             <Text style={styles.text}>Roster: </Text>
-            {roster.map(function(player) {
-              return <Text key={roster.indexOf(player)} style={styles.text}>{roster.indexOf(player)+ 1}: {player}</Text>
-            })}
+            <View>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderRoster.bind(this)} />
+              </View>
       </View>
   )} else if (this.state.userInfo.team && this.state.userInfo.isManager) {
     return (
+
       <View style={styles.container}>
       <View>
       <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
@@ -153,9 +171,11 @@ class TeamProfile extends Component {
           <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
           <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
           <Text style={styles.text}>Roster: </Text>
-          {roster.map(function(player) {
-            return <Text key={roster.indexOf(player)} style={styles.text}>{roster.indexOf(player)+ 1}: {player}</Text>
-          })}
+          <View>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRoster.bind(this)} />
+            </View>
           <TouchableHighlight style={styles.button} onPress={this.goToScheduleGame.bind(this)}>
             <Text style={styles.buttonText}>Make Game</Text>
           </TouchableHighlight>
