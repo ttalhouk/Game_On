@@ -75,13 +75,9 @@ class Game extends Component {
 
   renderLoadingView() {
     return (
-      <Image
-          source={require('../spencer/basketball.gif')}
-          style={styles.formatImage}>
         <View style={styles.loadingContainer}>
             <Text>LOADING!</Text>
         </View>
-      </Image>
     )
   }
 

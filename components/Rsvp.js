@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TabBarIOS,
   Text,
+  Image,
   TouchableHighlight,
   View,
   ScrollView,
@@ -132,9 +133,13 @@ class Rsvp extends Component {
 
  renderLoadingView() {
    return (
-     <View style={styles.container}>
-         <Text style={styles.loadingContainer}>LOADING!</Text>
-     </View>
+     <Image
+         source={require('../spencer/basketball.gif')}
+         style={styles.formatImage}>
+       <View style={styles.container}>
+           <Text style={styles.loadingContainer}>LOADING!</Text>
+       </View>
+     </Image>
    )
  }
 
