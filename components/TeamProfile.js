@@ -7,6 +7,7 @@ import {
   View,
   TouchableHighlight
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 var styles = StyleSheet.create({
   description: {
