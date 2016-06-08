@@ -11,12 +11,12 @@ import {
   TextInput
 } from 'react-native';
 
+
 class CreateTeam extends Component {
   constructor(props){
     super(props);
     this.state = {
       name: "",
-      // sport: "",
       city: "",
       zip_code: "",
       userInfo: {},
@@ -44,7 +44,6 @@ class CreateTeam extends Component {
         body: JSON.stringify({
           team: {
             name: this.state.name,
-            // sport: this.state.sport,
             city: this.state.city,
             zip_code: this.state.zip_code,
           }
@@ -52,13 +51,13 @@ class CreateTeam extends Component {
       })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response)
         if (response.error) {
           // this is incorrect credentials
           this.setState({
             errorMessages: response.errorMessages
           })
         }else{
+
           this.props.navigator.push({
             name: 'home',
             passProps: response.player

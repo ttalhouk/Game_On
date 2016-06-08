@@ -19,6 +19,7 @@ import PendingGame from './components/PendingGame';
 GLOBAL = require('./utils/globals');
 
 
+
 class GameOn extends Component {
 
   renderScene(route, navigator){
@@ -52,11 +53,13 @@ class GameOn extends Component {
       return <PendingGame navigator={navigator} userInfo={route.passProps} />
     }
 
+
   }
 
   render() {
     return (
         <Navigator
+        // change this if i forget.  i changed it to stop having to log in while testing new features
           initialRoute={{name: 'root'}}
           renderScene={this.renderScene.bind(this)}
         />
@@ -64,7 +67,12 @@ class GameOn extends Component {
   }
 }
 
+
+
 const styles = StyleSheet.create({
+  chat: {
+
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

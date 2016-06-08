@@ -18,10 +18,12 @@ import Setting from './Settings';
 class Home extends Component {
   constructor(props){
     super(props)
+    console.log(firebase)
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
+      // change this default.  changed for working on chat
       selectedTab: 'team',
       userInfo: {
 
