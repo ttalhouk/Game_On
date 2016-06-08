@@ -18,11 +18,10 @@ class RsvpsController < ApplicationController
 
   def update
 
-    # can I find it by params[:id]?
     @rsvp = Rsvp.find(params[:id])
     @rsvp.update(responded: true)
     responses = Rsvp.where(["team_id = ? AND game_id = ? AND responded = ?", @team.id, @game.id, true]).count
-    if responses <= @game.team_size
+    if responses >= @game.team_size
       GameUpdater.add_team_to_game(@game, @team)
       remove_invites
     end
@@ -37,7 +36,7 @@ class RsvpsController < ApplicationController
   end
 
   def destroy
-    Rsvp.where(["player_id = ? AND rsvp_id = ?", @player.id, params[:id]]).destroy
+    Rsvp.find(params[:id]).destroy
     response_hash = {
       player:{
         info: @player.as_json,
@@ -80,9 +79,6 @@ class RsvpsController < ApplicationController
         rsvp_id: rsvp.id
       }
     end
-      p"********************* in helper method ********************"
-      p data
-      p"*************************************************************"
       return data
   end
 end

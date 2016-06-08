@@ -112,6 +112,6 @@ skips.each_with_index do |skip, idx|
     email: skips_email[idx],
     phone:"5555555555",
     zip_code: "94087",
-    city: "sunnyvale")
+    city: "SF")
   player.teams << skipper
 end
