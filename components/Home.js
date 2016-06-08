@@ -56,8 +56,8 @@ class Home extends Component {
 
         <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'games'}
-          iconName="ios-basketball-outline"
-          selectedIconName="ios-basketball"
+          iconName="ios-trophy-outline"
+          selectedIconName="ios-trophy"
           title="Games"
           onPress={() => {
             this.setState({
@@ -82,9 +82,9 @@ class Home extends Component {
 
         <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'settings'}
-          iconName="ios-settings-outline"
-          selectedIconName="ios-settings"
-          title="Settings"
+          iconName="ios-chatboxes-outline"
+          selectedIconName="ios-chatboxes"
+          title="Chat"
           onPress={() => {
             this.setState({
               selectedTab: 'settings',

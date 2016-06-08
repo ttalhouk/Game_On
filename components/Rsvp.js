@@ -66,8 +66,6 @@ class Rsvp extends Component {
  }
 
  acceptRsvp(rsvp) {
-   console.log("************* acceptRsvp rsvp ************")
-   console.log(rsvp)
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
@@ -83,14 +81,14 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       this.setState({
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+       });
      }
    });
  }
 
  declineRsvp(rsvp) {
-   console.log("************* declineRsvp rsvp ************")
-   console.log(rsvp)
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'DELETE',
      headers: {
@@ -106,7 +104,9 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       return this.setState({
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+       });
      }
    });
  }
