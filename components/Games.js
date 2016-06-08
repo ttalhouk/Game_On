@@ -56,8 +56,7 @@ class Game extends Component {
     game.away_team = game.away_team[0].toUpperCase() + game.away_team.substring(1);
 
     return (
-      <View>
-        <View style={styles.separator}>
+      <View style={[styles.innerWrapper, {backgroundColor:'#e5e5e5'}]}>
 
           <Text style={[styles.h1, styles.textCenter, {color: "red"}]}>{game.home_team} <Icon
           name="ios-basketball-outline"
@@ -69,7 +68,7 @@ class Game extends Component {
           <Text style={[styles.h4, styles.textCenter]}>{game.start_time}</Text>
           <Text style={[styles.h5, styles.textCenter]}>{game.address}</Text>
           <Text style={[styles.h5, styles.textCenter]}>{game.city}, {game.zip_code}</Text>
-        </View>
+
       </View>
     )
   }
@@ -100,13 +99,12 @@ class Game extends Component {
     }
 
     return (
-      <View style={styles.container}>
-      <View style={styles.header}>
-        <Icon
-        name="ios-arrow-back-outline"
-        size={20}/>
-        <Text style={[styles.p, styles.textCenter]}>Games</Text>
-      </View>
+      <View style={[styles.container, {backgroundColor: '#3b82fc'}]}>
+        <View style={styles.header}>
+        <View style={[{flex: 1}, {flexDirection: "column"}]}>
+          <Text style={[styles.p, styles.textCenter,{paddingTop: 20}]}>GAMES</Text>
+          </View>
+        </View>
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderGame}

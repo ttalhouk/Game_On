@@ -1,13 +1,8 @@
 
 module.exports = require('react-native').StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
   borderText: {
     borderWidth: 1,
     borderColor: "silver",
-
   },
   button: {
     height: 36,
@@ -25,8 +20,12 @@ module.exports = require('react-native').StyleSheet.create({
     color: 'white',
     alignSelf: 'center'
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#3B82FC',
+  },
   h1: {
-    fontSize: 32,
+    fontSize: 36,
     color: "#005EFB",
     fontWeight: "bold",
   },
@@ -41,16 +40,15 @@ module.exports = require('react-native').StyleSheet.create({
   },
   h4: {
     fontSize: 16,
-    color: "orange",
+    color: "black",
   },
   h5: {
     fontSize: 14,
-    color: "gray"
+    color: "#464646"
   },
   header: {
     backgroundColor: "lightgray",
-    height: 50,
-    marginTop: 20,
+    height: 44,
   },
   innerContainer: {
     flex: 1,
@@ -59,8 +57,11 @@ module.exports = require('react-native').StyleSheet.create({
   },
   innerWrapper: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#FFFFFF",
+    paddingTop: 43,
+    paddingBottom: 43,
+    marginTop:4,
+    marginBottom: 4,
+
   },
   instructions: {
     textAlign: 'center',
@@ -73,7 +74,7 @@ module.exports = require('react-native').StyleSheet.create({
   },
   separator: {
     borderBottomWidth: 1,
-    borderColor: "gray"
+    borderColor: "white"
   },
   textCenter: {
     textAlign: "center"
