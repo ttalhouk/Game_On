@@ -24,7 +24,6 @@ class Rsvp extends Component {
     };
   }
 
-
  getPendingRsvp() {
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps', {
      method: 'GET',
@@ -35,8 +34,6 @@ class Rsvp extends Component {
    })
    .then((response) => response.json())
    .then((response) => {
-     console.log("************* getPendingRsvp response **************")
-     console.log(response)
      if (response.error) {
        // this is incorrect credentials
        this.setState({
