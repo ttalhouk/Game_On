@@ -15,9 +15,12 @@ import {
 class Rsvp extends Component {
   constructor(props) {
     super(props);
-    this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
-      dataSource: this.ds.cloneWithRows([{name: 'Chunyuasdfasd vs. Spencer 10/31 @ 5:45PM'}, {name: 'Spencer vs. Chunyu 10/31 @ 5:45PM'}]),
+       userInfo: {},
+       loading: true,
+       dataSource: new ListView.DataSource({
+         rowHasChanged: (row1, row2) => row1 !== row2
+       }),
     };
   }
 
@@ -25,41 +28,141 @@ class Rsvp extends Component {
    console.log(this.props)
  }
 
-  renderRow(rowData) {
+ getPendingRsvp() {
+   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps', {
+     method: 'GET',
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+     },
+   })
+   .then((response) => response.json())
+   .then((response) => {
+     console.log("************* getPendingRsvp response **************")
+     console.log(response)
+     if (response.error) {
+       // this is incorrect credentials
+       this.setState({
+         errorMessages: response.errorMessages
+       })
+     } else if(response.player.open_rsvp.length === 0) {
+       this.setState({
+         noRsvp: "You have no pending RSVPs",
+         loading: false,
+       })
+     } else {
+       this.setState({
+         userInfo: response.player,
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+         loading: false,
+       });
+     }
+   });
+ }
+
+ componentWillMount(){
+   this.getPendingRsvp();
+ }
+
+ acceptRsvp(rsvp) {
+   console.log("************* acceptRsvp rsvp ************")
+   console.log(rsvp)
+   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+     method: 'PATCH',
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+     },
+   })
+   .then((response) => response.json())
+   .then((response) => {
+     if (response.error) {
+       // this is incorrect credentials
+       this.setState({
+         errorMessages: response.errorMessages
+       })
+     }else{
+       this.render();
+     }
+   });
+ }
+
+ declineRsvp(rsvp) {
+   console.log("************* declineRsvp rsvp ************")
+   console.log(rsvp)
+   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+     method: 'DELETE',
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+     },
+   })
+   .then((response) => response.json())
+   .then((response) => {
+     if (response.error) {
+       // this is incorrect credentials
+       this.setState({
+         errorMessages: response.errorMessages
+       })
+     }else{
+       this.render();
+     }
+   });
+ }
+
+  renderRsvp(rsvp) {
     return (
       <View style={styles.requestRow}>
-          <Text style={styles.requestInfo}>{rowData.name}</Text>
-              <TouchableHighlight onPress={this.log.bind(this)} style={styles.acceptButton}>
-                <Text>
-                  Accept
-                </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={this.log.bind(this)} style={styles.declineButton}>
-                <Text>
-                  Decline
-                </Text>
-              </TouchableHighlight>
+      <View>
+        <Text style={styles.requestInfo}>{rsvp.player_team}</Text>
+        <Text style={styles.requestInfo}>{rsvp.address}</Text>
+        <Text style={styles.requestInfo}>{rsvp.city}, {rsvp.zip_code}</Text>
+        <Text style={styles.requestInfo}>{rsvp.start_time}</Text>
+        </View>
+        <TouchableHighlight onPress={this.acceptRsvp.bind(this, rsvp)} style={styles.acceptButton}>
+          <Text>Accept</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this.declineRsvp.bind(this, rsvp)} style={styles.declineButton}>
+          <Text>Decline</Text>
+        </TouchableHighlight>
+
       </View>
     )
  }
 
+ renderLoadingView() {
+   return (
+     <View style={styles.container}>
+         <Text>LOADING!</Text>
+     </View>
+   )
+ }
 
   render() {
-    // var numbers = ['Request1','Request2','Request3','Request4','Request5','Request6'];
+    if (this.state.loading) {
+      return this.renderLoadingView();
+    } else if (this.state.noRsvp) { return (
+      <View style={styles.container}>
+      <View>
+        <Text style={styles.welcome}>Game Requests</Text>
+        </View>
+      <View><Text style={styles.text}>{this.state.noRsvp}</Text></View>
+      </View>
+    )} else {
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Game Requests
-        </Text>
-        <ScrollView style={styles.contentContainer} >
-
+      <View>
+        <Text style={styles.welcome}>Game Requests</Text>
+        </View>
+        <ScrollView>
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={this.renderRow.bind(this)} />
-
-        </ScrollView>
+            renderRow={this.renderRsvp.bind(this)} />
+</ScrollView>
       </View>
     )}
+}
 }
 
 var styles = StyleSheet.create({
@@ -102,8 +205,13 @@ var styles = StyleSheet.create({
     padding:10,
     marginTop:20,
     textAlign: 'center',
-    backgroundColor:'#005EFB',
+    backgroundColor:'silver',
     fontWeight:'bold'
+  },
+  text: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'black'
   },
 })
 
