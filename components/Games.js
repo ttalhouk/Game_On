@@ -78,7 +78,6 @@ class Game extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response)
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(response.player.games),
         loading: false
@@ -109,7 +108,6 @@ class Game extends Component {
   }
 
   back(){
-    console.log(this.state)
   }
 
   renderLoadingView() {
