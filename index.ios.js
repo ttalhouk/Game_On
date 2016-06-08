@@ -10,7 +10,6 @@ import {
 import Login from './components/Login';
 import Home from './components/Home';
 import Register from './components/Register';
-import Root from './components/Root';
 import CreateTeam from './components/CreateTeam';
 import ScheduleGame from './components/ScheduleGame';
 import JoinTeam from './components/JoinTeam';
@@ -23,9 +22,6 @@ GLOBAL = require('./utils/globals');
 class GameOn extends Component {
 
   renderScene(route, navigator){
-    if (route.name == "root") {
-      return <Root navigator={navigator} />
-    }
     if (route.name == "login") {
       return <Login navigator={navigator} userInfo={route.passProps} />
     }
@@ -35,11 +31,9 @@ class GameOn extends Component {
     if (route.name == "register") {
       return <Register navigator={navigator} />
     }
-
     if (route.name == "create team") {
       return <CreateTeam navigator={navigator} userInfo={route.passProps} />
     }
-
     if (route.name == "join team") {
       return <JoinTeam navigator={navigator} userInfo={route.passProps} />
     }
@@ -60,7 +54,7 @@ class GameOn extends Component {
     return (
         <Navigator
         // change this if i forget.  i changed it to stop having to log in while testing new features
-          initialRoute={{name: 'root'}}
+          initialRoute={{name: 'login'}}
           renderScene={this.renderScene.bind(this)}
         />
     );

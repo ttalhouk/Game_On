@@ -13,7 +13,7 @@ import {
 import Team from './Team';
 import Game from './Games';
 import Rsvp from './Rsvp';
-import Setting from './Settings';
+import Chat from './Chat';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class Home extends Component {
@@ -81,16 +81,16 @@ class Home extends Component {
         </Icon.TabBarItemIOS>
 
         <Icon.TabBarItemIOS
-          selected={this.state.selectedTab === 'settings'}
+          selected={this.state.selectedTab === 'chat'}
           iconName="ios-settings-outline"
           selectedIconName="ios-settings"
-          title="Settings"
+          title="Team Chat"
           onPress={() => {
             this.setState({
-              selectedTab: 'settings',
+              selectedTab: 'chat',
             });
           }}>
-          <Setting navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+          <Chat navigator={this.props.navigator} userInfo={this.props.userInfo}/>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
       )
