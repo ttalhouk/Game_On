@@ -78,7 +78,7 @@ class Game extends Component {
       <Image
           source={require('../spencer/basketball.gif')}
           style={styles.formatImage}>
-        <View style={styles.container}>
+        <View style={styles.loadingContainer}>
             <Text>LOADING!</Text>
         </View>
       </Image>
@@ -148,6 +148,11 @@ const styles = StyleSheet.create({
   },
   formatGameInfo: {
     alignItems:'center'
+  },
+  loadingContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
   },
   instructions: {
     textAlign: 'center',

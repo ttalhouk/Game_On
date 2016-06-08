@@ -133,7 +133,7 @@ class Rsvp extends Component {
  renderLoadingView() {
    return (
      <View style={styles.container}>
-         <Text>LOADING!</Text>
+         <Text style={styles.loadingContainer}>LOADING!</Text>
      </View>
    )
  }
@@ -178,6 +178,11 @@ var styles = StyleSheet.create({
     backgroundColor:'red',
     padding:5,
     marginRight: 5
+  },
+  loadingContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
   },
   requestRow: {
     flex:1,
