@@ -38,12 +38,19 @@ class Rsvp extends Component {
    })
    .then((response) => response.json())
    .then((response) => {
+     console.log("************* getPendingRsvp response **************")
+     console.log(response)
      if (response.error) {
        // this is incorrect credentials
        this.setState({
          errorMessages: response.errorMessages
        })
-     }else{
+     } else if(response.player.open_rsvp.length === 0) {
+       this.setState({
+         noRsvp: "You have no pending RSVPs",
+         loading: false,
+       })
+     } else {
        this.setState({
          userInfo: response.player,
          dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
@@ -60,7 +67,7 @@ class Rsvp extends Component {
  acceptRsvp(rsvp) {
    console.log("************* acceptRsvp rsvp ************")
    console.log(rsvp)
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps'+rsvp.rsvp_id, {
+   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
        'Accept': 'application/json',
@@ -81,9 +88,9 @@ class Rsvp extends Component {
  }
 
  declineRsvp(rsvp) {
-   console.log("************* acceptRsvp rsvp ************")
+   console.log("************* declineRsvp rsvp ************")
    console.log(rsvp)
-   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps'+rsvp.rsvp_id, {
+   fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',
@@ -115,7 +122,7 @@ class Rsvp extends Component {
         <TouchableHighlight onPress={this.acceptRsvp.bind(this, rsvp)} style={styles.acceptButton}>
           <Text>Accept</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={this.declineRsvp.bind(this)} style={styles.declineButton}>
+        <TouchableHighlight onPress={this.declineRsvp.bind(this, rsvp)} style={styles.declineButton}>
           <Text>Decline</Text>
         </TouchableHighlight>
 
@@ -134,7 +141,14 @@ class Rsvp extends Component {
   render() {
     if (this.state.loading) {
       return this.renderLoadingView();
-    } else {
+    } else if (this.state.noRsvp) { return (
+      <View style={styles.container}>
+      <View>
+        <Text style={styles.welcome}>Game Requests</Text>
+        </View>
+      <View><Text style={styles.text}>{this.state.noRsvp}</Text></View>
+      </View>
+    )} else {
 
     return (
       <View style={styles.container}>
@@ -193,6 +207,11 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor:'silver',
     fontWeight:'bold'
+  },
+  text: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'black'
   },
 })
 
