@@ -11,7 +11,6 @@ import {
   TextInput
 } from 'react-native';
 
-
 class CreateTeam extends Component {
   constructor(props){
     super(props);
@@ -57,7 +56,6 @@ class CreateTeam extends Component {
             errorMessages: response.errorMessages
           })
         }else{
-
           this.props.navigator.push({
             name: 'home',
             passProps: response.player
@@ -67,22 +65,13 @@ class CreateTeam extends Component {
     }
   }
 
-  back(){
-    this.props.navigator.pop();
-  }
-
   render() {
     return (
       <View style={styles.container}>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
 
-      <Text style={{color: 'red'}}>
-        {this.state.errorMessages }
-      </Text>
+        <Text style={{color: 'red'}}>
+          {this.state.errorMessages }
+        </Text>
 
         <TextInput
           style={styles.input}
@@ -96,11 +85,11 @@ class CreateTeam extends Component {
           onChangeText={(city) => {this.setState({city: city})}}
         />
 
-      <TextInput
-        style={styles.input}
-        placeholder='Zip code:'
-        onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
-      />
+        <TextInput
+          style={styles.input}
+          placeholder='Zip code:'
+          onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
+        />
 
       <TouchableHighlight onPress={this.createTeam.bind(this)} style={styles.button}>
         <Text style={styles.buttonText}>

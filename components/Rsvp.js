@@ -130,6 +130,7 @@ class Rsvp extends Component {
      size="large"
    />
    )
+
  }
 
   render() {
@@ -137,9 +138,6 @@ class Rsvp extends Component {
       return this.renderLoadingView();
     } else if (this.state.noRsvp || this.props.userInfo.team.length === 0) { return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.welcome}>RSVP</Text>
-        </View>
         <View style={styles.blank}>
           <Text style={styles.noGameText}>{this.state.noRsvp}</Text>
         </View>
@@ -147,9 +145,6 @@ class Rsvp extends Component {
     )} else {
     return (
       <View style={styles.container}>
-      <View>
-        <Text style={styles.welcome}>RSVP</Text>
-        </View>
         <ScrollView style={styles.scrollContainer}>
           <ListView
             dataSource={this.state.dataSource}
@@ -162,6 +157,7 @@ class Rsvp extends Component {
 
 var styles = StyleSheet.create({
   container: {
+    marginTop: 50,
     flex: 1,
     backgroundColor:'#E5E5E5',
   },

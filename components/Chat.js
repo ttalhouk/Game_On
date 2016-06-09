@@ -36,11 +36,6 @@ class Chat extends Component {
     }
   }
 
-  log(){
-    console.log(this.state)
-  }
-
-
   submit(){
     teamChat.ref('/'+this.props.clickedTeam.id+'/messages').push({
       name: this.props.userInfo.info.name,
@@ -79,17 +74,17 @@ class Chat extends Component {
 
   render() {
     if (this.state.noChatMessages == true) {
-      return <View style={{flex: 1}}>
+      return <View style={[{flex: 1}, {marginTop: 50}]}>
 
         <View style={{flex: .2}}>
           <TextInput
             style={styles.input}
-            placeholder='FirebaseChat: '
+            placeholder='Chat with your teamates: '
             onChangeText={(input) => {
               this.setState({
                 emit: input
               })
-              }}
+            }}
           />
           <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
@@ -100,7 +95,7 @@ class Chat extends Component {
       </View>
     }
     return (
-      <View style={{flex: 1}}>
+      <View style={[{flex: 1}, {marginTop: 50}]}>
         <ScrollView style={{flex: .8}}>
           <ListView
             style={styles.chat}
@@ -111,7 +106,7 @@ class Chat extends Component {
         <View style={{flex: .4}}>
           <TextInput
             style={styles.input}
-            placeholder='FirebaseChat: '
+            placeholder='Chat with your teamates: '
             onChangeText={(input) => {
               this.setState({
                 emit: input
@@ -121,11 +116,6 @@ class Chat extends Component {
           <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Submit
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Console Log
             </Text>
           </TouchableHighlight>
         </View>

@@ -72,10 +72,6 @@ class TeamProfile extends Component {
     });
   }
 
-  back(){
-    this.props.navigator.pop();
-  }
-
   renderRoster(player) {
     return (
       <View>
@@ -84,14 +80,11 @@ class TeamProfile extends Component {
     )
  }
 
- log(){
-   console.log(this.props)
- }
-
   render() {
     var roster = this.state.userInfo.roster;
     if (this.state.userInfo.team && !this.state.userInfo.isManager) {
     return (
+
       <View style={[styles.container, {backgroundColor: 'rgba(0,0,0,0.4)'}]}>
       <View style={styles.header}>
       <Text style={styles.headerText}>Team Profile</Text>
@@ -100,17 +93,20 @@ class TeamProfile extends Component {
           source={require('../imgs/Burning_Basketball.jpg')}
           style={[styles.backgroundImage, {resizeMode: "cover"}]}>
           <View>
+
             <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
             <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
             <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
             <Text style={styles.text}>Roster: </Text>
             </View>
             <View>
+
             <ListView
               dataSource={this.state.dataSource}
               renderRow={this.renderRoster.bind(this)} />
               </View>
               </Image>
+
       </View>
   )} else if (this.state.userInfo.team && this.state.userInfo.isManager) {
     return (
@@ -139,6 +135,7 @@ class TeamProfile extends Component {
       <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
       <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
       <Text style={styles.text}>Roster: </Text>
+
       </View>
     <View>
     <ListView
