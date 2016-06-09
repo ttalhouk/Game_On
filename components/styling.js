@@ -33,7 +33,8 @@ module.exports = require('react-native').StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: 'white',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
@@ -52,28 +53,31 @@ module.exports = require('react-native').StyleSheet.create({
     fontSize: 36,
     color: "#005EFB",
     fontWeight: "bold",
-
+    textAlign: "center"
   },
   h2: {
     fontSize: 24,
     fontStyle: "italic",
-
+    textAlign: "center"
   },
   h3: {
     fontSize: 19,
     color: "#FFA64C",
+    textAlign: "center"
   },
   h4: {
     fontSize: 16,
     color: "black",
+    textAlign: "center"
   },
   h5: {
     fontSize: 14,
-    color: "#464646"
+    color: "#464646",
+    textAlign: "center"
   },
   header: {
     backgroundColor: "lightgray",
-    height: 44,
+    // height: 44,
   },
   headerText: {
     fontSize: 15,
@@ -127,6 +131,7 @@ module.exports = require('react-native').StyleSheet.create({
   p: {
     fontSize: 12,
     color: "black",
+    textAlign: "center"
   },
   separator: {
     borderBottomWidth: 1,
@@ -134,8 +139,17 @@ module.exports = require('react-native').StyleSheet.create({
   },
   teamProfileButtons: {
     borderRadius: 0,
-    borderColor: "transparent",
-
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  teamProfileBox: {
+    flex: 1,
+    borderWidth: 2,
+    backgroundColor: 'black',
+    // backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    paddingTop: 150,
+    opacity: 0.8
   },
   text: {
     fontSize: 15,

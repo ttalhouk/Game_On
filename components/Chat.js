@@ -106,6 +106,7 @@ class Chat extends Component {
         <View style={{flex: .4}}>
           <TextInput
             style={styles.input}
+            placeholderTextColor = "silver"
             placeholder='Chat with your teamates: '
             onChangeText={(input) => {
               this.setState({
