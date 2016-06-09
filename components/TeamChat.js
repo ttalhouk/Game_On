@@ -29,7 +29,7 @@ class TeamChat extends Component {
    return (
      <View style={styles.container}>
          <TouchableHighlight style={styles.button} onPress={this.goToChat.bind(this, team)}>
-           <Text style={styles.buttonText}>{team.name}  <Icon
+           <Text style={styles.buttonText}>{team.name}    <Icon
              name="ios-arrow-forward"
              size={30}
              style={styles.icon}/>
