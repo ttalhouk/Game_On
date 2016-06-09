@@ -62,9 +62,7 @@ class Team extends Component {
         dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
       });
     }
-
   }
-
 
   render() {
 
@@ -76,7 +74,6 @@ class Team extends Component {
       </Text>
     </TouchableHighlight>
     :
-    
     <ListView
     dataSource={this.state.dataSource}
     renderRow={this.renderTeam.bind(this)}
