@@ -87,53 +87,83 @@ class TeamChat extends Component {
 }
 
 const styles = StyleSheet.create({
- buttonText: {
-   fontSize: 18,
-  //  color: 'white',
-  color: 'black',
-   alignSelf: 'center'
- },
- button: {
-   height: 36,
-   borderRadius: 8,
-   marginTop: 10,
-   alignSelf: 'stretch',
-   justifyContent: 'center',
-   padding: 5
- },
- bottomContainer: {
-   justifyContent: 'flex-end',
-   marginBottom: 60,
- },
- container: {
-   flex: 1,
- },
- description: {
-   fontSize: 40,
-   textAlign: 'center',
- },
- downButton: {
-   flex: 1,
- },
- list: {
-   height: 100
- },
- instructions: {
-   textAlign: 'center',
-   marginBottom: 5,
- },
- text: {
-   textAlign: 'center',
- },
- welcome: {
-   fontSize: 45,
-   padding:10,
-   marginTop:20,
-   textAlign: 'center',
-  //  backgroundColor:'#005EFB ',
-   fontWeight:'bold',
-   color:'white'
- }
+
+  buttonText: {
+    fontSize: 36,
+    fontWeight:'bold',
+    color: '#FFA64C',
+    alignSelf: 'center'
+  },
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode:'contain',
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#005EFB',
+    borderRadius: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    padding: 76,
+    margin: 5,
+    opacity:.95
+  },
+  topContainer: {
+    justifyContent: 'flex-start',
+    backgroundColor: '#FFA64C',
+    flexDirection:'row',
+    padding:10
+  },
+  container: {
+    flex: 1,
+    backgroundColor:'#E5E5E5'
+  },
+  createJoinButton: {
+    backgroundColor: '#005EFB',
+    borderRadius: 8,
+    padding:10
+  },
+  description: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  joinButtonText:{
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  // list: {
+  //   height: 100
+  // },
+  leftContainer: {
+    flex:1,
+    marginRight:5,
+    justifyContent:'center',
+    justifyContent:'space-around'
+  },
+  rightContainer: {
+    flex:1,
+    marginLeft:5,
+    justifyContent:'center',
+    justifyContent:'space-around'
+
+  },
+  teamBox:{
+    flex:1,
+    justifyContent:'flex-start'
+  },
+  welcome: {
+    fontSize: 18,
+    paddingTop:20,
+    padding:5,
+    color: 'black',
+    textAlign: 'center',
+    backgroundColor:'#D3D3D3',
+    fontWeight:'bold'
+  }
 })
 
 module.exports = TeamChat;
