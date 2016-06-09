@@ -36,11 +36,6 @@ class Chat extends Component {
     }
   }
 
-  log(){
-    console.log(this.state)
-  }
-
-
   submit(){
     teamChat.ref('/'+this.props.clickedTeam.id+'/messages').push({
       name: this.props.userInfo.info.name,
@@ -121,11 +116,6 @@ class Chat extends Component {
           <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
               Submit
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Console Log
             </Text>
           </TouchableHighlight>
         </View>
