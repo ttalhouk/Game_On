@@ -41,7 +41,7 @@ class Rsvp extends Component {
        })
      } else if(response.player.open_rsvp.length === 0) {
        this.setState({
-         noRsvp: "You have no pending RSVPs",
+         noRsvp: "You have no pending RSVPs.. Maybe you should poke the team captain to schedule one!",
          loading: false,
        })
      } else {
@@ -54,12 +54,14 @@ class Rsvp extends Component {
    });
  }
 
- componentWillMount(){
+ componentDidMount(){
    this.getPendingRsvp();
  }
 
  acceptRsvp(rsvp) {
-
+   this.setState({
+     loading: true
+   });
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
@@ -75,14 +77,20 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       this.setState({
+         userInfo: response.player,
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+         loading: false,
+       });
      }
    });
  }
 
  declineRsvp(rsvp) {
+   this.setState({
+     loading: true
+   });
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
-
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',
@@ -97,7 +105,11 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       this.setState({
+         userInfo: response.player,
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+         loading: false,
+       });
      }
    });
  }
@@ -151,7 +163,7 @@ class Rsvp extends Component {
         </ScrollView>
       </View>
     )}
-}
+  }
 }
 
 var styles = StyleSheet.create({
