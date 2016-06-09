@@ -94,9 +94,9 @@ class TeamProfile extends Component {
           style={[styles.backgroundImage, {resizeMode: "cover"}]}>
           <View style={styles.teamProfileBox}>
 
-            <Text style={[styles.h1, {fontSize: 60}]}>{this.state.userInfo.team.name}</Text>
+            <Text style={[styles.h1, {fontSize: 70}]}>{this.state.userInfo.team.name}</Text>
             <Text style={[styles.h2, {color: "orange"}]}>{this.state.userInfo.team.city}, {this.state.userInfo.team.zip_code}</Text>
-            <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
+            <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Team Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
             <Text style={[styles.h4, {fontWeight: "bold", color: "white"}]}>Roster: </Text>
             <ListView
               dataSource={this.state.dataSource}
@@ -116,9 +116,9 @@ class TeamProfile extends Component {
   source={require('../imgs/burning_basketball_desaturate.jpg')}
   style={[styles.backgroundImage, {resizeMode: "cover", flex: 1}]}>
       <View style={[styles.teamProfileBox]}>
-      <Text style={[styles.h1, {fontSize: 60}]}>{this.state.userInfo.team.name}</Text>
+      <Text style={[styles.h1, {fontSize: 70}]}>{this.state.userInfo.team.name}</Text>
       <Text style={[styles.h2, {color: "orange"}]}>{this.state.userInfo.team.city}, {this.state.userInfo.team.zip_code}</Text>
-      <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
+      <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Team Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
       <Text style={[styles.h4, {fontWeight: "bold", color: "white"}]}>Roster: </Text>
     <ListView
       dataSource={this.state.dataSource}
