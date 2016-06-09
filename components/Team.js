@@ -9,6 +9,7 @@ import {
  Navigator,
  TouchableHighlight
 } from 'react-native';
+
 class Team extends Component {
   constructor(props){
     super(props)
@@ -19,45 +20,57 @@ class Team extends Component {
       userInfo: {},
     }
   }
+
   back(){
     console.log(this.state)
   }
+
   renderTeam(team){
     return (
       <View>
-          <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
+          <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
             <Text style={styles.buttonText}>{team.name}</Text>
           </TouchableHighlight>
       </View>
     )
   }
-  goToTeamProfile() {
+
+  goToTeamProfile(team) {
     this.props.navigator.push({
       name: 'team profile',
       passProps: this.props.userInfo,
+      clickedTeam: team
     })
   }
+
   goToCreateTeamView() {
     this.props.navigator.push({
       name: "create team",
       passProps: this.props.userInfo,
     })
   }
+
   goToJoinTeamView() {
     this.props.navigator.push({
       name: "join team",
       passProps: this.props.userInfo,
     })
   }
+
   componentWillMount(){
     if (this.props.userInfo.team.length != 0) {
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
       });
     }
+
   }
+
+
   render() {
+
     let playerHasTeam = (this.props.userInfo.team.length == 0) ?
+
     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
       <Text style={styles.buttonText}>
         Join a team!
@@ -69,11 +82,14 @@ class Team extends Component {
     renderRow={this.renderTeam.bind(this)}
     style={styles.list}
           />
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Your Teams
         </Text>
+
+
         <View style={styles.topContainer}>
           <View style={styles.leftContainer}>
             <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.createJoinButton}>
@@ -82,6 +98,7 @@ class Team extends Component {
               </Text>
             </TouchableHighlight>
           </View>
+
           <View style={styles.rightContainer}>
             <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.createJoinButton}>
               <Text style={styles.joinButtonText}>
@@ -90,13 +107,18 @@ class Team extends Component {
             </TouchableHighlight>
             </View>
         </View>
+
         <View style={styles.teamBox}>
           {playerHasTeam}
         </View>
+
+
       </View>
     );
   }
+
 }
+
 const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
@@ -152,6 +174,7 @@ const styles = StyleSheet.create({
     marginLeft:5,
     justifyContent:'center',
     justifyContent:'space-around'
+
   },
   teamBox:{
     flex:1,
@@ -167,4 +190,5 @@ const styles = StyleSheet.create({
     fontWeight:'bold'
   }
 })
+
 module.exports = Team;
