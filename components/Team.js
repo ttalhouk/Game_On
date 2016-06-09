@@ -10,6 +10,9 @@ import {
  TouchableHighlight
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
+
 class Team extends Component {
  constructor(props){
    super(props)
@@ -87,9 +90,11 @@ class Team extends Component {
    let playerHasTeam = (this.props.userInfo.team.length == 0) ? this.renderNoTeams() : this.renderList();
    return (
      <View style={styles.container}>
-       <Text style={styles.welcome}>
+     <View style={styles.header}>
+       <Text style={styles.headerText}>
          Your Teams
        </Text>
+       </View>
 
        {playerHasTeam}
 
@@ -140,6 +145,16 @@ const styles = StyleSheet.create({
  },
  downButton: {
    flex: 1,
+ },
+ header: {
+   backgroundColor: "lightgray",
+   height: 44,
+ },
+ headerText: {
+   fontSize: 15,
+   fontWeight: "bold",
+   textAlign: 'center',
+   paddingTop: 20,
  },
  list: {
    height: 100

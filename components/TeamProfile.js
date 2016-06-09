@@ -8,10 +8,12 @@ import {
   TouchableHighlight,
   ListView,
   LayoutAnimation,
+  Image,
+
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
+const styles = require('../components/styling.js')
 
 class TeamProfile extends Component {
   constructor(props){
@@ -90,56 +92,61 @@ class TeamProfile extends Component {
     var roster = this.state.userInfo.roster;
     if (this.state.userInfo.team && !this.state.userInfo.isManager) {
     return (
-      <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
+      <View style={[styles.container, {backgroundColor: 'rgba(0,0,0,0.4)'}]}>
+      <View style={styles.header}>
+      <Text style={styles.headerText}>Team Profile</Text>
       </View>
+      <Image
+          source={require('../imgs/Burning_Basketball.jpg')}
+          style={[styles.backgroundImage, {resizeMode: "cover"}]}>
+          <View>
             <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
             <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
             <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
             <Text style={styles.text}>Roster: </Text>
+            </View>
             <View>
             <ListView
               dataSource={this.state.dataSource}
               renderRow={this.renderRoster.bind(this)} />
               </View>
+              </Image>
       </View>
   )} else if (this.state.userInfo.team && this.state.userInfo.isManager) {
     return (
 
-      <View style={styles.container}>
+  <View style={styles.container}>
+    <View style={styles.header}>
+      <Text style={styles.headerText}>Team Profile</Text>
+    </View>
+    <View style={[styles.container, {flexDirection: "row"}]}>
+      <View style={{flex: 1}}>
+        <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "blue"}]} onPress={this.goToScheduleGame.bind(this)}>
+          <Text style={styles.buttonText}>Make Game</Text>
+        </TouchableHighlight>
+      </View>
+      <View style={{flex: 1}}>
+        <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "orange"}]} onPress={this.goToPendingGame.bind(this)}>
+          <Text style={styles.buttonText}>Play Games</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+    <Image
+      source={require('../imgs/Burning_Basketball.jpg')}
+      style={[styles.backgroundImage, {resizeMode: "cover"}]}>
       <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          log
-        </Text>
-      </TouchableHighlight>
+      <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
+      <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
+      <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
+      <Text style={styles.text}>Roster: </Text>
       </View>
-          <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
-          <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
-          <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
-          <Text style={styles.text}>Roster: </Text>
-          <View>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRoster.bind(this)} />
-            </View>
-          <TouchableHighlight style={styles.button} onPress={this.goToScheduleGame.bind(this)}>
-            <Text style={styles.buttonText}>Make Game</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this.goToPendingGame.bind(this)}>
-            <Text style={styles.buttonText}>Play Games</Text>
-          </TouchableHighlight>
-      </View>
+    <View>
+    <ListView
+      dataSource={this.state.dataSource}
+      renderRow={this.renderRoster.bind(this)} />
+    </View>
+    </Image>
+  </View>
   )} else {
     return (
       <Text>loading...</Text>
@@ -149,53 +156,4 @@ class TeamProfile extends Component {
 
 }
 
-var styles = StyleSheet.create({
-  description: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'black',
-    marginTop: 50,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'lightblue',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#005EFB',
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 5
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  downButton: {
-    flex: 1,
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 70,
-  },
-  text: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'black'
-  },
-})
 module.exports = TeamProfile;

@@ -39,14 +39,17 @@ class Game extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(response.player.games),
-        loading: false
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      if (response.error) {
+        this.setState({
+          errorMessages: response.errorMessages,
+        })
+      } else {
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(response.player.games),
+          loading: false,
+        });
+      }
+    });
   }
 
   renderGame(game){
@@ -75,7 +78,15 @@ class Game extends Component {
     this.setState({
       userInfo: this.props.userInfo,
     });
-    this.getGamesList();
+
+
+    if (this.props.userInfo.team.length !== 0) {
+      this.getGamesList();
+    } else {
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   back(){
@@ -94,13 +105,24 @@ class Game extends Component {
   render() {
     if (this.state.loading) {
       return this.renderLoadingView();
-    }
+    } else if (this.props.userInfo.team.length === 0) {
+      return (
+        <View style={[styles.container, {backgroundColor: "#E5E5E5" }]}>
+          <View style={styles.header}>
+          <Text style={[styles.headerText, styles.textCenter,{paddingTop: 20}]}>GAMES</Text>
+          </View>
+        <View style={styles.blank}>
+          <Text style={styles.noGameText}>You have no pending games</Text>
+        </View>
+
+      </View>
+      )}
 
     return (
       <View style={[styles.container, {backgroundColor: '#3b82fc'}]}>
         <View style={styles.header}>
         <View style={[{flex: 1}, {flexDirection: "column"}]}>
-          <Text style={[styles.p, styles.textCenter,{paddingTop: 20}]}>GAMES</Text>
+          <Text style={[styles.headerText, styles.textCenter,{paddingTop: 20}]}>GAMES</Text>
           </View>
         </View>
       <ListView

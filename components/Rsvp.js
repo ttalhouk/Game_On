@@ -135,7 +135,7 @@ class Rsvp extends Component {
   render() {
     if (this.state.loading) {
       return this.renderLoadingView();
-    } else if (this.state.noRsvp) { return (
+    } else if (this.state.noRsvp || this.props.userInfo.team.length === 0) { return (
       <View style={styles.container}>
         <View>
           <Text style={styles.welcome}>RSVP</Text>
