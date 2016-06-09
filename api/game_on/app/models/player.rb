@@ -7,7 +7,7 @@ class Player < ActiveRecord::Base
 
   has_secure_password
 
-  validates :name, :email, :phone, :zip_code, :city, presence: true
+  validates :name, :email, :zip_code, presence: true
   validates :email, uniqueness: true
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 
