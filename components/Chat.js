@@ -11,14 +11,17 @@ import {
   ListView,
   ScrollView
 } from 'react-native';
+
 var firebase = require('firebase/app');
 var database = require('firebase/database');
+
 var config = {
   apiKey: require('../utils/globals').firebaseAPI,
   authDomain: "gameon-b2217.firebaseapp.com",
   databaseURL: "https://gameon-b2217.firebaseio.com",
   storageBucket: "gameon-b2217.appspot.com",
 };
+
 firebase.initializeApp(config);
 var teamChat = firebase.database();
 var Dimensions = require('Dimensions')
@@ -43,6 +46,8 @@ class Chat extends Component {
   }
 
   componentDidMount(){
+    console.log("*********** chat.js componentDidMount **************")
+    console.log(this.props.clickedTeam)
 
     teamChat.ref('/'+this.props.clickedTeam.id+'/messages').on('value', (response) => {
       var items = [];
