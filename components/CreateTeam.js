@@ -77,18 +77,21 @@ class CreateTeam extends Component {
 
             <TextInput
               style={styles.input}
+              placeholderTextColor = "silver"
               placeholder='Team name:'
               onChangeText={(name) => {this.setState({name: name})}}
             />
 
             <TextInput
               style={styles.input}
+              placeholderTextColor = "silver"
               placeholder='City:'
               onChangeText={(city) => {this.setState({city: city})}}
             />
 
             <TextInput
               style={styles.input}
+              placeholderTextColor = "silver"
               placeholder='Zip code:'
               onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
             />

@@ -7,8 +7,11 @@ import {
  View,
  ListView,
  Navigator,
- TouchableHighlight
+ TouchableHighlight,
+ Image,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class TeamChat extends Component {
  constructor(props){
@@ -22,10 +25,16 @@ class TeamChat extends Component {
  }
 
  renderTeam(team){
+   team.name = team.name[0].toUpperCase() + team.name.substring(1);
    return (
      <View style={styles.container}>
          <TouchableHighlight style={styles.button} onPress={this.goToChat.bind(this, team)}>
-           <Text style={styles.buttonText}>{team.name}</Text>
+           <Text style={styles.buttonText}>{team.name}
+           <Icon
+             name="ios-arrow-forward"
+             size={30}
+             style={styles.icon}/>
+           </Text>
          </TouchableHighlight>
      </View>
    )
@@ -108,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 76,
     margin: 5,
-    opacity:.95
+    opacity:.95,
   },
   topContainer: {
     justifyContent: 'flex-start',
@@ -129,6 +138,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     color: '#FFFFFF'
+  },
+  icon: {
+    justifyContent: 'space-around',
+    alignItems: "flex-end",
+    paddingRight: 100,
   },
   joinButtonText:{
     fontSize: 18,

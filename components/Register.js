@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 45,
     padding:10,
+    paddingTop: 60,
     textAlign: 'center',
     backgroundColor:'#005EFB',
     fontWeight:'bold',

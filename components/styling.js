@@ -133,6 +133,9 @@ module.exports = require('react-native').StyleSheet.create({
     color: "black",
     textAlign: "center"
   },
+  pageInstructions: {
+    
+  },
   separator: {
     borderBottomWidth: 1,
     borderColor: "white"
