@@ -9,7 +9,8 @@ import {
   View,
   TouchableHighlight,
   ListView,
-  ScrollView
+  ScrollView,
+  Image
 } from 'react-native';
 var firebase = require('firebase/app');
 var database = require('firebase/database');
@@ -64,7 +65,7 @@ class Chat extends Component {
   renderChat(item){
     return (
       <View style={styles.container}>
-          <Text>{item.name}</Text>
+          <Text style={[{fontWeight:'bold'}]}>{item.name}</Text>
           <Text>{item.msg}</Text>
           <View style={styles.separator}></View>
       </View>
@@ -73,50 +74,61 @@ class Chat extends Component {
 
   render() {
     if (this.state.noChatMessages == true) {
-      return <View style={[{flex: 1}, {marginTop: 50}]}>
-
-        <View style={{flex: .2}}>
-          <TextInput
-            style={styles.input}
-            placeholder='Chat with your teamates: '
-            onChangeText={(input) => {
-              this.setState({
-                emit: input
-              })
-            }}
-          />
-          <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Submit
+      return <View style={styles.container}>
+        <View style={[{flex: 1}, {marginTop: 50},{backgroundColor:'#E5E5E5'}]}>
+          <Image style={styles.backgroundImage} source={require('../imgs/lace_logo.png')}>
+            <Text>
+              There are no messages yet, maybe you should post one!
             </Text>
-          </TouchableHighlight>
+
+            <View style={{flex: .2}}>
+              <TextInput
+                style={styles.input}
+                placeholder='Chat with your teamates: '
+                onChangeText={(input) => {
+                  this.setState({
+                    emit: input
+                  })
+                }}
+              />
+              <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
+                <Text style={styles.buttonText}>
+                  Submit
+                </Text>
+              </TouchableHighlight>
+            </View>
+          </Image>
         </View>
       </View>
     }
     return (
-      <View style={[{flex: 1}, {marginTop: 50}]}>
-        <ScrollView style={{flex: .8}}>
-          <ListView
-            style={styles.chat}
-            dataSource={this.state.dataSource}
-            renderRow={this.renderChat.bind(this)}
-          />
-        </ScrollView>
-        <View style={{flex: .2}}>
-          <TextInput
-            style={styles.input}
-            placeholder='Chat with your teamates: '
-            onChangeText={(input) => {
-              this.setState({
-                emit: input
-              })
-            }}
-          />
-          <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Submit
-            </Text>
-          </TouchableHighlight>
+      <View style={styles.container}>
+        <View style={[{flex: 1},{marginTop:50}, {backgroundColor:'#E5E5E5'}]}>
+          <Image style={styles.backgroundImage} source={require('../imgs/lace_logo.png')}>
+            <ScrollView style={{flex: .8}}>
+              <ListView
+                style={styles.chat}
+                dataSource={this.state.dataSource}
+                renderRow={this.renderChat.bind(this)}
+              />
+            </ScrollView>
+            <View style={{flex: .2}}>
+              <TextInput
+                style={styles.input}
+                placeholder='Chat with your teamates: '
+                onChangeText={(input) => {
+                  this.setState({
+                    emit: input
+                  })
+                }}
+              />
+              <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
+                <Text style={styles.buttonText}>
+                  Submit
+                </Text>
+              </TouchableHighlight>
+            </View>
+          </Image>
         </View>
       </View>
     );
@@ -126,9 +138,14 @@ class Chat extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#E5E5E5',
     flex: 1,
-    paddingTop: 20,
+  },
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode:'contain',
   },
   chat: {
     flex: 8,
@@ -136,6 +153,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: 'transparent',
     borderWidth: 1,
+    opacity:.95,
     // paddingLeft: 16,
     // height: 70
   },
@@ -143,7 +161,7 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   separator: {
-    height: 1,
+    height: 4,
     backgroundColor: '#CCCCCC',
     flexDirection: 'row',
     alignSelf: 'stretch',
