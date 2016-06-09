@@ -13,8 +13,9 @@ import {
 import Team from './Team';
 import Game from './Games';
 import Rsvp from './Rsvp';
-import Setting from './Settings';
+import Chat from './Chat';
 import Icon from 'react-native-vector-icons/Ionicons';
+import TeamChat from './TeamChat';
 
 class Home extends Component {
   constructor(props){
@@ -56,8 +57,8 @@ class Home extends Component {
 
         <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'games'}
-          iconName="ios-trophy-outline"
-          selectedIconName="ios-trophy"
+          iconName="ios-basketball-outline"
+          selectedIconName="ios-basketball"
           title="Games"
           onPress={() => {
             this.setState({
@@ -81,16 +82,16 @@ class Home extends Component {
         </Icon.TabBarItemIOS>
 
         <Icon.TabBarItemIOS
-          selected={this.state.selectedTab === 'settings'}
-          iconName="ios-chatboxes-outline"
-          selectedIconName="ios-chatboxes"
-          title="Chat"
+          selected={this.state.selectedTab === 'team chat'}
+          iconName="ios-settings-outline"
+          selectedIconName="ios-settings"
+          title="Team Chat"
           onPress={() => {
             this.setState({
-              selectedTab: 'settings',
+              selectedTab: 'team chat',
             });
           }}>
-          <Setting navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+          <TeamChat navigator={this.props.navigator} userInfo={this.props.userInfo}/>
         </Icon.TabBarItemIOS>
       </TabBarIOS>
       )

@@ -12,7 +12,6 @@ import {
     ActivityIndicatorIOS,
 } from 'react-native';
 
-
 class Rsvp extends Component {
   constructor(props) {
     super(props);
@@ -25,10 +24,6 @@ class Rsvp extends Component {
     };
   }
 
-  log(){
-   console.log(this.props)
- }
-
  getPendingRsvp() {
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps', {
      method: 'GET',
@@ -39,8 +34,6 @@ class Rsvp extends Component {
    })
    .then((response) => response.json())
    .then((response) => {
-     console.log("************* getPendingRsvp response **************")
-     console.log(response)
      if (response.error) {
        // this is incorrect credentials
        this.setState({
@@ -66,6 +59,7 @@ class Rsvp extends Component {
  }
 
  acceptRsvp(rsvp) {
+
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
@@ -81,15 +75,14 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.setState({
-         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
-       });
+       this.render();
      }
    });
  }
 
  declineRsvp(rsvp) {
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',
@@ -104,29 +97,27 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       return this.setState({
-         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
-       });
+       this.render();
      }
    });
  }
 
   renderRsvp(rsvp) {
+    rsvp.player_team = rsvp.player_team[0].toUpperCase() + rsvp.player_team.substring(1)
     return (
-      <View style={styles.requestRow}>
-      <View>
-        <Text style={styles.requestInfo}>{rsvp.player_team}</Text>
-        <Text style={styles.requestInfo}>{rsvp.address}</Text>
-        <Text style={styles.requestInfo}>{rsvp.city}, {rsvp.zip_code}</Text>
-        <Text style={styles.requestInfo}>{rsvp.start_time}</Text>
-        </View>
+      <View style={styles.rsvpRow}>
         <TouchableHighlight onPress={this.acceptRsvp.bind(this, rsvp)} style={styles.acceptButton}>
-          <Text>Accept</Text>
+          <Text style={styles.acceptButtonText}>Accept</Text>
         </TouchableHighlight>
+        <View style={styles.rsvpInfo}>
+          <Text style={styles.teamInfo}>{rsvp.player_team}</Text>
+          <Text style={styles.requestInfo}>{rsvp.address}</Text>
+          <Text style={styles.requestInfo}>{rsvp.city}, {rsvp.zip_code}</Text>
+          <Text style={styles.requestInfo}>{rsvp.start_time}</Text>
+        </View>
         <TouchableHighlight onPress={this.declineRsvp.bind(this, rsvp)} style={styles.declineButton}>
-          <Text>Decline</Text>
+          <Text style={styles.declineButtonText}>Decline</Text>
         </TouchableHighlight>
-
       </View>
     )
  }
@@ -146,23 +137,24 @@ class Rsvp extends Component {
       return this.renderLoadingView();
     } else if (this.state.noRsvp) { return (
       <View style={styles.container}>
-      <View>
-        <Text style={styles.welcome}>Game Requests</Text>
+        <View>
+          <Text style={styles.welcome}>RSVP</Text>
         </View>
-      <View><Text style={styles.text}>{this.state.noRsvp}</Text></View>
+        <View style={styles.blank}>
+          <Text style={styles.noGameText}>{this.state.noRsvp}</Text>
+        </View>
       </View>
     )} else {
-
     return (
       <View style={styles.container}>
       <View>
-        <Text style={styles.welcome}>Game Requests</Text>
+        <Text style={styles.welcome}>RSVP</Text>
         </View>
-        <ScrollView>
+        <ScrollView style={styles.scrollContainer}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderRsvp.bind(this)} />
-</ScrollView>
+        </ScrollView>
       </View>
     )}
 }
@@ -170,45 +162,130 @@ class Rsvp extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:'#E5E5E5',
   },
   acceptButton:{
-    backgroundColor:'green',
-    padding:5,
-    marginRight: 5
+    // backgroundColor:'green',
+    width: 80,
+    margin: 10,
+    shadowColor: 'black',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: .3,
+  },
+  acceptButtonText:{
+    // alignItems: 'center',
+    textAlign: 'center',
+    justifyContent: 'space-around',
+    color:'white',
+    fontWeight: 'bold',
+    backgroundColor:'#0043B6',
+    padding: 10,
+    borderRadius: 8,
+
+    overflow: 'hidden',
+  },
+  blank:{
+    justifyContent: 'space-around',
+    alignItems:'stretch',
+    flex:1,
+  },
+  declineButtonText:{
+    // alignItems: 'center',
+    textAlign: 'center',
+    justifyContent: 'space-around',
+    color:'white',
+    fontWeight: 'bold',
+    backgroundColor:'#0043B6',
+    padding: 10,
+    borderRadius: 8,
+    overflow: 'hidden',
   },
   declineButton:{
-    backgroundColor:'red',
-    padding:5,
-    marginRight: 5
+    // backgroundColor:'red',
+    width: 80,
+    margin: 10,
+    shadowColor: 'black',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: .3,
+  },
+  noGameText:{
+    fontSize:22,
+    color:'#136AFF',
+    fontWeight: 'bold',
+    paddingTop:2,
+    textAlign:'center',
+    justifyContent: 'center',
+    justifyContent: 'space-around'
   },
   requestRow: {
     flex:1,
     marginBottom:10,
-    backgroundColor:'#005EFB',
+    backgroundColor:'#3B82FC',
     padding:10,
     flexDirection:'row',
   },
+
   requestInfo:{
     color:'white',
-    backgroundColor:'#005EFB',
-    textAlign:'center',
-    padding:5,
-    width:250,
-    fontSize:10,
+    alignItems:'center',
+    // justifyContent: 'center',
+    padding:2,
+    fontSize:14,
     fontWeight: 'bold',
-    paddingTop:8,
-    paddingLeft:0
+    paddingTop:2,
+    paddingLeft:0,
+    flexDirection:'row'
+  },
+  rsvpInfo:{
+//     color:'#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+//     fontWeight:'bold',
+    flex:1
+   },
+  rsvpRow:{
+    backgroundColor:'#3B82FC',
+    paddingTop:40,
+    paddingBottom:40,
+    marginTop:4,
+    marginBottom:4,
+    marginRight:8,
+    marginLeft:8,
+    shadowColor: 'black',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: .5,
+    // borderBottomColor: 'white',
+    // borderBottomWidth: 2,
+    // borderTopColor: 'white',
+    // borderTopWidth: 2,
+    flexDirection:'row',
+    alignItems: 'center'
+     },
+  scrollContainer:{
+    flex: 1,
   },
   space:{
-    flex:1
+    flex: 1
+  },
+  teamInfo:{
+    color:'#FFA655',
+    alignItems:'center',
+    // justifyContent: 'center',
+    padding:2,
+    fontSize:36,
+    fontWeight: 'bold',
+    paddingTop:2,
+    paddingLeft:0,
+    flexDirection:'row'
   },
   welcome: {
-    fontSize: 45,
-    padding:10,
-    marginTop:20,
+    fontSize: 15,
+    paddingTop:20,
+    padding:5,
+    color: 'black',
     textAlign: 'center',
-    backgroundColor:'silver',
+    backgroundColor:'#D3D3D3',
     fontWeight:'bold'
   },
   text: {

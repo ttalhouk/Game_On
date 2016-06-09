@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -54,8 +52,9 @@ class Game extends Component {
   renderGame(game){
     game.home_team = game.home_team[0].toUpperCase() + game.home_team.substring(1);
     game.away_team = game.away_team[0].toUpperCase() + game.away_team.substring(1);
+
     return (
-      <View style={[styles.innerWrapper]}>
+      <View style={[styles.innerWrapper, {backgroundColor:'#e5e5e5'}]}>
 
           <Text style={[styles.h1, styles.textCenter, {color: "red"}]}>{game.home_team} <Icon
           name="ios-basketball-outline"
@@ -98,10 +97,10 @@ class Game extends Component {
     }
 
     return (
-      <View style={[styles.container]}>
+      <View style={[styles.container, {backgroundColor: '#3b82fc'}]}>
         <View style={styles.header}>
         <View style={[{flex: 1}, {flexDirection: "column"}]}>
-          <Text style={[styles.headerText]}>Games</Text>
+          <Text style={[styles.p, styles.textCenter,{paddingTop: 20}]}>GAMES</Text>
           </View>
         </View>
       <ListView

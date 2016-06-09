@@ -10,7 +10,7 @@ import {
  TouchableHighlight
 } from 'react-native';
 
-class Team extends Component {
+class TeamChat extends Component {
  constructor(props){
    super(props)
    this.state = {
@@ -24,34 +24,21 @@ class Team extends Component {
  renderTeam(team){
    return (
      <View style={styles.container}>
-         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
+         <TouchableHighlight style={styles.button} onPress={this.goToChat.bind(this, team)}>
            <Text style={styles.buttonText}>{team.name}</Text>
          </TouchableHighlight>
      </View>
    )
  }
 
- goToTeamProfile(team) {
+ goToChat(team) {
    this.props.navigator.push({
-     name: 'team profile',
+     name: 'chat',
      passProps: this.props.userInfo,
      clickedTeam: team
    })
  }
 
- goToCreateTeamView() {
-   this.props.navigator.push({
-     name: "create team",
-     passProps: this.props.userInfo,
-   })
- }
-
- goToJoinTeamView() {
-   this.props.navigator.push({
-     name: "join team",
-     passProps: this.props.userInfo,
-   })
- }
 
  componentWillMount(){
    if (this.props.userInfo.team.length != 0) {
@@ -74,16 +61,15 @@ class Team extends Component {
 
  renderNoTeams(){
    return (
-     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
-       <Text style={styles.buttonText}>
-         You are not on a team!
+       <Text style={styles.text}>
+         no chat for you
        </Text>
-     </TouchableHighlight>
- )
+     )
  }
 
 
  render() {
+
    let playerHasTeam = (this.props.userInfo.team.length == 0) ? this.renderNoTeams() : this.renderList();
    return (
      <View style={styles.container}>
@@ -93,19 +79,7 @@ class Team extends Component {
 
        {playerHasTeam}
 
-       <View style={styles.bottomContainer}>
-         <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.button}>
-           <Text style={styles.buttonText}>
-             Create team
-           </Text>
-         </TouchableHighlight>
 
-         <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
-           <Text style={styles.buttonText}>
-             Join team
-           </Text>
-         </TouchableHighlight>
-       </View>
      </View>
    );
  }
@@ -162,4 +136,4 @@ const styles = StyleSheet.create({
  }
 })
 
-module.exports = Team;
+module.exports = TeamChat;
