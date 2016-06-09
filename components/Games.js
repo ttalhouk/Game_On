@@ -28,7 +28,6 @@ class Game extends Component {
 
 
   getGamesList(){
-    console.log()
     // takes the users input and tries to log them in
     fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team[0].id+'/games', {
       method: 'GET',

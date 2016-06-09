@@ -76,6 +76,7 @@ class Team extends Component {
       </Text>
     </TouchableHighlight>
     :
+    
     <ListView
     dataSource={this.state.dataSource}
     renderRow={this.renderTeam.bind(this)}
