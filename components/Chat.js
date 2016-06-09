@@ -106,7 +106,7 @@ class Chat extends Component {
         <View style={{flex: .4}}>
           <TextInput
             style={styles.input}
-            placeholder='FirebaseChat: '
+            placeholder='Chat with your teamates: '
             onChangeText={(input) => {
               this.setState({
                 emit: input
