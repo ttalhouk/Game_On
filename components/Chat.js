@@ -74,17 +74,17 @@ class Chat extends Component {
 
   render() {
     if (this.state.noChatMessages == true) {
-      return <View style={{flex: 1}}>
+      return <View style={[{flex: 1}, {marginTop: 50}]}>
 
         <View style={{flex: .2}}>
           <TextInput
             style={styles.input}
-            placeholder='FirebaseChat: '
+            placeholder='Chat with your teamates: '
             onChangeText={(input) => {
               this.setState({
                 emit: input
               })
-              }}
+            }}
           />
           <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
@@ -95,7 +95,7 @@ class Chat extends Component {
       </View>
     }
     return (
-      <View style={{flex: 1}}>
+      <View style={[{flex: 1}, {marginTop: 50}]}>
         <ScrollView style={{flex: .8}}>
           <ListView
             style={styles.chat}
