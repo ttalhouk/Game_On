@@ -83,8 +83,8 @@ class Home extends Component {
 
         <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'team chat'}
-          iconName="ios-settings-outline"
-          selectedIconName="ios-settings"
+          iconName="ios-chatboxes-outline"
+          selectedIconName="ios-chatboxes"
           title="Team Chat"
           onPress={() => {
             this.setState({
