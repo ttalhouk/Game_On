@@ -6,6 +6,7 @@ import {
   View,
   Navigator,
   TouchableHighlight,
+  Image
 } from 'react-native';
 
 import Login from './components/Login';
@@ -17,6 +18,7 @@ import JoinTeam from './components/JoinTeam';
 import TeamProfile from './components/TeamProfile';
 import PendingGame from './components/PendingGame';
 import Chat from './components/Chat';
+
 GLOBAL = require('./utils/globals');
 
 
@@ -76,7 +78,7 @@ var NavigationBarRouteMapper = {
         <TouchableHighlight
         underlayColor="transparent"
         onPress={() => { if (index > 0) { navigator.pop() } }}>
-        <Text>Back</Text>
+        <Image style={styles.backBtn} source={require('./imgs/back.png')} />
         </TouchableHighlight>
       )}
       else { return null }
@@ -92,7 +94,7 @@ var NavigationBarRouteMapper = {
             </TouchableHighlight> )
     },
     Title(route, navigator, index, navState) {
-      return <Text style={ styles.title }>{route.name}</Text>
+      return <Text style={ styles.title }>{route.name[0].toUpperCase() + route.name.substring(1)}</Text>
     }
   };
 
@@ -118,14 +120,25 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  backBtn:{
+    marginTop:8,
+    marginLeft:10,
+    height:15
+  },
   nav:{
-
+    flex:1,
+    height:50,
+    backgroundColor:'#D3D3D3'
   },
   leftNavButtonText:{
-
+    fontWeight:'bold',
+    fontSize: 12,
   },
   title:{
-
+    marginTop: 4,
+    fontWeight:'bold',
+    fontSize: 16,
+    justifyContent:'space-around'
   },
 
 });
