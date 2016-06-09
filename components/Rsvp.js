@@ -130,12 +130,13 @@ class Rsvp extends Component {
      size="large"
    />
    )
+
  }
 
   render() {
     if (this.state.loading) {
       return this.renderLoadingView();
-    } else if (this.state.noRsvp) { return (
+    } else if (this.state.noRsvp || this.props.userInfo.team.length === 0) { return (
       <View style={styles.container}>
         <View style={styles.blank}>
           <Text style={styles.noGameText}>{this.state.noRsvp}</Text>

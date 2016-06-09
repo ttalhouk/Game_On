@@ -65,9 +65,6 @@ class JoinTeam extends Component {
           errorMessages: response.errorMessages
         })
       }else{
-        console.log("****routes****")
-        console.log(this.props.navigator.getCurrentRoutes())
-
         this.setState({
           userInfo: response.player,
 

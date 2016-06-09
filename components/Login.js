@@ -77,13 +77,15 @@ class Login extends Component {
 
               <TextInput
                 style={styles.input}
-                placeholder='Email:'
+                placeholderTextColor = "silver"
+                placeholder='Email'
                 onChangeText={(email) => {this.setState({email: email})}}
                 keyboardType='email-address'
               />
               <TextInput
                 style={styles.input}
-                placeholder='Password:'
+                placeholderTextColor = "silver"
+                placeholder='Password'
                 secureTextEntry={true}
                 onChangeText={(pw) => {this.setState({password: pw})}}
               />
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    marginTop:20
+
   },
   button: {
     height: 40,
@@ -163,6 +165,7 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.4)',
+    textAlign: "center"
   },
   instructions: {
     textAlign: 'center',

@@ -10,6 +10,8 @@ import {
  TouchableHighlight
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 class Team extends Component {
   constructor(props){
     super(props)
@@ -116,6 +118,7 @@ class Team extends Component {
 }
 
 const styles = StyleSheet.create({
+
   buttonText: {
     fontSize: 36,
     fontWeight:'bold',
