@@ -11,7 +11,6 @@ import {
   TextInput
 } from 'react-native';
 
-
 class CreateTeam extends Component {
   constructor(props){
     super(props);

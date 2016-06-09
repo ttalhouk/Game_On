@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Navigator
+  Navigator,
+  TouchableHighlight,
 } from 'react-native';
 
 import Login from './components/Login';
@@ -55,15 +56,45 @@ class GameOn extends Component {
   }
 
   render() {
+
     return (
-        <Navigator
-        // change this if i forget.  i changed it to stop having to log in while testing new features
-          initialRoute={{name: 'login'}}
-          renderScene={this.renderScene.bind(this)}
-        />
+    <Navigator
+      initialRoute={{ name: 'login' }}
+      renderScene = { this.renderScene.bind(this) }
+      navigationBar = {
+        <Navigator.NavigationBar
+           style={ styles.nav }
+        routeMapper={NavigationBarRouteMapper}/>}
+    />
     );
   }
 }
+var NavigationBarRouteMapper = {
+  LeftButton(route, navigator, index, navState) {
+    if(index > 1) {
+      return (
+        <TouchableHighlight
+        underlayColor="transparent"
+        onPress={() => { if (index > 0) { navigator.pop() } }}>
+        <Text>Back</Text>
+        </TouchableHighlight>
+      )}
+      else { return null }
+    },
+    RightButton(route, navigator, index, navState) {
+      if (route.onPress)
+        return (
+          <TouchableHighlight
+              onPress={ () => route.onPress() }>
+              <Text style={ styles.navBarRightButton }>
+                    { route.rightText || 'Right Button' }
+              </Text>
+            </TouchableHighlight> )
+    },
+    Title(route, navigator, index, navState) {
+      return <Text style={ styles.title }>{route.name}</Text>
+    }
+  };
 
 
 
@@ -87,6 +118,16 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  nav:{
+
+  },
+  leftNavButtonText:{
+
+  },
+  title:{
+
+  },
+
 });
 
 AppRegistry.registerComponent('GameOn', () => GameOn);
