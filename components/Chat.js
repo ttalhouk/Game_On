@@ -27,7 +27,6 @@ var {width, height} = Dimensions.get('window')
 class Chat extends Component {
   constructor(props){
     super(props)
-
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -103,7 +102,7 @@ class Chat extends Component {
             renderRow={this.renderChat.bind(this)}
           />
         </ScrollView>
-        <View style={{flex: .4}}>
+        <View style={{flex: .2}}>
           <TextInput
             style={styles.input}
             placeholderTextColor = "silver"
@@ -112,7 +111,7 @@ class Chat extends Component {
               this.setState({
                 emit: input
               })
-              }}
+            }}
           />
           <TouchableHighlight onPress={this.submit.bind(this)} style={styles.button}>
             <Text style={styles.buttonText}>
@@ -134,21 +133,21 @@ var styles = StyleSheet.create({
   },
   chat: {
     flex: 8,
-    paddingTop: 20,
-    backgroundColor: '#bcc',
+    // paddingTop: 20,
+    backgroundColor: '#fff',
     borderColor: 'transparent',
     borderWidth: 1,
-    paddingLeft: 16,
+    // paddingLeft: 16,
     // height: 70
   },
   listview: {
     flex: 1,
   },
   separator: {
-  height: 1,
-  backgroundColor: '#CCCCCC',
-  flexDirection: 'row',
-  alignSelf: 'stretch',
+    height: 1,
+    backgroundColor: '#CCCCCC',
+    flexDirection: 'row',
+    alignSelf: 'stretch',
 },
   li: {
     backgroundColor: '#fff',
@@ -169,13 +168,13 @@ var styles = StyleSheet.create({
   button: {
     height: 36,
     backgroundColor: '#005EFB',
-    borderRadius: 8,
+    // borderRadius: 8,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
     padding:5
   },
-    buttonText: {
+  buttonText: {
     fontSize: 18,
     fontWeight:'bold',
     color: 'white',

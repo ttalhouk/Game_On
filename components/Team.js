@@ -7,7 +7,8 @@ import {
  View,
  ListView,
  Navigator,
- TouchableHighlight
+ TouchableHighlight,
+ Image
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -61,9 +62,7 @@ class Team extends Component {
         dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
       });
     }
-
   }
-
 
   render() {
 
@@ -83,34 +82,36 @@ class Team extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Your Teams
-        </Text>
+      <Image style={styles.backgroundImage} source={require('../imgs/basketball_players_vectors_color.jpg')}>
+          <Text style={styles.welcome}>
+            Your Teams
+          </Text>
 
 
-        <View style={styles.topContainer}>
-          <View style={styles.leftContainer}>
-            <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.createJoinButton}>
-              <Text style={styles.joinButtonText}>
-                Create team
-              </Text>
-            </TouchableHighlight>
+          <View style={styles.topContainer}>
+            <View style={styles.leftContainer}>
+              <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.createJoinButton}>
+                <Text style={styles.joinButtonText}>
+                  Create team
+                </Text>
+              </TouchableHighlight>
+            </View>
+
+            <View style={styles.rightContainer}>
+              <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.createJoinButton}>
+                <Text style={styles.joinButtonText}>
+                  Join team
+                </Text>
+              </TouchableHighlight>
+              </View>
           </View>
 
-          <View style={styles.rightContainer}>
-            <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.createJoinButton}>
-              <Text style={styles.joinButtonText}>
-                Join team
-              </Text>
-            </TouchableHighlight>
-            </View>
-        </View>
-
-        <View style={styles.teamBox}>
-          {playerHasTeam}
-        </View>
+          <View style={styles.teamBox}>
+            {playerHasTeam}
+          </View>
 
 
+      </Image>
       </View>
     );
   }
@@ -125,6 +126,12 @@ const styles = StyleSheet.create({
     color: '#FFA64C',
     alignSelf: 'center'
   },
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode:'contain',
+  },
   button: {
     height: 36,
     backgroundColor: '#005EFB',
@@ -132,7 +139,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     padding: 76,
-    margin: 5
+    margin: 5,
+    opacity:.95
   },
   topContainer: {
     justifyContent: 'flex-start',

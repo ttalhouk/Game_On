@@ -9,7 +9,8 @@ import {
   View,
   ScrollView,
   ListView,
-    ActivityIndicatorIOS,
+  ActivityIndicatorIOS,
+  Image
 } from 'react-native';
 
 class Rsvp extends Component {
@@ -41,7 +42,7 @@ class Rsvp extends Component {
        })
      } else if(response.player.open_rsvp.length === 0) {
        this.setState({
-         noRsvp: "You have no pending RSVPs",
+         noRsvp: "You have no pending RSVPs.. Maybe you should poke the team captain to schedule one!",
          loading: false,
        })
      } else {
@@ -54,12 +55,14 @@ class Rsvp extends Component {
    });
  }
 
- componentWillMount(){
+ componentDidMount(){
    this.getPendingRsvp();
  }
 
  acceptRsvp(rsvp) {
-
+   this.setState({
+     loading: true
+   });
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
@@ -75,14 +78,20 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       this.setState({
+         userInfo: response.player,
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+         loading: false,
+       });
      }
    });
  }
 
  declineRsvp(rsvp) {
+   this.setState({
+     loading: true
+   });
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
-
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',
@@ -97,7 +106,11 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.render();
+       this.setState({
+         userInfo: response.player,
+         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
+         loading: false,
+       });
      }
    });
  }
@@ -130,36 +143,45 @@ class Rsvp extends Component {
      size="large"
    />
    )
-
  }
 
   render() {
     if (this.state.loading) {
       return this.renderLoadingView();
-    } else if (this.state.noRsvp || this.props.userInfo.team.length === 0) { return (
-      <View style={styles.container}>
-        <View style={styles.blank}>
-          <Text style={styles.noGameText}>{this.state.noRsvp}</Text>
+    } else if (this.state.noRsvp) { return (
+      <Image style={styles.backgroundImage} source={require('../imgs/basketballer_color.jpg')}>
+        <View style={styles.container}>
+          <View style={styles.blank}>
+            <Text style={styles.noGameText}>{this.state.noRsvp}</Text>
+          </View>
         </View>
-      </View>
-    )} else {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollContainer}>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRsvp.bind(this)} />
-        </ScrollView>
-      </View>
+      </Image>
+      )} else {
+      return (
+          <Image style={styles.backgroundImage} source={require('../imgs/basketballer_color.jpg')}>
+          <View style={styles.container}>
+            <ScrollView style={styles.scrollContainer}>
+              <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderRsvp.bind(this)} />
+            </ScrollView>
+          </View>
+        </Image>
     )}
-}
+  }
 }
 
 var styles = StyleSheet.create({
   container: {
     marginTop: 50,
     flex: 1,
-    backgroundColor:'#E5E5E5',
+    // backgroundColor:'#E5E5E5',
+  },
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    // marginTop:20
   },
   acceptButton:{
     // backgroundColor:'green',
@@ -220,6 +242,7 @@ var styles = StyleSheet.create({
     backgroundColor:'#3B82FC',
     padding:10,
     flexDirection:'row',
+    opacity:.5
   },
 
   requestInfo:{
@@ -248,6 +271,7 @@ var styles = StyleSheet.create({
     marginBottom:4,
     marginRight:8,
     marginLeft:8,
+    opacity:.95,
     shadowColor: 'black',
     shadowOffset: {width: 2, height: 2},
     shadowOpacity: .5,

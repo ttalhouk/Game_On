@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   button: {
     height: 36,
     backgroundColor: '#005EFB',
-    borderRadius: 8,
+    // borderRadius: 8,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop:30
+    marginTop:50
     // justifyContent: 'center',
     // alignItems: 'center',
   },
