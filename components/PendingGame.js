@@ -10,58 +10,8 @@ import {
   ActivityIndicatorIOS,
 } from 'react-native';
 
-var styles = StyleSheet.create({
-  description: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'black',
-    marginTop: 50,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'lightblue',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#005EFB',
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 5
-  },
-  welcome: {
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  downButton: {
-    flex: 1,
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 70,
-  },
-  text: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'black'
-  },
-  nav: {
-    marginTop: 20,
-    backgroundColor: 'blue',
-    height: 40,
-  }
-})
+import Icon from 'react-native-vector-icons/Ionicons';
+const styles = require('../components/styling.js')
 
 class PendingGame extends Component {
   constructor(props){
@@ -136,15 +86,18 @@ class PendingGame extends Component {
   }
 
   renderGame(game){
+    game.home_team.name = game.home_team.name[0].toUpperCase() + game.home_team.name.substring(1);
     return (
-      <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.challengeTeam.bind(this, game)}>
-          <Text style={styles.buttonText}>{game.home_team.name}</Text>
+      <View style={styles.innerWrapper}>
+      <View>
+        <TouchableHighlight onPress={this.challengeTeam.bind(this, game)}>
+          <Text style={[styles.h1, styles.textCenter]}>{game.home_team.name}</Text>
         </TouchableHighlight>
+        </View>
         <View>
-          <Text style={styles.text}>Address: {game.address}</Text>
-          <Text style={styles.text}>City: {game.city}, Zip code: {game.zip_code}</Text>
-          <Text style={styles.text}>Game time: {game.start_time}</Text>
+        <Text style={[styles.h4, styles.textCenter]}>{game.start_time}</Text>
+          <Text style={[styles.h5, styles.textCenter]}>{game.address}</Text>
+          <Text style={[styles.h5, styles.textCenter]}>{game.city}, {game.zip_code}</Text>
         </View>
       </View>
     )
@@ -167,8 +120,10 @@ class PendingGame extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.nav}>
-          <Text style={styles.text}>Challenge a team</Text>
+        <View style={styles.header}>
+
+          <Text style={[styles.headerText]}>Play Games</Text>
+
         </View>
         <ListView
           dataSource={this.state.dataSource}

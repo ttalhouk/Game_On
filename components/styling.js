@@ -28,6 +28,7 @@ module.exports = require('react-native').StyleSheet.create({
     fontSize: 36,
     color: "#005EFB",
     fontWeight: "bold",
+
   },
   h2: {
     fontSize: 24,
@@ -50,6 +51,12 @@ module.exports = require('react-native').StyleSheet.create({
     backgroundColor: "lightgray",
     height: 44,
   },
+  headerText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: 'center',
+    paddingTop: 20,
+  },
   innerContainer: {
     flex: 1,
     flexDirection:'row',
@@ -59,9 +66,14 @@ module.exports = require('react-native').StyleSheet.create({
     flex: 1,
     paddingTop: 43,
     paddingBottom: 43,
-    marginTop:4,
-    marginBottom: 4,
-
+    marginTop:6,
+    marginBottom: 6,
+    backgroundColor: "#e5e5e5",
+    marginRight: 12,
+    marginLeft: 12,
+    shadowColor: "black",
+    shadowOpacity: 0.5,
+    shadowOffset: {height: 2, width: 2, blur: 5}
   },
   instructions: {
     textAlign: 'center',
@@ -70,7 +82,7 @@ module.exports = require('react-native').StyleSheet.create({
   },
   p: {
     fontSize: 12,
-    color: "black"
+    color: "black",
   },
   separator: {
     borderBottomWidth: 1,

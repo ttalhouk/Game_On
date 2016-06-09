@@ -83,7 +83,6 @@ class TeamProfile extends Component {
  }
 
  log(){
-   console.log("***********PROPS MOTHA FUCKA****************")
    console.log(this.props)
  }
 
@@ -138,7 +137,7 @@ class TeamProfile extends Component {
             <Text style={styles.buttonText}>Make Game</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button} onPress={this.goToPendingGame.bind(this)}>
-            <Text style={styles.buttonText}>Join Game</Text>
+            <Text style={styles.buttonText}>Play Games</Text>
           </TouchableHighlight>
       </View>
   )} else {
