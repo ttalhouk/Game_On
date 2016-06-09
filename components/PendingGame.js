@@ -80,7 +80,7 @@ class PendingGame extends Component {
   }
 
   challengeTeam(game) {
-    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/games/'+game.game_id+'/challenge', {
+    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/games/'+game.game_id+'/challenge', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
