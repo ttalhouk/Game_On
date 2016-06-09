@@ -12,7 +12,6 @@ import {
     ActivityIndicatorIOS,
 } from 'react-native';
 
-
 class Rsvp extends Component {
   constructor(props) {
     super(props);
@@ -25,10 +24,6 @@ class Rsvp extends Component {
     };
   }
 
-  log(){
-   console.log(this.props)
- }
-
  getPendingRsvp() {
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps', {
      method: 'GET',
@@ -39,8 +34,6 @@ class Rsvp extends Component {
    })
    .then((response) => response.json())
    .then((response) => {
-     console.log("************* getPendingRsvp response **************")
-     console.log(response)
      if (response.error) {
        // this is incorrect credentials
        this.setState({
@@ -81,9 +74,7 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       this.setState({
-         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
-       });
+       this.render();
      }
    });
  }
@@ -104,9 +95,7 @@ class Rsvp extends Component {
          errorMessages: response.errorMessages
        })
      }else{
-       return this.setState({
-         dataSource: this.state.dataSource.cloneWithRows(response.player.open_rsvp),
-       });
+       this.render();
      }
    });
  }
