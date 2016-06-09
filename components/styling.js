@@ -1,8 +1,23 @@
 
 module.exports = require('react-native').StyleSheet.create({
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+  },
+  blank:{
+    justifyContent: 'space-around',
+    alignItems:'stretch',
+    flex:1,
+  },
   borderText: {
     borderWidth: 1,
     borderColor: "silver",
+  },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 70,
   },
   button: {
     height: 36,
@@ -23,6 +38,15 @@ module.exports = require('react-native').StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3B82FC',
+  },
+  description: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: 'black',
+    marginTop: 50,
+  },
+  downButton: {
+    flex: 1,
   },
   h1: {
     fontSize: 36,
@@ -75,10 +99,30 @@ module.exports = require('react-native').StyleSheet.create({
     shadowOpacity: 0.5,
     shadowOffset: {height: 2, width: 2, blur: 5}
   },
+  input: {
+    padding: 4,
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 10,
+    // color: 'white',
+    alignSelf: 'stretch',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  noGameText:{
+    fontSize:22,
+    color:'#136AFF',
+    fontWeight: 'bold',
+    paddingTop:2,
+    textAlign:'center',
+    justifyContent: 'center',
+    justifyContent: 'space-around'
   },
   p: {
     fontSize: 12,
@@ -87,6 +131,16 @@ module.exports = require('react-native').StyleSheet.create({
   separator: {
     borderBottomWidth: 1,
     borderColor: "white"
+  },
+  teamProfileButtons: {
+    borderRadius: 0,
+    borderColor: "transparent",
+
+  },
+  text: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'black'
   },
   textCenter: {
     textAlign: "center"
