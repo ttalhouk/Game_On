@@ -169,6 +169,7 @@ var styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
+    // marginTop:20
   },
   acceptButton:{
     // backgroundColor:'green',
