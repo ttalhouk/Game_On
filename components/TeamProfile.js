@@ -75,7 +75,7 @@ class TeamProfile extends Component {
   renderRoster(player) {
     return (
       <View>
-      <Text style={styles.text}>{player}</Text>
+      <Text style={[styles.h5, {color: "white"}]}>{player}</Text>
       </View>
     )
  }
@@ -83,24 +83,21 @@ class TeamProfile extends Component {
   render() {
     var roster = this.state.userInfo.roster;
     if (this.state.userInfo.team && !this.state.userInfo.isManager) {
+      this.state.userInfo.team.name = this.state.userInfo.team.name[0].toUpperCase() + this.state.userInfo.team.name.substring(1);
+
     return (
 
       <View style={[styles.container, {backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-      <View style={styles.header}>
-      <Text style={styles.headerText}>Team Profile</Text>
-      </View>
+
       <Image
-          source={require('../imgs/Burning_Basketball.jpg')}
+          source={require('../imgs/burning_basketball_desaturate.jpg')}
           style={[styles.backgroundImage, {resizeMode: "cover"}]}>
-          <View>
+          <View style={styles.teamProfileBox}>
 
-            <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
-            <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
-            <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
-            <Text style={styles.text}>Roster: </Text>
-            </View>
-            <View>
-
+            <Text style={[styles.h1, {fontSize: 70}]}>{this.state.userInfo.team.name}</Text>
+            <Text style={[styles.h2, {color: "orange"}]}>{this.state.userInfo.team.city}, {this.state.userInfo.team.zip_code}</Text>
+            <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Team Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
+            <Text style={[styles.h4, {fontWeight: "bold", color: "white"}]}>Roster: </Text>
             <ListView
               dataSource={this.state.dataSource}
               renderRow={this.renderRoster.bind(this)} />
@@ -109,38 +106,35 @@ class TeamProfile extends Component {
 
       </View>
   )} else if (this.state.userInfo.team && this.state.userInfo.isManager) {
+    this.state.userInfo.team.name = this.state.userInfo.team.name[0].toUpperCase() + this.state.userInfo.team.name.substring(1);
+
     return (
 
   <View style={styles.container}>
-    <View style={styles.header}>
-      <Text style={styles.headerText}>Team Profile</Text>
-    </View>
-    <View style={[styles.container, {flexDirection: "row"}]}>
-      <View style={{flex: 1}}>
-        <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "blue"}]} onPress={this.goToScheduleGame.bind(this)}>
-          <Text style={styles.buttonText}>Make Game</Text>
-        </TouchableHighlight>
-      </View>
-      <View style={{flex: 1}}>
-        <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "orange"}]} onPress={this.goToPendingGame.bind(this)}>
-          <Text style={styles.buttonText}>Play Games</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
-    <Image
-      source={require('../imgs/Burning_Basketball.jpg')}
-      style={[styles.backgroundImage, {resizeMode: "cover"}]}>
-      <View>
-      <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
-      <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
-      <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
-      <Text style={styles.text}>Roster: </Text>
 
-      </View>
-    <View>
+  <Image
+  source={require('../imgs/burning_basketball_desaturate.jpg')}
+  style={[styles.backgroundImage, {resizeMode: "cover", flex: 1}]}>
+      <View style={[styles.teamProfileBox]}>
+      <Text style={[styles.h1, {fontSize: 70}]}>{this.state.userInfo.team.name}</Text>
+      <Text style={[styles.h2, {color: "orange"}]}>{this.state.userInfo.team.city}, {this.state.userInfo.team.zip_code}</Text>
+      <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Team Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
+      <Text style={[styles.h4, {fontWeight: "bold", color: "white"}]}>Roster: </Text>
     <ListView
       dataSource={this.state.dataSource}
       renderRow={this.renderRoster.bind(this)} />
+    </View>
+    <View style={[{flexDirection: "row"}]}>
+    <View style={{flex: 1}}>
+    <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "blue", marginTop: 0, marginBottom: 0}]} onPress={this.goToScheduleGame.bind(this)}>
+    <Text style={styles.buttonText}>Make Game</Text>
+    </TouchableHighlight>
+    </View>
+    <View style={{flex: 1}}>
+    <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "orange", marginTop: 0, marginBottom: 0}]} onPress={this.goToPendingGame.bind(this)}>
+    <Text style={styles.buttonText}>Play Games</Text>
+    </TouchableHighlight>
+    </View>
     </View>
     </Image>
   </View>

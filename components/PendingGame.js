@@ -91,13 +91,13 @@ class PendingGame extends Component {
       <View style={styles.innerWrapper}>
       <View>
         <TouchableHighlight onPress={this.challengeTeam.bind(this, game)}>
-          <Text style={[styles.h1, styles.textCenter]}>{game.home_team.name}</Text>
+          <Text style={[styles.h1]}>{game.home_team.name}</Text>
         </TouchableHighlight>
         </View>
         <View>
-        <Text style={[styles.h4, styles.textCenter]}>{game.start_time}</Text>
-          <Text style={[styles.h5, styles.textCenter]}>{game.address}</Text>
-          <Text style={[styles.h5, styles.textCenter]}>{game.city}, {game.zip_code}</Text>
+        <Text style={[styles.h4]}>{game.start_time}</Text>
+          <Text style={[styles.h5]}>{game.address}</Text>
+          <Text style={[styles.h5]}>{game.city}, {game.zip_code}</Text>
         </View>
       </View>
     )
