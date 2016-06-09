@@ -11,8 +11,6 @@ import {
   ListView,
     ActivityIndicatorIOS,
 } from 'react-native';
-// var Dimensions = require('Dimensions')
-// var {width, height} = Dimensions.get('window')
 
 class Rsvp extends Component {
   constructor(props) {
@@ -26,10 +24,6 @@ class Rsvp extends Component {
     };
   }
 
-  log(){
-   console.log(this.props)
- }
-
  getPendingRsvp() {
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps', {
      method: 'GET',
@@ -40,8 +34,6 @@ class Rsvp extends Component {
    })
    .then((response) => response.json())
    .then((response) => {
-     console.log("************* getPendingRsvp response **************")
-     console.log(response)
      if (response.error) {
        // this is incorrect credentials
        this.setState({
@@ -67,8 +59,7 @@ class Rsvp extends Component {
  }
 
  acceptRsvp(rsvp) {
-   console.log("************* acceptRsvp rsvp ************")
-   console.log(rsvp)
+
    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
      method: 'PATCH',
      headers: {
@@ -90,9 +81,8 @@ class Rsvp extends Component {
  }
 
  declineRsvp(rsvp) {
-   console.log("************* declineRsvp rsvp ************")
-   console.log(rsvp)
-   fetch(GLOBAL.ngrok + '/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+   fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/rsvps/'+rsvp.rsvp_id, {
+
      method: 'DELETE',
      headers: {
        'Accept': 'application/json',

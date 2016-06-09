@@ -11,6 +11,7 @@ import {
   ListView,
   ScrollView
 } from 'react-native';
+
 var firebase = require('firebase/app');
 var database = require('firebase/database');
 var config = {

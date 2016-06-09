@@ -55,8 +55,10 @@ class Login extends Component {
     })
   }
 
-  back(){
-    this.props.navigator.pop()
+  register(){
+    this.props.navigator.push({
+      name: 'register'
+    })
   }
 
   render() {
@@ -91,9 +93,9 @@ class Login extends Component {
                     Log In
                   </Text>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+                <TouchableHighlight onPress={this.register.bind(this)} style={styles.button}>
                   <Text style={styles.buttonText}>
-                    Back
+                    Register
                   </Text>
                 </TouchableHighlight>
             </View>

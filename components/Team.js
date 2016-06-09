@@ -21,24 +21,21 @@ class Team extends Component {
    }
  }
 
- back(){
-   console.log(this.state)
- }
-
  renderTeam(team){
    return (
      <View style={styles.container}>
-         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this)}>
+         <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
            <Text style={styles.buttonText}>{team.name}</Text>
          </TouchableHighlight>
      </View>
    )
  }
 
- goToTeamProfile() {
+ goToTeamProfile(team) {
    this.props.navigator.push({
      name: 'team profile',
      passProps: this.props.userInfo,
+     clickedTeam: team
    })
  }
 
@@ -65,23 +62,29 @@ class Team extends Component {
 
  }
 
-
- render() {
-
-   let playerHasTeam = (this.props.userInfo.team.length == 0) ?
-
-   <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
-     <Text style={styles.buttonText}>
-       Join a team!
-     </Text>
-   </TouchableHighlight>
-   :
-   <ListView
+ renderList(){
+   return (
+     <ListView
    dataSource={this.state.dataSource}
    renderRow={this.renderTeam.bind(this)}
    style={styles.list}
          />
+       )
+ }
 
+ renderNoTeams(){
+   return (
+     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
+       <Text style={styles.buttonText}>
+         You are not on a team!
+       </Text>
+     </TouchableHighlight>
+ )
+ }
+
+
+ render() {
+   let playerHasTeam = (this.props.userInfo.team.length == 0) ? this.renderNoTeams() : this.renderList();
    return (
      <View style={styles.container}>
        <Text style={styles.welcome}>
