@@ -25,10 +25,11 @@ class RsvpsController < ApplicationController
       GameUpdater.add_team_to_game(@game, @team)
       remove_invites
     end
-
+    @rsvps = Rsvp.where(["player_id = ? AND responded = ?",@player.id, false])
     response_hash = {
       player:{
         info: @player.as_json,
+        open_rsvp: format_data(@rsvps)
       }
     }
     render json: response_hash
@@ -37,9 +38,12 @@ class RsvpsController < ApplicationController
 
   def destroy
     Rsvp.find(params[:id]).destroy
+    @rsvps = Rsvp.where(["player_id = ? AND responded = ?",@player.id, false])
+
     response_hash = {
       player:{
         info: @player.as_json,
+        open_rsvp: format_data(@rsvps)
       }
     }
     render json: response_hash
