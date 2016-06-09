@@ -231,7 +231,7 @@ var styles = StyleSheet.create({
     fontSize:22,
     color:'#136AFF',
     fontWeight: 'bold',
-    paddingTop:2,
+    padding:10,
     textAlign:'center',
     justifyContent: 'center',
     justifyContent: 'space-around'
