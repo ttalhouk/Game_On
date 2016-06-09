@@ -70,10 +70,6 @@ class TeamProfile extends Component {
     });
   }
 
-  back(){
-    this.props.navigator.pop();
-  }
-
   renderRoster(player) {
     return (
       <View>
@@ -82,48 +78,26 @@ class TeamProfile extends Component {
     )
  }
 
- log(){
-   console.log(this.props)
- }
-
   render() {
     var roster = this.state.userInfo.roster;
     if (this.state.userInfo.team && !this.state.userInfo.isManager) {
     return (
       <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      </View>
+
             <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
             <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
             <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
             <Text style={styles.text}>Roster: </Text>
             <View>
-            <ListView
-              dataSource={this.state.dataSource}
-              renderRow={this.renderRoster.bind(this)} />
-              </View>
+              <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderRoster.bind(this)} />
+            </View>
       </View>
   )} else if (this.state.userInfo.team && this.state.userInfo.isManager) {
     return (
 
       <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          log
-        </Text>
-      </TouchableHighlight>
-      </View>
           <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
           <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
           <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>

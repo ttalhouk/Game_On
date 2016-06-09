@@ -21,10 +21,6 @@ class Team extends Component {
     }
   }
 
-  back(){
-    console.log(this.state)
-  }
-
   renderTeam(team){
     return (
       <View>
