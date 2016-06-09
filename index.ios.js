@@ -25,6 +25,7 @@ GLOBAL = require('./utils/globals');
 
 class GameOn extends Component {
 
+
   renderScene(route, navigator){
     if (route.name == "login") {
       return <Login navigator={navigator} userInfo={route.passProps} />

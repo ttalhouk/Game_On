@@ -25,7 +25,7 @@ class Team extends Component {
     return (
       <View>
           <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
-            <Text style={styles.buttonText}>{team.name}</Text>
+            <Text style={styles.buttonText}>{team.name[0].toUpperCase() + team.name.substring(1)}</Text>
           </TouchableHighlight>
       </View>
     )
@@ -117,7 +117,7 @@ class Team extends Component {
 
 const styles = StyleSheet.create({
   buttonText: {
-    fontSize: 20,
+    fontSize: 36,
     fontWeight:'bold',
     color: '#FFA64C',
     alignSelf: 'center'
