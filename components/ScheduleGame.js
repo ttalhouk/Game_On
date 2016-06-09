@@ -110,11 +110,6 @@ var ScheduleGame = React.createClass({
     })
   },
 
-  log: function(){
-    console.log(this.props)
-    console.log(this.state)
-  },
-
   back: function(){
     this.props.navigator.pop();
   },
@@ -136,7 +131,6 @@ var ScheduleGame = React.createClass({
     .then((response) => response.json())
     .then((response) => {
       if (response.error) {
-        console.log('ERROR!!!!!!!!')
         console.log(response)
           this.setState({
             errorMessages: response.errorMessages
@@ -152,15 +146,6 @@ var ScheduleGame = React.createClass({
     return (
       <View style={styles.container}>
       <ScrollView>
-
-
-        <View>
-        <TouchableHighlight onPress={this.back} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Back
-          </Text>
-        </TouchableHighlight>
-        </View>
 
         <DatePickerIOS
               date={this.state.date}
