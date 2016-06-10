@@ -124,7 +124,10 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight:'bold',
     color: '#FFA64C',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    paddingTop: 30,
+    paddingBottom: 30,
+
   },
   backgroundImage:{
     flex: 1,
@@ -133,12 +136,12 @@ const styles = StyleSheet.create({
     resizeMode:'contain',
   },
   button: {
-    height: 36,
+    height: 150,
     backgroundColor: '#005EFB',
     borderRadius: 8,
     alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 76,
+    justifyContent: 'space-around',
+    padding: 10,
     margin: 5,
     opacity:.95
   },

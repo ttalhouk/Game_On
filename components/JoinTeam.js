@@ -159,11 +159,11 @@ var styles = StyleSheet.create({
     alignSelf: 'center'
   },
   button: {
-    height: 36,
+    height: 150,
     backgroundColor: '#FFA64C',
     borderColor: '#6600ff',
     borderRadius: 8,
-    padding: 76,
+    padding: 10,
     margin: 5,
     opacity:.95,
     alignSelf: 'stretch',

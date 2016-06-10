@@ -29,11 +29,18 @@ class TeamChat extends Component {
    return (
      <View style={styles.container}>
          <TouchableHighlight style={styles.button} onPress={this.goToChat.bind(this, team)}>
-           <Text style={styles.buttonText}>{team.name}    <Icon
+         <View style={[{flex:1},{flexDirection:'row'}]}>
+          <View style={[{flex:.80},{justifyContent:'space-around'}]}>
+           <Text style={styles.buttonText}>{team.name}</Text>
+           </View>
+           <View style={[{flex:.20},{justifyContent:'space-around'}]}><Text>
+           <Icon
              name="ios-arrow-forward"
              size={30}
              style={styles.icon}/>
-           </Text>
+             </Text>
+             </View>
+           </View>
          </TouchableHighlight>
      </View>
    )
@@ -97,7 +104,7 @@ class TeamChat extends Component {
 const styles = StyleSheet.create({
 
   buttonText: {
-    fontSize: 36,
+    fontSize: 30,
     fontWeight:'bold',
     color: '#FFA64C',
     alignSelf: 'center'
@@ -109,12 +116,12 @@ const styles = StyleSheet.create({
     resizeMode:'contain',
   },
   button: {
-    height: 36,
+    height: 150,
     backgroundColor: '#005EFB',
     borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center',
-    padding: 76,
+    // padding: 76,
     margin: 5,
     opacity:.95,
   },
