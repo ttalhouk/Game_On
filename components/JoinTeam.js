@@ -70,11 +70,7 @@ class JoinTeam extends Component {
           userInfo: response.player,
 
         })
-        this.props.navigator.push({
-          name: 'home',
-          passProps: this.state.userInfo,
-          _navigatorRouteID: 2
-        })
+        this.back();
       }
     })
   }

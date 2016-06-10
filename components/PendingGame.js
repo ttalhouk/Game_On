@@ -90,7 +90,7 @@ class PendingGame extends Component {
     return (
       <View style={styles.innerWrapper}>
       <View>
-        <TouchableHighlight onPress={this.challengeTeam.bind(this, game)}>
+        <TouchableHighlight underlayColor="transparent" onPress={this.challengeTeam.bind(this, game)}>
           <Text style={[styles.h1]}>{game.home_team.name}</Text>
         </TouchableHighlight>
         </View>

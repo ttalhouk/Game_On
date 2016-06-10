@@ -1,4 +1,4 @@
 module.exports = {
-  ngrok: "https://607278b2.ngrok.io",
+  ngrok: "https://7338befe.ngrok.io",
   firebaseAPI: "AIzaSyB-9mOLeM5if63t2tUnD6ZyIgVCN8YZndY"
 }

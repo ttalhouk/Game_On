@@ -97,7 +97,7 @@ class CreateTeam extends Component {
             />
           </View>
           <View style={{flex:.2}}>
-            <TouchableHighlight onPress={this.createTeam.bind(this)} style={styles.button}>
+            <TouchableHighlight underlayColor="transparent" onPress={this.createTeam.bind(this)} style={styles.button}>
               <Text style={styles.buttonText}>
                 Create Team
               </Text>

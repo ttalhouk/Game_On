@@ -115,8 +115,6 @@ var ScheduleGame = React.createClass({
   },
 
   scheduleGame: function(){
-    console.log("******************* scheduleGame *************")
-    console.log(this.props.userInfo)
     fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/games', {
       method: 'POST',
       headers: {
