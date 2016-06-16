@@ -7,57 +7,11 @@ import {
   View,
   TouchableHighlight,
   ListView,
+  ActivityIndicatorIOS,
 } from 'react-native';
 
-var styles = StyleSheet.create({
-  description: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'black',
-    marginTop: 50,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'lightblue',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#005EFB',
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 5
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  downButton: {
-    flex: 1,
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 70,
-  },
-  text: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'black'
-  },
-})
+import Icon from 'react-native-vector-icons/Ionicons';
+const styles = require('../components/styling.js')
 
 class PendingGame extends Component {
   constructor(props){
@@ -75,24 +29,39 @@ class PendingGame extends Component {
     this.props.navigator.pop();
   }
 
+  challengeTeam(game) {
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/games/'+game.game_id+'/challenge', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.error) {
+        console.log(response)
+          this.setState({
+            errorMessages: response.errorMessages
+        })
+      }else{
+        console.log(response);
+      }
+      this.back();
+    })
+  }
+
   componentWillMount(){
     this.getPendingGame();
-    // console.log("*********** this props in componentWillMount ***************")
-    // console.log(this.props)
     this.setState({
-      // userInfo: this.props.userInfo,
       dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
     });
   }
 
   getPendingGame() {
-    // console.log("*********** this props in getPendingGame ***************")
-    // console.log(this.props)
 
-    console.log("*********** this state in getPendingGame ***************")
-    console.log(this.state)
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/play', {
 
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/play', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -101,9 +70,6 @@ class PendingGame extends Component {
     })
     .then((response) => response.json())
     .then((response) => {
-      console.log("************* response from fetch *****************")
-      console.log(response)
-
       if (response.error) {
         // this is incorrect credentials
         this.setState({
@@ -111,7 +77,7 @@ class PendingGame extends Component {
         })
       }else{
         this.setState({
-          userInfo: response.player,
+          gameInfo: response.games,
           dataSource: this.state.dataSource.cloneWithRows(response.games),
           loading: false,
         });
@@ -119,18 +85,19 @@ class PendingGame extends Component {
     });
   }
 
-  renderTeam(game){
-    console.log("************* this state *****************")
-    console.log(this.state)
+  renderGame(game){
+    game.home_team.name = game.home_team.name[0].toUpperCase() + game.home_team.name.substring(1);
     return (
-      <View style={styles.container}>
-        <TouchableHighlight style={styles.button}>
-          <Text style={styles.buttonText}>{game.home_team.name}</Text>
+      <View style={styles.innerWrapper}>
+      <View>
+        <TouchableHighlight onPress={this.challengeTeam.bind(this, game)}>
+          <Text style={[styles.h1]}>{game.home_team.name}</Text>
         </TouchableHighlight>
-        <View style={styles.welcome}>
-          <Text>Address: {game.address}</Text>
-          <Text>City: {game.city}, Zip code: {game.zip_code}</Text>
-          <Text>Game time: {game.start_time}</Text>
+        </View>
+        <View>
+        <Text style={[styles.h4]}>{game.start_time}</Text>
+          <Text style={[styles.h5]}>{game.address}</Text>
+          <Text style={[styles.h5]}>{game.city}, {game.zip_code}</Text>
         </View>
       </View>
     )
@@ -138,9 +105,11 @@ class PendingGame extends Component {
 
   renderLoadingView() {
     return (
-      <View style={styles.container}>
-          <Text>LOADING!</Text>
-      </View>
+      <ActivityIndicatorIOS
+        animating={this.state.animating}
+        style={[styles.centering, {height: 500}]}
+        size="large"
+      />
     )
   }
 
@@ -151,15 +120,15 @@ class PendingGame extends Component {
 
     return (
       <View style={styles.container}>
-        <View>
+        <View style={styles.header}>
+
+          <Text style={[styles.headerText]}>Play Games</Text>
+
+        </View>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderTeam.bind(this)}
+          renderRow={this.renderGame.bind(this)}
         />
-        </View>
-      <View style={styles.bottomContainer}>
-        <Text style={styles.text}>Join Pending Game</Text>
-        </View>
       </View>
     )
   }

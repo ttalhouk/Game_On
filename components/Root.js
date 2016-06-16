@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    marginTop:20
+    marginTop:20,
   },
   button: {
     height: 36,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     padding:10,
     textAlign: 'center',
     backgroundColor:'#005EFB',
-    fontWeight:'bold', 
+    fontWeight:'bold',
     color: 'white',
   },
 });

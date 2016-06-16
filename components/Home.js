@@ -13,15 +13,19 @@ import {
 import Team from './Team';
 import Game from './Games';
 import Rsvp from './Rsvp';
-import Setting from './Settings';
+import Chat from './Chat';
+import TeamChat from './TeamChat';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class Home extends Component {
   constructor(props){
     super(props)
+    console.log(firebase)
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
+      // change this default.  changed for working on chat
       selectedTab: 'team',
       userInfo: {
 
@@ -31,8 +35,6 @@ class Home extends Component {
   componentDidMount(){
   }
 
-
-
   render() {
     return (
       <TabBarIOS
@@ -40,11 +42,10 @@ class Home extends Component {
         tintColor="blue"
         barTintColor="lightgray"
         selectedTab={this.state.selectedTab}>
-          <TabBarIOS.Item
-            icon={require('../imgs/home4-s.png')}
-            style={styles.icon}
-            renderAsOriginal
-            title="Team"
+        <Icon.TabBarItemIOS
+           iconName="ios-people-outline"
+           selectedIconName="ios-people"
+           title="My Teams"
             selected={this.state.selectedTab === 'team'}
             onPress={() => {
               this.setState({
@@ -52,27 +53,25 @@ class Home extends Component {
               });
             }}>
           <Team navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'games'}
-          icon={require('../imgs/games4.png')}
-          style={styles.icon}
-          renderAsOriginal
-          title="Games"
+          iconName="ios-basketball-outline"
+          selectedIconName="ios-basketball"
+          title="My Games"
           onPress={() => {
             this.setState({
               selectedTab: 'games',
             });
           }}>
           <Game navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           selected={this.state.selectedTab === 'rsvp'}
-          icon={require('../imgs/rsvp2.png')}
-          style={styles.icon}
-          renderAsOriginal
+          iconName="ios-mail-outline"
+          selectedIconName="ios-mail"
           title="RSVP"
           onPress={() => {
             this.setState({
@@ -80,21 +79,20 @@ class Home extends Component {
             });
           }}>
           <Rsvp navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
 
-        <TabBarIOS.Item
-          selected={this.state.selectedTab === 'settings'}
-          icon={require('../imgs/settings2.png')}
-          style={styles.icon}
-          renderAsOriginal
-          title="Settings"
+        <Icon.TabBarItemIOS
+          selected={this.state.selectedTab === 'team chat'}
+          iconName="ios-chatboxes-outline"
+          selectedIconName="ios-chatboxes"
+          title="Team Chat"
           onPress={() => {
             this.setState({
-              selectedTab: 'settings',
+              selectedTab: 'team chat'
             });
           }}>
-          <Setting navigator={this.props.navigator} userInfo={this.props.userInfo}/>
-        </TabBarIOS.Item>
+          <TeamChat title="Team Chat" navigator={this.props.navigator} userInfo={this.props.userInfo}/>
+        </Icon.TabBarItemIOS>
       </TabBarIOS>
       )
   }

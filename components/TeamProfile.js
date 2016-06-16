@@ -5,69 +5,30 @@ import {
   TabBarIOS,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView,
+  LayoutAnimation,
+  Image,
+
 } from 'react-native';
 
-var styles = StyleSheet.create({
-  description: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'black',
-    marginTop: 50,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'lightblue',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#005EFB',
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 5
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  downButton: {
-    flex: 1,
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 70,
-  },
-  text: {
-    fontSize: 15,
-    textAlign: 'center',
-    color: 'black'
-  },
-})
+import Icon from 'react-native-vector-icons/Ionicons';
+const styles = require('../components/styling.js')
 
 class TeamProfile extends Component {
   constructor(props){
     super(props);
     this.state = {
       userInfo: {},
+      loading: true,
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      }),
     }
   }
 
   getTeamProfile() {
-    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.clickedTeam.id, {
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.clickedTeam.id, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -83,9 +44,11 @@ class TeamProfile extends Component {
           errorMessages: response.errorMessages
         })
       }else{
-        console.log(response)
+
         this.setState({
-          userInfo: response.player
+          userInfo: response.player,
+          dataSource: this.state.dataSource.cloneWithRows(response.player.roster),
+          loading: false,
         });
       }
     });
@@ -109,69 +72,72 @@ class TeamProfile extends Component {
     });
   }
 
-  back(){
-    this.props.navigator.pop();
-  }
-
-  log(){
-    // console.log("*********** this props ***************")
-    // console.log(this.props)
-    //
-    // console.log("*********** user info ***************")
-    // console.log(this.props.userInfo)
-    //
-    // console.log("*********** team id  ***************")
-    // console.log(this.props.userInfo.teams[0].id)
-    //
-    // console.log("*********** state ***************")
-    // console.log(this.state.userInfo.team)
-    // console.log(this.state.userInfo.team.name)
-  }
+  renderRoster(player) {
+    return (
+      <View>
+      <Text style={[styles.h5, {color: "white"}]}>{player}</Text>
+      </View>
+    )
+ }
 
   render() {
     var roster = this.state.userInfo.roster;
     if (this.state.userInfo.team && !this.state.userInfo.isManager) {
+      this.state.userInfo.team.name = this.state.userInfo.team.name[0].toUpperCase() + this.state.userInfo.team.name.substring(1);
+
     return (
-      <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      </View>
-            <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
-            <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
-            <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
-            <Text style={styles.text}>Roster: </Text>
-            {roster.map(function(player) {
-              return <Text key={roster.indexOf(player)} style={styles.text}>{roster.indexOf(player)+ 1}: {player}</Text>
-            })}
+
+      <View style={[styles.container, {backgroundColor: 'rgba(0,0,0,0.4)'}]}>
+
+      <Image
+          source={require('../imgs/burning_basketball_desaturate.jpg')}
+          style={[styles.backgroundImage, {resizeMode: "cover"}]}>
+          <View style={styles.teamProfileBox}>
+
+            <Text style={[styles.h1, {fontSize: 70}]}>{this.state.userInfo.team.name}</Text>
+            <Text style={[styles.h2, {color: "orange"}]}>{this.state.userInfo.team.city}, {this.state.userInfo.team.zip_code}</Text>
+            <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Team Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
+            <Text style={[styles.h4, {fontWeight: "bold", color: "white"}]}>Roster: </Text>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderRoster.bind(this)} />
+              </View>
+              </Image>
+
       </View>
   )} else if (this.state.userInfo.team && this.state.userInfo.isManager) {
+    this.state.userInfo.team.name = this.state.userInfo.team.name[0].toUpperCase() + this.state.userInfo.team.name.substring(1);
+
     return (
-      <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      </View>
-          <Text style={styles.description}>{this.state.userInfo.team.name}</Text>
-          <Text style={styles.text}>City: {this.state.userInfo.team.city}, Zip code: {this.state.userInfo.team.zip_code}</Text>
-          <Text style={styles.text}>Manager: {this.state.userInfo.manager.name}</Text>
-          <Text style={styles.text}>Roster: </Text>
-          {roster.map(function(player) {
-            return <Text key={roster.indexOf(player)} style={styles.text}>{roster.indexOf(player)+ 1}: {player}</Text>
-          })}
-          <TouchableHighlight style={styles.button} onPress={this.goToScheduleGame.bind(this)}>
-            <Text style={styles.buttonText}>Make Game</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this.goToPendingGame.bind(this)}>
-            <Text style={styles.buttonText}>Join Game</Text>
-          </TouchableHighlight>
-      </View>
+
+  <View style={styles.container}>
+
+  <Image
+  source={require('../imgs/burning_basketball_desaturate.jpg')}
+  style={[styles.backgroundImage, {resizeMode: "cover", flex: 1}]}>
+      <View style={[styles.teamProfileBox]}>
+      <Text style={[styles.h1, {fontSize: 70}]}>{this.state.userInfo.team.name}</Text>
+      <Text style={[styles.h2, {color: "orange"}]}>{this.state.userInfo.team.city}, {this.state.userInfo.team.zip_code}</Text>
+      <Text style={[styles.h3, {color: "white", fontWeight: "bold"}]}>Team Manager: <Text style={{fontWeight: "normal"}}>{this.state.userInfo.manager.name}</Text></Text>
+      <Text style={[styles.h4, {fontWeight: "bold", color: "white"}]}>Roster: </Text>
+    <ListView
+      dataSource={this.state.dataSource}
+      renderRow={this.renderRoster.bind(this)} />
+    </View>
+    <View style={[{flexDirection: "row"}]}>
+    <View style={{flex: 1}}>
+    <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "blue", marginTop: 0, marginBottom: 0}]} onPress={this.goToScheduleGame.bind(this)}>
+    <Text style={styles.buttonText}>Make Game</Text>
+    </TouchableHighlight>
+    </View>
+    <View style={{flex: 1}}>
+    <TouchableHighlight style={[styles.button,styles.teamProfileButtons, {backgroundColor: "orange", marginTop: 0, marginBottom: 0}]} onPress={this.goToPendingGame.bind(this)}>
+    <Text style={styles.buttonText}>Play Games</Text>
+    </TouchableHighlight>
+    </View>
+    </View>
+    </Image>
+  </View>
   )} else {
     return (
       <Text>loading...</Text>

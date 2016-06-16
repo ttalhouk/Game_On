@@ -16,9 +16,7 @@ class Register extends Component {
       email: "",
       password: "",
       name: "",
-      phone: "",
       zip_code: "",
-      city: "",
       errorMessages: "",
       userInfo: {
 
@@ -28,7 +26,7 @@ class Register extends Component {
 
   createAccount(){
     // takes the users input and tries to log them in
-    fetch('https://54c7e287.ngrok.io/players/', {
+    fetch(GLOBAL.ngrok+'/players/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -39,9 +37,7 @@ class Register extends Component {
           email: this.state.email,
           password: this.state.password,
           name: this.state.name,
-          phone: this.state.phone,
           zip_code: this.state.zip_code,
-          city: this.state.city,
         }
       })
     })
@@ -88,47 +84,32 @@ class Register extends Component {
       <View style={styles.center}>
           <TextInput
             style={styles.input}
-            placeholder='Email:'
+            placeholderTextColor = "silver"
+            placeholder='Email'
             onChangeText={(email) => {this.setState({email: email})}}
             keyboardType='email-address'
           />
 
           <TextInput
             style={styles.input}
-            placeholder='Password:'
+            placeholderTextColor = "silver"
+            placeholder='Password'
             secureTextEntry={true}
             onChangeText={(pw) => {this.setState({password: pw})}}
           />
 
           <TextInput
             style={styles.input}
-            placeholder='Confirm Password:'
-            secureTextEntry={true}
-            onChangeText={(confirm_pw) => {this.setState({confirm_pw: confirm_pw})}}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder='Name:'
+            placeholderTextColor = "silver"
+            placeholder='Name'
             onChangeText={(name) => {this.setState({name: name})}}
           />
 
           <TextInput
             style={styles.input}
-            placeholder='Phone:'
-            onChangeText={(phone) => {this.setState({phone: phone})}}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder='Zip Code:'
+            placeholderTextColor = "silver"
+            placeholder='Zip Code'
             onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder='City:'
-            onChangeText={(city) => {this.setState({city: city})}}
           />
 
           <TouchableHighlight onPress={this.createAccount.bind(this)} style={styles.button}>
@@ -158,7 +139,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    marginTop:20
   },
   button: {
     height: 40,
@@ -199,9 +179,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 10,
-    // color: 'white',
+    color: 'white',
     alignSelf: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.4)',
+    textAlign: "center"
   },
   instructions: {
     textAlign: 'center',
@@ -214,9 +195,11 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 45,
     padding:10,
+    paddingTop: 60,
     textAlign: 'center',
     backgroundColor:'#005EFB',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    color: "white"
   },
 });
 AppRegistry.registerComponent('Register', () => Register);

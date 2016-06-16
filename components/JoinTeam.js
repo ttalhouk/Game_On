@@ -8,6 +8,8 @@ import {
   ListView,
   TouchableHighlight,
   Navigator,
+  ActivityIndicatorIOS,
+  Image,
 } from 'react-native';
 
 class JoinTeam extends Component {
@@ -18,13 +20,12 @@ class JoinTeam extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       userInfo: {},
+      loading: true
     }
   }
 
   getAllTeamList() {
-    console.log("PROPS MOTHA FUCKA ************")
-    console.log(this.props)
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -35,16 +36,14 @@ class JoinTeam extends Component {
     .then((response) => {
       if (response.error) {
         // this is incorrect credentials
-        console.log("************** response with error**************")
-        console.log(response)
         this.setState({
-          errorMessages: response.errorMessages
+          errorMessages: response.errorMessages,
+
         })
       }else{
-        console.log("************** response **************")
-        console.log(response)
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(response.team)
+          dataSource: this.state.dataSource.cloneWithRows(response.team),
+          loading: false
         });
       }
     });
@@ -52,7 +51,7 @@ class JoinTeam extends Component {
 
   sendJoinTeamRequest(teamID) {
 
-    fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+teamID+'/join', {
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+teamID+'/join', {
       method: 'PATCH',
       headers: {
         'Accept': 'application/json',
@@ -67,11 +66,9 @@ class JoinTeam extends Component {
           errorMessages: response.errorMessages
         })
       }else{
-        console.log("****routes****")
-        console.log(this.props.navigator.getCurrentRoutes())
-
         this.setState({
-          userInfo: response.player
+          userInfo: response.player,
+
         })
         this.props.navigator.push({
           name: 'home',
@@ -95,30 +92,44 @@ class JoinTeam extends Component {
 
   renderTeam(team){
     return (
-      <View style={styles.container}>
+      <View>
         <TouchableHighlight style={styles.button} onPress={() => this.sendJoinTeamRequest(team.id)}>
-          <Text style={styles.buttonText}>{team.name}</Text>
+          <View>
+            <Text style={styles.buttonText}>{team.name[0].toUpperCase() + team.name.substring(1)}</Text>
+            <Text style={styles.teamInfo}>{team.city}</Text>
+            <Text style={styles.teamInfo}>{team.zip_code}</Text>
+          </View>
         </TouchableHighlight>
       </View>
     )
   }
 
+  renderLoadingView() {
+    return (
+      <ActivityIndicatorIOS
+      animating={this.state.animating}
+      style={[styles.centering, {height:500}]}
+      size="large"
+    />
+    )
+  }
+
   render() {
+
+    if (this.state.loading) {
+      return this.renderLoadingView();
+    }
 
     return (
       <View style={styles.container}>
-        <View>
-          <Text> Join a team! </Text>
-          <TouchableHighlight onPress={this.log.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Log!
-            </Text>
-          </TouchableHighlight>
+        <Image style={styles.backgroundImage} source={require('../imgs/basketball_players_vectors_color.jpg')}>
+        <View style={styles.teamBox}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderTeam.bind(this)}
           />
         </View>
+        </Image>
       </View>
     );
   }
@@ -131,39 +142,42 @@ var styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   container: {
+    marginTop: 50,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flexWrap: 'wrap',
+    backgroundColor:'#E5E5E5',
+  },
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode:'contain',
   },
   buttonText: {
-    fontSize: 18,
-    color: 'white',
+    fontSize: 36,
+    fontWeight:'bold',
+    color: '#005EFB',
     alignSelf: 'center'
   },
   button: {
-    height: 36,
-    backgroundColor: '#005EFB',
+    height: 150,
+    backgroundColor: '#FFA64C',
     borderColor: '#6600ff',
-    borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 20,
+    padding: 10,
+    margin: 5,
+    opacity:.95,
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    marginBottom: 20,
-    color: 'white',
-    alignSelf: 'stretch',
-    backgroundColor: 'rgba(0,0,0,0.4)',
+  teamBox:{
+    flex:1,
+    justifyContent:'flex-start'
+  },
+  teamInfo:{
+    fontSize: 18,
+    fontWeight:'bold',
+    color: 'black',
+    alignSelf: 'center'
   },
   welcome: {
     fontSize: 20,

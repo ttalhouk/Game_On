@@ -8,7 +8,8 @@ import {
   View,
   ListView,
   TouchableHighlight,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native';
 
 class CreateTeam extends Component {
@@ -16,7 +17,6 @@ class CreateTeam extends Component {
     super(props);
     this.state = {
       name: "",
-      // sport: "",
       city: "",
       zip_code: "",
       userInfo: {},
@@ -35,7 +35,7 @@ class CreateTeam extends Component {
         errorMessages: "Missing information"
       })
     } else {
-      fetch('https://54c7e287.ngrok.io/players/'+this.props.userInfo.info.id+'/teams', {
+      fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -44,7 +44,6 @@ class CreateTeam extends Component {
         body: JSON.stringify({
           team: {
             name: this.state.name,
-            // sport: this.state.sport,
             city: this.state.city,
             zip_code: this.state.zip_code,
           }
@@ -52,7 +51,6 @@ class CreateTeam extends Component {
       })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response)
         if (response.error) {
           // this is incorrect credentials
           this.setState({
@@ -68,46 +66,44 @@ class CreateTeam extends Component {
     }
   }
 
-  back(){
-    this.props.navigator.pop();
-  }
-
   render() {
     return (
       <View style={styles.container}>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
+        <Image style={styles.backgroundImage} source={require('../imgs/womans-team2.jpg')}>
+          <View style={{flex:.8}}>
+            <Text style={{color: 'red'}}>
+              {this.state.errorMessages }
+            </Text>
 
-      <Text style={{color: 'red'}}>
-        {this.state.errorMessages }
-      </Text>
+            <TextInput
+              style={styles.input}
+              placeholderTextColor = "silver"
+              placeholder='Team name:'
+              onChangeText={(name) => {this.setState({name: name})}}
+            />
 
-        <TextInput
-          style={styles.input}
-          placeholder='Team name:'
-          onChangeText={(name) => {this.setState({name: name})}}
-        />
+            <TextInput
+              style={styles.input}
+              placeholderTextColor = "silver"
+              placeholder='City:'
+              onChangeText={(city) => {this.setState({city: city})}}
+            />
 
-        <TextInput
-          style={styles.input}
-          placeholder='City:'
-          onChangeText={(city) => {this.setState({city: city})}}
-        />
-
-      <TextInput
-        style={styles.input}
-        placeholder='Zip code:'
-        onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
-      />
-
-      <TouchableHighlight onPress={this.createTeam.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Create team
-        </Text>
-      </TouchableHighlight>
+            <TextInput
+              style={styles.input}
+              placeholderTextColor = "silver"
+              placeholder='Zip code:'
+              onChangeText={(zip_code) => {this.setState({zip_code: zip_code})}}
+            />
+          </View>
+          <View style={{flex:.2}}>
+            <TouchableHighlight onPress={this.createTeam.bind(this)} style={styles.button}>
+              <Text style={styles.buttonText}>
+                Create Team
+              </Text>
+            </TouchableHighlight>
+          </View>
+      </Image>
     </View>
     );
   }
@@ -119,24 +115,27 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#FFFFFF'
   },
-  container: {
+  backgroundImage:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    width: null,
+    height: null,
+    resizeMode:'contain',
+  },
+  container: {
+    marginTop:50,
+    flex: 1,
+    backgroundColor:'#E5E5E5',
   },
   buttonText: {
     fontSize: 18,
+    padding: 10,
+    backgroundColor:"#005EFB",
     color: 'white',
     alignSelf: 'center'
   },
   button: {
-    backgroundColor: '#005EFB',
-    borderColor: '#6600ff',
-    borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    alignSelf: 'stretch',
     justifyContent: 'center'
   },
   input: {
@@ -165,7 +164,8 @@ var styles = StyleSheet.create({
     flex: 1,
     bottom: 0,
 
-  }
+  },
+
 })
 
 module.exports = CreateTeam;

@@ -110,17 +110,14 @@ var ScheduleGame = React.createClass({
     })
   },
 
-  log: function(){
-    console.log(this.props)
-    console.log(this.state)
-  },
-
   back: function(){
     this.props.navigator.pop();
   },
 
   scheduleGame: function(){
-    fetch('https://97bf7fcb.ngrok.io/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.teams[0].id+'/games', {
+    console.log("******************* scheduleGame *************")
+    console.log(this.props.userInfo)
+    fetch(GLOBAL.ngrok+'/players/'+this.props.userInfo.info.id+'/teams/'+this.props.userInfo.team.id+'/games', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -136,7 +133,6 @@ var ScheduleGame = React.createClass({
     .then((response) => response.json())
     .then((response) => {
       if (response.error) {
-        console.log('ERROR!!!!!!!!')
         console.log(response)
           this.setState({
             errorMessages: response.errorMessages
@@ -153,15 +149,6 @@ var ScheduleGame = React.createClass({
       <View style={styles.container}>
       <ScrollView>
 
-
-        <View>
-        <TouchableHighlight onPress={this.back} style={styles.button}>
-          <Text style={styles.buttonText}>
-            Back
-          </Text>
-        </TouchableHighlight>
-        </View>
-        
         <DatePickerIOS
               date={this.state.date}
               mode="datetime"

@@ -1,64 +1,17 @@
-
-
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  TabBarIOS,
-  Text,
-  View,
-  ListView,
-  Navigator,
-  TouchableHighlight
+ AppRegistry,
+ StyleSheet,
+ TabBarIOS,
+ Text,
+ View,
+ ListView,
+ Navigator,
+ TouchableHighlight,
+ Image
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  description: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: '#FFFFFF'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#005EFB',
-    borderRadius: 8,
-    marginTop: 20,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-    padding: 5
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  downButton: {
-    flex: 1,
-  },
-  bottomContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 70,
-  },
-  text: {
-    textAlign: 'center',
-  }
-
-})
+import Icon from 'react-native-vector-icons/Ionicons';
 
 class Team extends Component {
   constructor(props){
@@ -71,16 +24,12 @@ class Team extends Component {
     }
   }
 
-  back(){
-    console.log(this.state)
-  }
-
   renderTeam(team){
     return (
-      <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
-          <Text style={styles.text}>{team.name}</Text>
-        </TouchableHighlight>
+      <View>
+          <TouchableHighlight style={styles.button} onPress={this.goToTeamProfile.bind(this, team)}>
+            <Text style={styles.buttonText}>{team.name[0].toUpperCase() + team.name.substring(1)}</Text>
+          </TouchableHighlight>
       </View>
     )
   }
@@ -88,8 +37,8 @@ class Team extends Component {
   goToTeamProfile(team) {
     this.props.navigator.push({
       name: 'team profile',
-      clickedTeam: team, 
       passProps: this.props.userInfo,
+      clickedTeam: team
     })
   }
 
@@ -113,13 +62,10 @@ class Team extends Component {
         dataSource: this.state.dataSource.cloneWithRows(this.props.userInfo.team)
       });
     }
-
   }
-
 
   render() {
 
-    // Logic for showing teams vs defaulting to "join team!"
     let playerHasTeam = (this.props.userInfo.team.length == 0) ?
 
     <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
@@ -131,37 +77,128 @@ class Team extends Component {
     <ListView
     dataSource={this.state.dataSource}
     renderRow={this.renderTeam.bind(this)}
+    style={styles.list}
           />
 
     return (
       <View style={styles.container}>
-      <View>
-      <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
-        <Text style={styles.buttonText}>
-          Back
-        </Text>
-      </TouchableHighlight>
-      </View>
+      <Image style={styles.backgroundImage} source={require('../imgs/basketball_players_vectors_color.jpg')}>
+          <Text style={styles.welcome}>
+            Your Teams
+          </Text>
 
-        {playerHasTeam}
 
-        <View style={styles.bottomContainer}>
-          <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Create team
-            </Text>
-          </TouchableHighlight>
+          <View style={styles.topContainer}>
+            <View style={styles.leftContainer}>
+              <TouchableHighlight onPress={this.goToCreateTeamView.bind(this)} style={styles.createJoinButton}>
+                <Text style={styles.joinButtonText}>
+                  Create team
+                </Text>
+              </TouchableHighlight>
+            </View>
 
-          <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.button}>
-            <Text style={styles.buttonText}>
-              Join team
-            </Text>
-          </TouchableHighlight>
-        </View>
+            <View style={styles.rightContainer}>
+              <TouchableHighlight onPress={this.goToJoinTeamView.bind(this)} style={styles.createJoinButton}>
+                <Text style={styles.joinButtonText}>
+                  Join team
+                </Text>
+              </TouchableHighlight>
+              </View>
+          </View>
+
+          <View style={styles.teamBox}>
+            {playerHasTeam}
+          </View>
+
+
+      </Image>
       </View>
     );
   }
 
 }
+
+const styles = StyleSheet.create({
+
+  buttonText: {
+    fontSize: 36,
+    fontWeight:'bold',
+    color: '#FFA64C',
+    alignSelf: 'center',
+    paddingTop: 30,
+    paddingBottom: 30,
+
+  },
+  backgroundImage:{
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode:'contain',
+  },
+  button: {
+    height: 150,
+    backgroundColor: '#005EFB',
+    borderRadius: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'space-around',
+    padding: 10,
+    margin: 5,
+    opacity:.95
+  },
+  topContainer: {
+    justifyContent: 'flex-start',
+    backgroundColor: '#FFA64C',
+    flexDirection:'row',
+    padding:10
+  },
+  container: {
+    flex: 1,
+    backgroundColor:'#E5E5E5'
+  },
+  createJoinButton: {
+    backgroundColor: '#005EFB',
+    borderRadius: 8,
+    padding:10
+  },
+  description: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
+  joinButtonText:{
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  // list: {
+  //   height: 100
+  // },
+  leftContainer: {
+    flex:1,
+    marginRight:5,
+    justifyContent:'center',
+    justifyContent:'space-around'
+  },
+  rightContainer: {
+    flex:1,
+    marginLeft:5,
+    justifyContent:'center',
+    justifyContent:'space-around'
+
+  },
+  teamBox:{
+    flex:1,
+    justifyContent:'flex-start'
+  },
+  welcome: {
+    fontSize: 18,
+    paddingTop:20,
+    padding:5,
+    color: 'black',
+    textAlign: 'center',
+    backgroundColor:'#D3D3D3',
+    fontWeight:'bold'
+  }
+})
 
 module.exports = Team;

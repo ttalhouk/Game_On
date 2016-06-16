@@ -25,7 +25,7 @@ class Login extends Component {
 
   login(){
     // takes the users input and tries to log them in
-    fetch('https://54c7e287.ngrok.io/login/', {
+    fetch(GLOBAL.ngrok+'/login/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -55,8 +55,10 @@ class Login extends Component {
     })
   }
 
-  back(){
-    this.props.navigator.pop()
+  register(){
+    this.props.navigator.push({
+      name: 'register'
+    })
   }
 
   render() {
@@ -75,13 +77,15 @@ class Login extends Component {
 
               <TextInput
                 style={styles.input}
-                placeholder='Email:'
+                placeholderTextColor = "silver"
+                placeholder='Email'
                 onChangeText={(email) => {this.setState({email: email})}}
                 keyboardType='email-address'
               />
               <TextInput
                 style={styles.input}
-                placeholder='Password:'
+                placeholderTextColor = "silver"
+                placeholder='Password'
                 secureTextEntry={true}
                 onChangeText={(pw) => {this.setState({password: pw})}}
               />
@@ -91,9 +95,9 @@ class Login extends Component {
                     Log In
                   </Text>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this.back.bind(this)} style={styles.button}>
+                <TouchableHighlight onPress={this.register.bind(this)} style={styles.button}>
                   <Text style={styles.buttonText}>
-                    Back
+                    Register
                   </Text>
                 </TouchableHighlight>
             </View>
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    marginTop:20
+
   },
   button: {
     height: 40,
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
   button: {
     height: 36,
     backgroundColor: '#005EFB',
-    borderRadius: 8,
+    // borderRadius: 8,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center',
@@ -136,10 +140,12 @@ const styles = StyleSheet.create({
   },
   center: {
     flex:1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+
   },
   container: {
     flex: 1,
+    marginTop:50
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -159,6 +165,7 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'stretch',
     backgroundColor: 'rgba(0,0,0,0.4)',
+    textAlign: "center"
   },
   instructions: {
     textAlign: 'center',
