@@ -96,6 +96,7 @@ class GamesController < ApplicationController
 
   def all_games
     p @team
+
     GameUpdater.remove_old_games
     @games = @team.home_games.to_a.reject!{|game| game.away_team_id == nil}
     @games = [] if @games == nil
