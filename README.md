@@ -7,25 +7,17 @@ Users of the application can login and find a team to join or create a team.  Th
 MVP functionality:
 
 1. Player can find and join a team.
-
 2. Team manager can setup a match which will notify teammates to RSVP.  Notification will be via email.
-
 3. Matches that have the right amount of players with approved RSVP's are discoverable by other managers.
-
 4. If an manager selects one of the descoverable games, their team is sent RSVP invites via email.
-
 5. If enough players on away team approve game is established and players on both teams are notified via email.
-
 6. Team chat interface.
 
-Streach Goals:
+Stretch Goals:
 
 1. Geo Location
-
 2. Team stats
-
 3. Mulitple Sports
-
 4. Web Interface to improve data entry for team managment
 
 #App Interface
