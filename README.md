@@ -47,8 +47,8 @@ There is also an RSVP page for any outstanding games that require a player to RS
 
 Once a game is established, emails are sent. Similar to the following.
 
-![email_rsvp](/imgs/rsvp_email.png)
-![email_confirmation](/imgs/game_confirmation_email.png)
+![email_rsvp](/imgs/rsvp_email_s.png)
+![email_confirmation](/imgs/game_confirmation_email_s.png)
 
 The fourth tab is for the in app chat feature where a player can leave comments for their teamate.
 
