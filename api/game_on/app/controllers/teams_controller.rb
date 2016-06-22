@@ -123,7 +123,7 @@ class TeamsController < ApplicationController
 
   def find_available_games
     games_info = []
-    games = Game.where("home_team_id IS NOT NULL AND home_team_id IS NOT ? AND away_team_id IS NULL", @team.id)
+    games = Game.where("home_team_id IS NOT NULL AND home_team_id <> ? AND away_team_id IS NULL", @team.id)
     games.each do |game|
       games_info << {
         game_id: game.id,
